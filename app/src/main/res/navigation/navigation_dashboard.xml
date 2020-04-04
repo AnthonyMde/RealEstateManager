@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_dashboard"
+    app:startDestination="@id/list_dest">
+
+    <fragment
+        android:id="@+id/list_dest"
+        android:name="com.amamode.realestatemanager.ui.EstateListFragment"
+        android:label="EstateList">
+        <action
+            android:id="@+id/go_to_detail_dest"
+            app:destination="@id/detail_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/detail_dest"
+        android:name="com.amamode.realestatemanager.ui.EstateDetailsFragment"
+        android:label="EstateDetail"
+        >
+        <argument
+            android:name="estateId"
+            app:argType="integer"
+            />
+    </fragment>
+</navigation>
