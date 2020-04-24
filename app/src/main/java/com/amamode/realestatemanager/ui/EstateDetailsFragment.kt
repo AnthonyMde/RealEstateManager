@@ -9,21 +9,13 @@ import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
 import kotlinx.android.synthetic.main.fragment_estate_details.*
 
-class EstateDetailsFragment : Fragment() {
+class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     private val safeArgs: EstateDetailsFragmentArgs by navArgs()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_estate_details, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val number = safeArgs.estateId
+        val estate = safeArgs.estate
 
-        detailsText.text = "Putain c'est le feu kotlin android number => $number !!!"
+        detailsText.text = "Vous êtes sur l'immeuble de ${estate.name}"
     }
 }

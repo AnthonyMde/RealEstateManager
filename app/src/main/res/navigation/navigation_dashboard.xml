@@ -21,8 +21,8 @@
         android:label="EstateDetail"
         >
         <argument
-            android:name="estateId"
-            app:argType="integer"
+            android:name="estate"
+            app:argType="com.amamode.realestatemanager.data.EstateEntity"
             />
     </fragment>
 </navigation>

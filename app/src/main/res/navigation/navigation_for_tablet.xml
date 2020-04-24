@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/detail_dest"
     android:id="@+id/navigation_profile">
     <fragment
         android:id="@+id/detail_dest"
         android:name="com.amamode.realestatemanager.ui.EstateDetailsFragment"
         android:label="EstateDetails">
         <argument
-            android:name="estateId"
-            app:argType="integer"/>
+            android:name="estate"
+            app:argType="com.amamode.realestatemanager.data.EstateEntity"/>
         <action
             android:id="@+id/go_to_detail_dest"
             app:destination="@id/detail_dest"/>
