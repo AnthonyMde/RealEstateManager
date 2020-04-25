@@ -1,10 +1,8 @@
-package com.amamode.realestatemanager.ui
+package com.amamode.realestatemanager.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
 import kotlinx.android.synthetic.main.fragment_estate_details.*
@@ -16,6 +14,6 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         super.onViewCreated(view, savedInstanceState)
         val estate = safeArgs.estate
 
-        detailsText.text = "Vous êtes sur l'immeuble de ${estate.name}"
+        detailsText.text = "Vous êtes sur l'immeuble de ${estate.owner}"
     }
 }

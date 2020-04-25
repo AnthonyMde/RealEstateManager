@@ -6,18 +6,18 @@
     app:startDestination="@id/emptyDetailFragment">
     <fragment
         android:id="@+id/detail_dest"
-        android:name="com.amamode.realestatemanager.ui.EstateDetailsFragment"
+        android:name="com.amamode.realestatemanager.ui.home.EstateDetailsFragment"
         android:label="EstateDetails">
         <argument
             android:name="estate"
-            app:argType="com.amamode.realestatemanager.data.EstateEntity"/>
+            app:argType="com.amamode.realestatemanager.domain.Estate"/>
         <action
             android:id="@+id/go_to_detail_dest"
             app:destination="@id/detail_dest"/>
     </fragment>
     <fragment
         android:id="@+id/emptyDetailFragment"
-        android:name="com.amamode.realestatemanager.ui.EmptyDetailFragment"
+        android:name="com.amamode.realestatemanager.ui.home.EmptyDetailFragment"
         android:label="fragment_empty_detail_fragment"
         tools:layout="@layout/fragment_empty_detail_fragment" >
         <action

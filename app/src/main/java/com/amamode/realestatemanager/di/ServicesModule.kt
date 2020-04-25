@@ -5,6 +5,6 @@ import com.amamode.realestatemanager.domain.EstateService
 import org.koin.dsl.module
 
 val servicesModule = module {
-    single<EstateService> { EstateRepository() }
+    single<EstateService> { EstateRepository(get()) }
 }
 

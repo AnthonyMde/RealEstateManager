@@ -33,6 +33,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -47,6 +51,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-process:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
 
     // Room
     implementation "androidx.room:room-runtime:$versions.room"

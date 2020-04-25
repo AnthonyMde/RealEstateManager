@@ -1,8 +1,10 @@
 package com.amamode.realestatemanager.domain
 
+import androidx.lifecycle.LiveData
+
 interface EstateService {
-    fun getEstateList(): List<Estate>
-    fun createEstate(estateForm: EstateForm): Estate
-    fun editEstate(estateForm: EstateForm): Estate
-    fun deleteEstate(estateId: Int)
+    fun getEstateList(): LiveData<List<Estate>>
+    suspend fun createEstate(estate: Estate)
+    suspend fun editEstate(estate: Estate): Estate
+    suspend fun deleteEstate(estateId: Int)
 }

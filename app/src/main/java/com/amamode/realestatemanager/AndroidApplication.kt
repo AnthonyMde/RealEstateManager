@@ -1,6 +1,7 @@
 package com.amamode.realestatemanager
 
 import android.app.Application
+import com.amamode.realestatemanager.di.daoModule
 import com.amamode.realestatemanager.di.servicesModule
 import com.amamode.realestatemanager.di.viewModelsModule
 import org.koin.android.ext.koin.androidContext
@@ -24,6 +25,7 @@ class AndroidApplication : Application() {
             androidLogger()
             androidContext(this@AndroidApplication)
             modules(
+                daoModule,
                 servicesModule,
                 viewModelsModule
             )

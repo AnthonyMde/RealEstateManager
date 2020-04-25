@@ -16,4 +16,7 @@
 
     <!-- Button -->
     <color name="disabledButton">@color/mainGray</color>
+
+    <!-- EditText -->
+    <color name="hintColor">@color/mainGray</color>
 </resources>

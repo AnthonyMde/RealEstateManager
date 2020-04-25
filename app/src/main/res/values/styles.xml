@@ -25,4 +25,20 @@
         <item name="android:background">@drawable/button_states</item>
         <item name="android:textColor">@color/true_black</item>
     </style>
+
+    <!-- EDIT TEXT STYLES -->
+    <style name="FormField" parent="AppTheme">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingBottom">@dimen/medium</item>
+    </style>
+
+    <style name="FormFieldLayout" parent="AppTheme">
+        <item name="android:textColorHint">@color/hintColor</item>
+        <item name="hintTextAppearance">@style/FormFieldHint</item>
+    </style>
+
+    <style name="FormFieldHint" parent="AppTheme">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/hintColor</item>
+    </style>
 </resources>
