@@ -21,6 +21,9 @@
     <dimen name="xx_large">48dp</dimen>
     <dimen name="xxx_large">72dp</dimen>
 
+    <!-- OTHERS -->
+    <dimen name="fab_size">56dp</dimen>
+
     <!-- SPECIFIC TABLE LANDSCAPE (set as default here) -->
     <dimen name="estate_list_width">250dp</dimen>
 </resources>

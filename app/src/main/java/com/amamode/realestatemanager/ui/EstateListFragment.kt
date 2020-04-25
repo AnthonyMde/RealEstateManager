@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.amamode.realestatemanager.R
 import kotlinx.android.synthetic.main.fragment_estate_list.*
+import org.jetbrains.anko.support.v4.toast
 
 class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
     var firstTime = true
@@ -30,6 +31,8 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
             val action = EstateListFragmentDirections.goToDetailDest(estate)
             findNavController().navigate(action)
         })
+
+        addEstateFab.setOnClickListener { toast("creation") }
     }
 
     private fun displayFullLayout(tabletDetailNavHost: NavHostFragment) {
