@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_profile">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_profile"
+    app:startDestination="@id/emptyDetailFragment">
     <fragment
         android:id="@+id/detail_dest"
         android:name="com.amamode.realestatemanager.ui.EstateDetailsFragment"
@@ -12,5 +14,14 @@
         <action
             android:id="@+id/go_to_detail_dest"
             app:destination="@id/detail_dest"/>
+    </fragment>
+    <fragment
+        android:id="@+id/emptyDetailFragment"
+        android:name="com.amamode.realestatemanager.ui.EmptyDetailFragment"
+        android:label="fragment_empty_detail_fragment"
+        tools:layout="@layout/fragment_empty_detail_fragment" >
+        <action
+            android:id="@+id/action_emptyDetailFragment_to_detail_dest"
+            app:destination="@id/detail_dest" />
     </fragment>
 </navigation>

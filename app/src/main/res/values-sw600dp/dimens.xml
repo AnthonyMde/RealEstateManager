@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SP DIMENS -->
+    <dimen name="text_x_small">14sp</dimen>
+    <dimen name="text_small">16sp</dimen>
+    <dimen name="text_medium">24sp</dimen>
+    <dimen name="text_medium_large">30sp</dimen>
+    <dimen name="text_large">36sp</dimen>
+    <dimen name="text_x_large">40sp</dimen>
+    <dimen name="text_xx_large">48sp</dimen>
+
+    <!-- DP DIMENS -->
+    <dimen name="xxx_small">8dp</dimen>
+    <dimen name="xx_small">12dp</dimen>
+    <dimen name="x_small">16dp</dimen>
+    <dimen name="small">20dp</dimen>
+    <dimen name="medium">24dp</dimen>
+    <dimen name="medium_large">32dp</dimen>
+    <dimen name="large">48dp</dimen>
+    <dimen name="x_large">56dp</dimen>
+    <dimen name="xx_large">72dp</dimen>
+    <dimen name="xxx_large">80dp</dimen>
+
+</resources>

@@ -71,6 +71,12 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
 
+    // Timber
+    implementation "com.jakewharton.timber:timber:$versions.timber"
+
+    // Anko
+    implementation "org.jetbrains.anko:anko:$versions.anko"
+
     // Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

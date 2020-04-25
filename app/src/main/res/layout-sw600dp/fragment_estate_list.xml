@@ -5,23 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/buttonList"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/estateRV"
+        android:layout_width="@dimen/estate_list_width"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        tools:context=".ui.EstateListFragment">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/estateRV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_estate_list" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_estate_list" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/tablet_detail_nav_container"
@@ -30,7 +22,7 @@
         android:layout_height="match_parent"
         app:defaultNavHost="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/buttonList"
+        app:layout_constraintStart_toEndOf="@id/estateRV"
         app:navGraph="@navigation/navigation_for_tablet"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

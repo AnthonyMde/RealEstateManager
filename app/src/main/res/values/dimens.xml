@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SP DIMENS -->
+    <dimen name="text_x_small">12sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_medium_large">18sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_x_large">24sp</dimen>
+    <dimen name="text_xx_large">32sp</dimen>
+
+    <!-- DP DIMENS -->
+    <dimen name="xxx_small">4dp</dimen>
+    <dimen name="xx_small">8dp</dimen>
+    <dimen name="x_small">12dp</dimen>
+    <dimen name="small">14dp</dimen>
+    <dimen name="medium">16dp</dimen>
+    <dimen name="medium_large">18dp</dimen>
+    <dimen name="large">24dp</dimen>
+    <dimen name="x_large">32dp</dimen>
+    <dimen name="xx_large">48dp</dimen>
+    <dimen name="xxx_large">72dp</dimen>
+
+    <!-- SPECIFIC TABLE LANDSCAPE (set as default here) -->
+    <dimen name="estate_list_width">250dp</dimen>
+</resources>

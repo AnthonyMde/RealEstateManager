@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.EmptyDetailFragment">
+
+    <TextView
+        android:id="@+id/emptyViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="36dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/emptyViewAddEstateCta"
+        android:text="@string/estate_detail_empty_view_tablet"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/emptyViewAddEstateCta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        style="@style/CTA.Filled"
+        android:text="@string/empty_view_add_estate_cta" />
+
+</RelativeLayout>

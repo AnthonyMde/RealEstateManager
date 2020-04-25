@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/tablet_menu_icons">
+        <item android:id="@+id/add_estate"
+            android:title="@string/main_menu_add_icon"
+            app:showAsAction="always"
+            android:icon="@drawable/ic_add_black_24dp"
+            />
+        <item android:id="@+id/edit_estate"
+            android:title="@string/main_menu_edit_icon"
+            app:showAsAction="always"
+            android:icon="@drawable/ic_edit_black_24dp"/>
+    </group>
+
+    <item android:id="@+id/geoloc_estate"
+        android:title="@string/main_menu_geoloc_icon"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_location_black_24dp"/>
+
+    <item android:id="@+id/filter_estate"
+        android:title="@string/main_menu_filter_icon"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_filter_list_black_24dp"/>
+</menu>
