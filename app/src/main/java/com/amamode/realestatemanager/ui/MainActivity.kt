@@ -8,8 +8,10 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.amamode.realestatemanager.R
 import org.jetbrains.anko.toast
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
+    private val estateViewModel: EstateViewModel by viewModel()
     private lateinit var controller: NavController
     private val isTablet by lazy { resources.getBoolean(R.bool.isTablet) }
     private val listener = NavController.OnDestinationChangedListener { _, navDestination, _ ->
@@ -59,6 +61,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.filter_estate -> {
                 toast("Show filter dialog")
+            }
+            // FOR TESTING PURPOSE
+            R.id.delete_estate -> {
+                estateViewModel.deleteAll()
             }
         }
         return super.onOptionsItemSelected(item)

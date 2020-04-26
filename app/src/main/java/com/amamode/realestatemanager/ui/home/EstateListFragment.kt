@@ -3,6 +3,7 @@ package com.amamode.realestatemanager.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.amamode.realestatemanager.R
@@ -13,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
     private val estateViewModel: EstateViewModel by viewModel()
     private var firstTime = true
+    private lateinit var adapter: EstateListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,8 +30,16 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
         }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        estateViewModel.estateEntityList.observe(viewLifecycleOwner, Observer {
+            adapter.setEstateList(it)
+        })
+    }
+
     private fun displaySingleLayout() {
-        estateRV.adapter =
+        adapter =
             EstateListAdapter(onEstateClick = { estate ->
                 val action =
                     EstateListFragmentDirections.goToDetailDest(
@@ -38,13 +48,14 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
                 findNavController().navigate(action)
             })
 
+        estateRV.adapter = adapter
         addEstateFab.setOnClickListener {
             findNavController().navigate(R.id.action_list_dest_to_estateCreationFragment)
         }
     }
 
     private fun displayFullLayout(tabletDetailNavHost: NavHostFragment) {
-        estateRV.adapter =
+        adapter =
             EstateListAdapter(onEstateClick = { estate ->
                 if (firstTime) {
                     firstTime = false
@@ -61,5 +72,6 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
                     tabletDetailNavHost.navController.navigate(action)
                 }
             })
+        estateRV.adapter = adapter
     }
 }

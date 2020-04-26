@@ -37,7 +37,7 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun deleteEstate(estateId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun deleteAll() {
+        dao.deleteAll()
     }
 }

@@ -12,12 +12,7 @@ class EstateListAdapter(
     val onEstateClick: (Estate) -> Unit
 ) :
     RecyclerView.Adapter<EstateListAdapter.ViewHolder>() {
-    private var estateList: List<Estate> = listOf(
-        Estate(1, "toto", "flat"),
-        Estate(1, "tota", "flat"),
-        Estate(1, "tote", "flat"),
-        Estate(1, "toti", "flat")
-    )
+    private var estateList: List<Estate> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -35,6 +30,11 @@ class EstateListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindView(estateList[position])
+    }
+
+    fun setEstateList(estateList: List<Estate>) {
+        this.estateList = estateList
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

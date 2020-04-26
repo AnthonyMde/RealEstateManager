@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationBinding
 import com.amamode.realestatemanager.ui.EstateViewModel
@@ -37,7 +38,8 @@ class EstateCreationFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         creationCTA.setOnClickListener {
-            toast("${estateViewModel.estateForm.value}")
+            estateViewModel.createEstate()
+            findNavController().popBackStack()
         }
     }
 }

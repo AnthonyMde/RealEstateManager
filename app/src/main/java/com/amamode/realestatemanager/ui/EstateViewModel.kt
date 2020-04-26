@@ -20,4 +20,8 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         val estate = estateForm.value ?: return@launch
         estateService.createEstate(estate)
     }
+
+    fun deleteAll() = viewModelScope.launch {
+        estateService.deleteAll()
+    }
 }

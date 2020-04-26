@@ -6,5 +6,5 @@ interface EstateService {
     fun getEstateList(): LiveData<List<Estate>>
     suspend fun createEstate(estate: Estate)
     suspend fun editEstate(estate: Estate): Estate
-    suspend fun deleteEstate(estateId: Int)
+    suspend fun deleteAll()
 }
