@@ -5,10 +5,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Estate(
-    val id: Int = 0,
-    var owner: String = "",
-    var type: String = "",
-    var rooms: Int? = null,
-    var surface: Int? = null,
-    var price: Int? = null
+    val id: Int,
+    var owner: String,
+    var type: String,
+    var rooms: Int,
+    var surface: Int,
+    var price: Int
 ) : Parcelable

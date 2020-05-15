@@ -33,10 +33,10 @@
                     style="@style/FormField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Responsable du bien"
+                    android:hint="@string/estate_form_owner_hint"
                     android:inputType="textPersonName"
                     android:maxLines="1"
-                    android:text="@={viewmodel.estateForm.owner}"
+                    android:text="@={viewmodel.owner}"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,10 +55,10 @@
                     style="@style/FormField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Type du bien"
+                    android:hint="@string/estate_form_type_hint"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@={viewmodel.estateForm.type}"
+                    android:text="@={viewmodel.type}"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,10 +77,10 @@
                     style="@style/FormField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nombre de pièce(s)"
+                    android:hint="@string/estate_form_rooms_hint"
                     android:inputType="number"
                     android:maxLines="1"
-                    android:text="@={BindingUtils.intToString(viewmodel.estateForm.rooms)}"
+                    android:text="@={BindingUtils.intToString(viewmodel.rooms)}"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,10 +99,10 @@
                     style="@style/FormField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Surface (m2)"
+                    android:hint="@string/estate_form_surface_hint"
                     android:inputType="number"
                     android:maxLines="1"
-                    android:text="@={BindingUtils.intToString(viewmodel.estateForm.surface)}"
+                    android:text="@={BindingUtils.intToString(viewmodel.surface)}"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,10 +121,10 @@
                     style="@style/FormField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Prix (euros)"
+                    android:hint="@string/estate_form_price_hint"
                     android:inputType="number"
                     android:maxLines="1"
-                    android:text="@={BindingUtils.intToString(viewmodel.estateForm.price)}"
+                    android:text="@={BindingUtils.intToString(viewmodel.price)}"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,7 +136,8 @@
                 android:layout_marginStart="@dimen/large"
                 android:layout_marginTop="@dimen/xx_large"
                 android:layout_marginEnd="@dimen/large"
-                android:text="Créer" />
+                android:enabled="false"
+                android:text="@string/estate_form_validation_cta" />
         </LinearLayout>
     </ScrollView>
 </layout>

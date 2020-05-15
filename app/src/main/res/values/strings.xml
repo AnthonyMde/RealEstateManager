@@ -1,12 +1,18 @@
 <resources>
     <string name="app_name">RealEstateManager</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="estate_detail_empty_view_tablet">Veuillez choisir ou créer un nouveau bien</string>
     <string name="main_menu_add_icon">Ajouter bien</string>
     <string name="main_menu_edit_icon">Editer bien</string>
     <string name="main_menu_geoloc_icon">Géolocaliser les biens</string>
     <string name="main_menu_filter_icon">Filtrer les biens</string>
     <string name="empty_view_add_estate_cta">Créer</string>
+
+    <!-- ESTATE FORM -->
+    <string name="estate_form_owner_hint">Responsable du bien</string>
+    <string name="estate_form_type_hint">Type du bien</string>
+    <string name="estate_form_rooms_hint">Nombre de pièce(s)</string>
+    <string name="estate_form_surface_hint">Surface (m2)</string>
+    <string name="estate_form_price_hint">Prix (euros)</string>
+    <string name="estate_form_validation_cta">Créer</string>
 </resources>

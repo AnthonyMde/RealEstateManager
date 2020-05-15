@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationBinding
@@ -41,5 +42,9 @@ class EstateCreationFragment : Fragment() {
             estateViewModel.createEstate()
             findNavController().popBackStack()
         }
+
+        estateViewModel.formMediator.observe(viewLifecycleOwner, Observer {
+            creationCTA.isEnabled = it
+        })
     }
 }

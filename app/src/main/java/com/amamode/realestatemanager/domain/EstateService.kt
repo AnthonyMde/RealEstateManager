@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 
 interface EstateService {
     fun getEstateList(): LiveData<List<Estate>>
-    suspend fun createEstate(estate: Estate)
-    suspend fun editEstate(estate: Estate): Estate
+    suspend fun createEstate(estateForm: EstateForm)
+    suspend fun editEstate(estateForm: EstateForm): Estate
     suspend fun deleteAll()
 }
