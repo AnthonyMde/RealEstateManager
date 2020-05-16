@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_profile"
+    android:id="@+id/navigation_tablet"
     app:startDestination="@id/emptyDetailFragment">
     <fragment
         android:id="@+id/detail_dest"
@@ -13,7 +13,8 @@
             app:argType="com.amamode.realestatemanager.domain.Estate"/>
         <action
             android:id="@+id/go_to_detail_dest"
-            app:destination="@id/detail_dest"/>
+            app:destination="@id/detail_dest"
+            app:popUpTo="@id/navigation_tablet"/>
     </fragment>
     <fragment
         android:id="@+id/emptyDetailFragment"
@@ -22,6 +23,7 @@
         tools:layout="@layout/fragment_empty_detail_fragment" >
         <action
             android:id="@+id/action_emptyDetailFragment_to_detail_dest"
-            app:destination="@id/detail_dest" />
+            app:destination="@id/detail_dest"
+            app:popUpTo="@id/navigation_tablet"/>
     </fragment>
 </navigation>

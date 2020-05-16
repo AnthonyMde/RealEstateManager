@@ -11,7 +11,6 @@
             android:title="@string/main_menu_edit_icon"
             app:showAsAction="always"
             android:icon="@drawable/ic_edit_black_24dp"/>
-    </group>
 
     <item android:id="@+id/delete_estate"
         android:title="Supprimer tout"
@@ -27,4 +26,6 @@
         android:title="@string/main_menu_filter_icon"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_filter_list_black_24dp"/>
+
+    </group>
 </menu>

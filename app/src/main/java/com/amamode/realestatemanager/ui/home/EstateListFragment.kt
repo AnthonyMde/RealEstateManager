@@ -1,7 +1,11 @@
 package com.amamode.realestatemanager.ui.home
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -27,6 +31,8 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
             displayFullLayout(tabletDetailNavHost)
         } else {
             displaySingleLayout()
+            setupToolbar()
+            setHasOptionsMenu(true)
         }
     }
 
@@ -73,5 +79,19 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
                 }
             })
         estateRV.adapter = adapter
+    }
+
+    /* ONLY FOR MOBILE */
+    private fun setupToolbar() {
+        (activity as? AppCompatActivity)?.setSupportActionBar(estateListToolbar as Toolbar)
+        (activity as? AppCompatActivity)?.apply {
+            title = getString(R.string.estate_list_toolbar_title)
+        }
+    }
+
+    /* ONLY FOR MOBILE */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.main_menu_mobile, menu)
     }
 }

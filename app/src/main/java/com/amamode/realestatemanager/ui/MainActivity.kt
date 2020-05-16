@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.amamode.realestatemanager.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -16,28 +17,24 @@ class MainActivity : AppCompatActivity() {
     private val estateViewModel: EstateViewModel by viewModel()
     private lateinit var controller: NavController
     private val isTablet by lazy { resources.getBoolean(R.bool.isTablet) }
-    private var currentDestination: String? = null
-    private val listener = NavController.OnDestinationChangedListener { _, navDestination, _ ->
-        // Show/Hide and configure toolbar according to the current fragment/activity
-        when (navDestination.label) {
-            "EstateCreationFragment" -> {
-                currentDestination = "EstateCreationFragment"
-                supportActionBar?.hide()
-            }
-            "EstateList" -> {
-                currentDestination = "EstateList"
-                setupToolbar()
-                supportActionBar?.show()
-            }
-            else -> {
-                supportActionBar?.hide()
-            }
-        }
-    }
+    private var currentDestination: String = "EstateList"
+    private lateinit var listener: NavController.OnDestinationChangedListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Show/Hide and configure toolbar according to the current fragment/activity
+        listener = if (isTablet) {
+            setupToolbar()
+            NavController.OnDestinationChangedListener { _, navDestination, _ ->
+                configureTabletNavListener(navDestination)
+            }
+        } else {
+            NavController.OnDestinationChangedListener { _, navDestination, _ ->
+                configureMobileNavListener(navDestination)
+            }
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -48,7 +45,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         controller.addOnDestinationChangedListener(listener)
-        setupToolbar()
     }
 
     override fun onPause() {
@@ -56,20 +52,28 @@ class MainActivity : AppCompatActivity() {
         controller.removeOnDestinationChangedListener(listener)
     }
 
+    /* ONLY FOR TABLET */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // Change the menu content according to the current fragment/activity
-        when (currentDestination) {
-            "EstateCreationFragment" -> {
-                menuInflater.inflate(R.menu.empty_menu, menu)
-            }
-            "EstateList" -> {
-                menuInflater.inflate(R.menu.main_menu, menu)
-                menu?.setGroupVisible(R.id.tablet_menu_icons, isTablet)
-            }
+        if (isTablet) {
+            menuInflater.inflate(R.menu.main_menu_tablet, menu)
         }
         return super.onCreateOptionsMenu(menu)
     }
 
+    /* ONLY FOR TABLET */
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        when (currentDestination) {
+            "EstateList" -> {
+                menu?.setGroupVisible(R.id.tablet_menu_icons, true)
+            }
+            "EstateCreationFragment" -> {
+                menu?.setGroupVisible(R.id.tablet_menu_icons, false)
+            }
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    /* USED BY BOTH TABLET AND MOBILE */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_estate -> {
@@ -92,8 +96,20 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    /* ONLY FOR TABLET */
     private fun setupToolbar() {
         setSupportActionBar(activityToolbar as Toolbar)
         title = getString(R.string.estate_list_toolbar_title)
+    }
+
+    /* ONLY FOR TABLET */
+    private fun configureTabletNavListener(navDestination: NavDestination) {
+        currentDestination = navDestination.label.toString()
+        invalidateOptionsMenu()
+    }
+
+    /* ONLY FOR MOBILE */
+    private fun configureMobileNavListener(navDestination: NavDestination) {
+        currentDestination = navDestination.label.toString()
     }
 }

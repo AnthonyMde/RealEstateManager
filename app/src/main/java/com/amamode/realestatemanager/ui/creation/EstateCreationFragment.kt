@@ -39,7 +39,11 @@ class EstateCreationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupToolbar()
+        val isTablet = resources.getBoolean(R.bool.isTablet)
+
+        if (!isTablet) {
+            setupToolbar()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

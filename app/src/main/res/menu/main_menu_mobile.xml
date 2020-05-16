@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/delete_estate"
+        android:icon="@drawable/ic_delete_black_24dp"
+        android:title="Supprimer tout"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/geoloc_estate"
+        android:icon="@drawable/ic_location_black_24dp"
+        android:title="@string/main_menu_geoloc_icon"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/filter_estate"
+        android:icon="@drawable/ic_filter_list_black_24dp"
+        android:title="@string/main_menu_filter_icon"
+        app:showAsAction="ifRoom" />
+
+</menu>
