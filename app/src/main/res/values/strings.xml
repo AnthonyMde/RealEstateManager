@@ -17,6 +17,9 @@
     <string name="estate_form_rooms_hint">Nombre de pièce(s)</string>
     <string name="estate_form_surface_hint">Surface (m2)</string>
     <string name="estate_form_price_hint">Prix (euros)</string>
-    <string name="estate_form_validation_cta">Créer</string>
+    <string name="estate_form_validation_cta">Suivant</string>
     <string name="estate_form_toolbar_title">Informations essentielles</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

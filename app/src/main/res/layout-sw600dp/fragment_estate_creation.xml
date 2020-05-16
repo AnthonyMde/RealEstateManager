@@ -126,7 +126,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/creationCTA"
+                android:id="@+id/goToFinalStepCTA"
                 style="@style/CTA.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

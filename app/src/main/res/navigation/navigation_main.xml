@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_dashboard"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_dashboard"
     app:startDestination="@id/list_dest">
 
     <fragment
@@ -34,5 +36,14 @@
     <fragment
         android:id="@+id/estateCreationFragment"
         android:name="com.amamode.realestatemanager.ui.creation.EstateCreationFragment"
-        android:label="EstateCreationFragment" />
+        android:label="EstateCreationFragment" >
+        <action
+            android:id="@+id/goToCreationFinalStep"
+            app:destination="@id/estateCreationFinalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/estateCreationFinalFragment"
+        android:name="com.amamode.realestatemanager.ui.creation.EstateCreationFinalFragment"
+        android:label="fragment_estate_creation_final"
+        tools:layout="@layout/fragment_estate_creation_final" />
 </navigation>

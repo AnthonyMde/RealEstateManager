@@ -49,13 +49,13 @@ class EstateCreationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        creationCTA.setOnClickListener {
-            estateViewModel.createEstate()
-            findNavController().popBackStack()
+        goToFinalStepCTA.setOnClickListener {
+            val action = EstateCreationFragmentDirections.goToCreationFinalStep()
+            findNavController().navigate(action)
         }
 
         estateViewModel.formMediator.observe(viewLifecycleOwner, Observer {
-            creationCTA.isEnabled = it
+            goToFinalStepCTA.isEnabled = it
         })
     }
 
