@@ -6,7 +6,10 @@
     <string name="main_menu_edit_icon">Editer bien</string>
     <string name="main_menu_geoloc_icon">Géolocaliser les biens</string>
     <string name="main_menu_filter_icon">Filtrer les biens</string>
+
+    <!-- ESTATE LIST -->
     <string name="empty_view_add_estate_cta">Créer</string>
+    <string name="estate_list_toolbar_title" translatable="false">Real Estate</string>
 
     <!-- ESTATE FORM -->
     <string name="estate_form_owner_hint">Responsable du bien</string>
@@ -15,4 +18,5 @@
     <string name="estate_form_surface_hint">Surface (m2)</string>
     <string name="estate_form_price_hint">Prix (euros)</string>
     <string name="estate_form_validation_cta">Créer</string>
+    <string name="estate_form_toolbar_title">Informations essentielles</string>
 </resources>

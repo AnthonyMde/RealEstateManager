@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -12,7 +14,6 @@ import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationBinding
 import com.amamode.realestatemanager.ui.EstateViewModel
 import kotlinx.android.synthetic.main.fragment_estate_creation.*
-import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EstateCreationFragment : Fragment() {
@@ -35,6 +36,12 @@ class EstateCreationFragment : Fragment() {
         return bindingLayout.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupToolbar()
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -46,5 +53,14 @@ class EstateCreationFragment : Fragment() {
         estateViewModel.formMediator.observe(viewLifecycleOwner, Observer {
             creationCTA.isEnabled = it
         })
+    }
+
+    private fun setupToolbar() {
+        (activity as? AppCompatActivity)?.setSupportActionBar(estateCreationToolbar as Toolbar)
+        (activity as? AppCompatActivity)?.apply {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            title = getString(R.string.estate_form_toolbar_title)
+
+        }
     }
 }

@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.amamode.realestatemanager.R
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -14,11 +16,22 @@ class MainActivity : AppCompatActivity() {
     private val estateViewModel: EstateViewModel by viewModel()
     private lateinit var controller: NavController
     private val isTablet by lazy { resources.getBoolean(R.bool.isTablet) }
+    private var currentDestination: String? = null
     private val listener = NavController.OnDestinationChangedListener { _, navDestination, _ ->
-        if (navDestination.label in listOf("EstateCreationFragment")) {
-            supportActionBar?.hide()
-        } else {
-            supportActionBar?.show()
+        // Show/Hide and configure toolbar according to the current fragment/activity
+        when (navDestination.label) {
+            "EstateCreationFragment" -> {
+                currentDestination = "EstateCreationFragment"
+                supportActionBar?.hide()
+            }
+            "EstateList" -> {
+                currentDestination = "EstateList"
+                setupToolbar()
+                supportActionBar?.show()
+            }
+            else -> {
+                supportActionBar?.hide()
+            }
         }
     }
 
@@ -35,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         controller.addOnDestinationChangedListener(listener)
+        setupToolbar()
     }
 
     override fun onPause() {
@@ -43,8 +57,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        menu?.setGroupVisible(R.id.tablet_menu_icons, isTablet)
+        // Change the menu content according to the current fragment/activity
+        when (currentDestination) {
+            "EstateCreationFragment" -> {
+                menuInflater.inflate(R.menu.empty_menu, menu)
+            }
+            "EstateList" -> {
+                menuInflater.inflate(R.menu.main_menu, menu)
+                menu?.setGroupVisible(R.id.tablet_menu_icons, isTablet)
+            }
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -68,5 +90,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(activityToolbar as Toolbar)
+        title = getString(R.string.estate_list_toolbar_title)
     }
 }

@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorSecondary</item>
         <item name="android:textColor">@color/true_black</item>
         <item name="android:textSize">@dimen/text_medium</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <!-- BUTTONS -->

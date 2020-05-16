@@ -7,137 +7,142 @@
             type="com.amamode.realestatemanager.ui.EstateViewModel" />
     </data>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include
+            android:id="@+id/estateCreationToolbar"
+            layout="@layout/toolbar" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/large">
+            android:layout_height="wrap_content">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/creationOwnerEditTextLayout"
-                style="@style/FormFieldLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/large"
-                android:layout_marginTop="@dimen/x_large"
-                android:layout_marginEnd="@dimen/large"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/large">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/creationOwnerEditText"
-                    style="@style/FormField"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/creationOwnerEditTextLayout"
+                    style="@style/FormFieldLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/estate_form_owner_hint"
-                    android:inputType="textPersonName"
-                    android:maxLines="1"
-                    android:text="@={viewmodel.owner}"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/large"
+                    android:layout_marginTop="@dimen/x_large"
+                    android:layout_marginEnd="@dimen/large"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/creationTypeEditTextLayout"
-                style="@style/FormFieldLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/large"
-                android:layout_marginTop="@dimen/medium"
-                android:layout_marginEnd="@dimen/large"
-                app:layout_constraintTop_toTopOf="parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/creationOwnerEditText"
+                        style="@style/FormField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/estate_form_owner_hint"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:text="@={viewmodel.owner}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/creationTypeEditText"
-                    style="@style/FormField"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/creationTypeEditTextLayout"
+                    style="@style/FormFieldLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/estate_form_type_hint"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text="@={viewmodel.type}"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/large"
+                    android:layout_marginTop="@dimen/medium"
+                    android:layout_marginEnd="@dimen/large"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/creationRoomsEditTextLayout"
-                style="@style/FormFieldLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/large"
-                android:layout_marginTop="@dimen/medium"
-                android:layout_marginEnd="@dimen/large"
-                app:layout_constraintTop_toTopOf="parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/creationTypeEditText"
+                        style="@style/FormField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/estate_form_type_hint"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text="@={viewmodel.type}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/creationRoomsEditText"
-                    style="@style/FormField"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/creationRoomsEditTextLayout"
+                    style="@style/FormFieldLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/estate_form_rooms_hint"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text="@={BindingUtils.intToString(viewmodel.rooms)}"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/large"
+                    android:layout_marginTop="@dimen/medium"
+                    android:layout_marginEnd="@dimen/large"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/creationSurfaceEditTextLayout"
-                style="@style/FormFieldLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/large"
-                android:layout_marginTop="@dimen/medium"
-                android:layout_marginEnd="@dimen/large"
-                app:layout_constraintTop_toTopOf="parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/creationRoomsEditText"
+                        style="@style/FormField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/estate_form_rooms_hint"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text="@={BindingUtils.intToString(viewmodel.rooms)}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/creationSurfaceEditText"
-                    style="@style/FormField"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/creationSurfaceEditTextLayout"
+                    style="@style/FormFieldLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/estate_form_surface_hint"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text="@={BindingUtils.intToString(viewmodel.surface)}"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/large"
+                    android:layout_marginTop="@dimen/medium"
+                    android:layout_marginEnd="@dimen/large"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/creationPriceEditTextLayout"
-                style="@style/FormFieldLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/large"
-                android:layout_marginTop="@dimen/medium"
-                android:layout_marginEnd="@dimen/large"
-                app:layout_constraintTop_toTopOf="parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/creationSurfaceEditText"
+                        style="@style/FormField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/estate_form_surface_hint"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text="@={BindingUtils.intToString(viewmodel.surface)}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/creationPriceEditText"
-                    style="@style/FormField"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/creationPriceEditTextLayout"
+                    style="@style/FormFieldLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/estate_form_price_hint"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text="@={BindingUtils.intToString(viewmodel.price)}"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="@dimen/large"
+                    android:layout_marginTop="@dimen/medium"
+                    android:layout_marginEnd="@dimen/large"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/creationCTA"
-                style="@style/CTA.Filled"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/large"
-                android:layout_marginTop="@dimen/xx_large"
-                android:layout_marginEnd="@dimen/large"
-                android:enabled="false"
-                android:text="@string/estate_form_validation_cta" />
-        </LinearLayout>
-    </ScrollView>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/creationPriceEditText"
+                        style="@style/FormField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/estate_form_price_hint"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text="@={BindingUtils.intToString(viewmodel.price)}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/creationCTA"
+                    style="@style/CTA.Filled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/large"
+                    android:layout_marginTop="@dimen/xx_large"
+                    android:layout_marginEnd="@dimen/large"
+                    android:enabled="false"
+                    android:text="@string/estate_form_validation_cta" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </layout>
