@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/true_white"
         android:orientation="vertical">
 
         <include
@@ -48,26 +49,14 @@
                         android:text="@={viewmodel.owner}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/creationTypeEditTextLayout"
-                    style="@style/FormFieldLayout"
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/creationTypeSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:ms_background_color="@color/spinnerBackgound"
                     android:layout_marginStart="@dimen/large"
                     android:layout_marginTop="@dimen/medium"
-                    android:layout_marginEnd="@dimen/large"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/creationTypeEditText"
-                        style="@style/FormField"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/estate_form_type_hint"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:text="@={viewmodel.type}" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginEnd="@dimen/large"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/creationRoomsEditTextLayout"

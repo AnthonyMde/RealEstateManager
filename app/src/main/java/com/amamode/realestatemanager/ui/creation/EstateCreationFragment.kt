@@ -49,6 +49,11 @@ class EstateCreationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        creationTypeSpinner.setItems(EstateType.values().map { it.value })
+        creationTypeSpinner.setOnItemSelectedListener { _, _, _, item ->
+            estateViewModel.type.postValue(item.toString())
+        }
+
         goToFinalStepCTA.setOnClickListener {
             val action = EstateCreationFragmentDirections.goToCreationFinalStep()
             findNavController().navigate(action)

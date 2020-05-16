@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.amamode.realestatemanager.domain.Estate
 import com.amamode.realestatemanager.domain.EstateForm
 import com.amamode.realestatemanager.domain.EstateService
+import com.amamode.realestatemanager.ui.creation.EstateType
 import com.amamode.realestatemanager.utils.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -14,7 +15,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     val estateEntityList: LiveData<List<Estate>> = estateService.getEstateList()
     val formMediator = MediatorLiveData<Boolean>()
     val owner = MutableLiveData("")
-    val type = MutableLiveData("")
+    val type = MutableLiveData(EstateType.HOUSE.value)
     val rooms = MutableLiveData<Int?>(null)
     val surface = MutableLiveData<Int?>(null)
     val price = MutableLiveData<Int?>(null)

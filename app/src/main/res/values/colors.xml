@@ -11,7 +11,7 @@
 
     <color name="true_black">#000000</color>
     <color name="true_white">#ffffff</color>
-
+    <color name="white">#EFEFEF</color>
     <color name="mainGray">#A5A5A5</color>
 
     <!-- Button -->
@@ -19,4 +19,7 @@
 
     <!-- EditText -->
     <color name="hintColor">@color/mainGray</color>
+
+    <!-- Spinner -->
+    <color name="spinnerBackgound">@color/white</color>
 </resources>
