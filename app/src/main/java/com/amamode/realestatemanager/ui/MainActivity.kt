@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         // Show/Hide and configure toolbar according to the current fragment/activity
         listener = if (isTablet) {
-            setupToolbar()
+            setSupportActionBar(activityToolbar as Toolbar)
             NavController.OnDestinationChangedListener { _, navDestination, _ ->
                 configureTabletNavListener(navDestination)
             }
@@ -52,6 +52,16 @@ class MainActivity : AppCompatActivity() {
         controller.removeOnDestinationChangedListener(listener)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        when (currentDestination) {
+            "EstateCreationFinalFragment" -> {
+                findNavController(R.id.main_nav_container).popBackStack(R.id.list_dest, false)
+            }
+            else -> onBackPressed()
+        }
+        return true
+    }
+
     /* ONLY FOR TABLET */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (isTablet) {
@@ -66,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             "EstateList" -> {
                 menu?.setGroupVisible(R.id.tablet_menu_icons, true)
             }
-            "EstateCreationFragment" -> {
+            in listOf("EstateCreationFragment", "EstateCreationFinalFragment") -> {
                 menu?.setGroupVisible(R.id.tablet_menu_icons, false)
             }
         }
@@ -91,14 +101,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     /* ONLY FOR TABLET */
-    private fun setupToolbar() {
-        setSupportActionBar(activityToolbar as Toolbar)
-        title = getString(R.string.estate_list_toolbar_title)
-    }
-
-    /* ONLY FOR TABLET */
     private fun configureTabletNavListener(navDestination: NavDestination) {
         currentDestination = navDestination.label.toString()
+        when (currentDestination) {
+            "EstateList" -> {
+                title = getString(R.string.estate_list_toolbar_title)
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
+            "EstateCreationFragment" -> {
+                title = getString(R.string.estate_form_toolbar_title)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            }
+            "EstateCreationFinalFragment" -> {
+                title = getString(R.string.estate_final_step_creation_toolbar)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            }
+        }
         invalidateOptionsMenu()
     }
 

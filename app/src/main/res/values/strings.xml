@@ -20,6 +20,7 @@
     <string name="estate_form_validation_cta">Suivant</string>
     <string name="estate_form_toolbar_title">Informations essentielles</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- ESTATE FORM LAST STEP -->
     <string name="estate_final_step_creation_CTA">Créer</string>
+    <string name="estate_final_step_creation_toolbar">Infos complémentaires</string>
 </resources>

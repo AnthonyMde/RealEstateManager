@@ -64,6 +64,7 @@ class EstateCreationFragment : Fragment() {
         })
     }
 
+    /* ONLY FOR MOBILE */
     private fun setupToolbar() {
         (activity as? AppCompatActivity)?.setSupportActionBar(estateCreationToolbar as Toolbar)
         (activity as? AppCompatActivity)?.apply {

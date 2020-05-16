@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/estateCreationToolbar"
+            android:id="@+id/estateCreationFinalToolbar"
             layout="@layout/toolbar" />
 
         <ScrollView
