@@ -24,6 +24,6 @@
     <!-- OTHERS -->
     <dimen name="fab_size">56dp</dimen>
 
-    <!-- SPECIFIC TABLE LANDSCAPE (set as default here) -->
+    <!-- SPECIFIC TABLET LANDSCAPE (set as default here) -->
     <dimen name="estate_list_width">250dp</dimen>
 </resources>

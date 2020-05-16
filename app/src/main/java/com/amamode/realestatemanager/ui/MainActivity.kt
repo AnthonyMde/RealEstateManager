@@ -76,12 +76,6 @@ class MainActivity : AppCompatActivity() {
     /* USED BY BOTH TABLET AND MOBILE */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add_estate -> {
-                controller.navigate(R.id.action_list_dest_to_estateCreationFragment)
-            }
-            R.id.edit_estate -> {
-                toast("Modify ")
-            }
             R.id.geoloc_estate -> {
                 toast("Go to location")
             }

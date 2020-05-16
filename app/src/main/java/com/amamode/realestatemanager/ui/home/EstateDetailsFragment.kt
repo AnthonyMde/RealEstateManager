@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
 import kotlinx.android.synthetic.main.fragment_estate_details.*
@@ -16,8 +17,14 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         super.onViewCreated(view, savedInstanceState)
         val estate = safeArgs.estate
         val isTablet = resources.getBoolean(R.bool.isTablet)
+
         if (!isTablet) {
             setupToolbar()
+        } else {
+            addEstateFab.setOnClickListener {
+                activity?.findNavController(R.id.main_nav_container)
+                    ?.navigate(R.id.action_list_dest_to_estateCreationFragment)
+            }
         }
         detailsText.text = "Vous êtes sur l'immeuble de ${estate.owner}"
     }
