@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.amamode.realestatemanager.R
+import com.amamode.realestatemanager.ui.EstateViewModel
 import kotlinx.android.synthetic.main.fragment_estate_creation_final.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EstateCreationFinalFragment : Fragment(R.layout.fragment_estate_creation_final) {
+    private val estateViewModel: EstateViewModel by sharedViewModel()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -16,6 +20,10 @@ class EstateCreationFinalFragment : Fragment(R.layout.fragment_estate_creation_f
 
         if (!isTablet) {
             setupToolbar()
+        }
+
+        creationCTA.setOnClickListener {
+            estateViewModel.createEstate(emptyArray())
         }
     }
 

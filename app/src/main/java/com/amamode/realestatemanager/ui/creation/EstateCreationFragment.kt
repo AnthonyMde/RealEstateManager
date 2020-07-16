@@ -14,10 +14,10 @@ import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationBinding
 import com.amamode.realestatemanager.ui.EstateViewModel
 import kotlinx.android.synthetic.main.fragment_estate_creation.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EstateCreationFragment : Fragment() {
-    private val estateViewModel: EstateViewModel by viewModel()
+    private val estateViewModel: EstateViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +59,7 @@ class EstateCreationFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        estateViewModel.formMediator.observe(viewLifecycleOwner, Observer {
+        estateViewModel.firstStepformMediator.observe(viewLifecycleOwner, Observer {
             goToFinalStepCTA.isEnabled = it
         })
     }

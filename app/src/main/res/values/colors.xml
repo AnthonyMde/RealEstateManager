@@ -13,6 +13,7 @@
     <color name="true_white">#ffffff</color>
     <color name="white">#EFEFEF</color>
     <color name="mainGray">#A5A5A5</color>
+    <color name="lightGray">#F1F1F1</color>
 
     <!-- Button -->
     <color name="disabledButton">@color/mainGray</color>

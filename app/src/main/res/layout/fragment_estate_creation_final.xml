@@ -23,40 +23,109 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium"
+                android:layout_marginEnd="@dimen/medium"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/large">
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/creationOwnerEditTextLayout"
+                    android:id="@+id/creationAddressEditTextLayout"
                     style="@style/FormFieldLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/large"
                     android:layout_marginTop="@dimen/x_large"
-                    android:layout_marginEnd="@dimen/large"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/creationOwnerEditText"
+                        android:id="@+id/creationAddressEditText"
                         style="@style/FormField"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/estate_form_owner_hint"
-                        android:inputType="textPersonName"
+                        android:hint="Adresse"
+                        android:inputType="textPostalAddress"
                         android:maxLines="1"
-                        android:text="@={viewmodel.owner}" />
+                        android:text="@={viewmodel.address}" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:textStyle="bold"
+                    android:text="Points d'intérêts"/>
+                <CheckBox
+                    android:id="@+id/interestPointMetro"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:text="Métro"/>
+
+                <CheckBox
+                    android:id="@+id/interestPointShop"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Commerces"/>
+
+                <CheckBox
+                    android:id="@+id/interestPointSchool"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="École"/>
+
+                <CheckBox
+                    android:id="@+id/interestPointParc"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Parcs"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:textStyle="bold"
+                    android:text="Description"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="250">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:inputType="textMultiLine"
+                        android:gravity="top"
+                        android:padding="@dimen/small"
+                        android:background="@color/lightGray"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:text="Date d'entrée sur marché"
+                    android:textStyle="bold"/>
+
+                <DatePicker
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"/>
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:text="Bien vendu"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/creationCTA"
                     style="@style/CTA.Filled"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/large"
                     android:layout_marginTop="@dimen/xx_large"
-                    android:layout_marginEnd="@dimen/large"
-                    android:enabled="false"
                     android:text="@string/estate_final_step_creation_CTA" />
             </LinearLayout>
         </ScrollView>

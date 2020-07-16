@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [EstateEntity::class], version = 1, exportSchema = false)
+@Database(entities = [EstateEntity::class, InterestPointEntity::class], version = 1, exportSchema = false)
 abstract class EstateRoomDatabase : RoomDatabase() {
     abstract fun estateDao(): EstateDao
 
