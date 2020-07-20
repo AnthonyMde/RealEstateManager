@@ -1,57 +1,176 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
-
-        <import type="com.amamode.realestatemanager.utils.BindingUtils" />
-
+        <import type="com.amamode.realestatemanager.utils.BindingUtils"/>
         <variable
             name="viewmodel"
             type="com.amamode.realestatemanager.ui.EstateViewModel" />
     </data>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/large">
+            android:layout_height="wrap_content">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/creationOwnerEditTextLayout"
-                style="@style/FormFieldLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/large"
-                android:layout_marginTop="@dimen/x_large"
-                android:layout_marginEnd="@dimen/large"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginStart="@dimen/medium"
+                android:layout_marginEnd="@dimen/medium"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/large">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/creationOwnerEditText"
-                    style="@style/FormField"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/creationAddressEditTextLayout"
+                    style="@style/FormFieldLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/estate_form_owner_hint"
-                    android:inputType="textPersonName"
-                    android:maxLines="1"
-                    android:text="@={viewmodel.owner}" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="@dimen/x_large"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/creationCTA"
-                style="@style/CTA.Filled"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/large"
-                android:layout_marginTop="@dimen/xx_large"
-                android:layout_marginEnd="@dimen/large"
-                android:enabled="false"
-                android:text="@string/estate_final_step_creation_CTA" />
-        </LinearLayout>
-    </ScrollView>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/creationAddressEditText"
+                        style="@style/FormField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/creation_final_step_street"
+                        android:inputType="textPostalAddress"
+                        android:maxLines="1"
+                        android:text="@={viewmodel.street}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/creationCityEditTextLayout"
+                    style="@style/FormFieldLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/creationCityEditText"
+                        style="@style/FormField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/creation_final_step_town"
+                        android:inputType="textPostalAddress"
+                        android:maxLines="1"
+                        android:text="@={viewmodel.city}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/creationZipCodeEditTextLayout"
+                    style="@style/FormFieldLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/creationZipCodeEditText"
+                        style="@style/FormField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/creation_final_step_zip_code"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text="@={BindingUtils.intToString(viewmodel.zipCode)}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:textStyle="bold"
+                    android:text="@string/creation_final_step_interest_point" />
+
+                <CheckBox
+                    android:id="@+id/interestPointMetro"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:text="@string/interest_point_metro"/>
+
+                <CheckBox
+                    android:id="@+id/interestPointShop"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/interest_point_shop"/>
+
+                <CheckBox
+                    android:id="@+id/interestPointSchool"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/interest_point_school"/>
+
+                <CheckBox
+                    android:id="@+id/interestPointParc"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/interest_point_parc"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:textStyle="bold"
+                    android:text="@string/estate_creation_final_step_description"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="250">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:inputType="textMultiLine"
+                        android:gravity="top"
+                        android:padding="@dimen/small"
+                        android:background="@color/lightGray"
+                        android:text="@={viewmodel.description}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Switch
+                    android:id="@+id/estateOnMarketDateSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:text="@string/estate_creation_final_step_on_market_date"
+                    android:textStyle="bold" />
+
+                <DatePicker
+                    android:id="@+id/estateOnMarketDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"
+                    android:visibility="gone" />
+
+                <Switch
+                    android:id="@+id/estateSoldDateSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:text="@string/creation_final_step_estate_sold"
+                    android:textStyle="bold" />
+
+                <DatePicker
+                    android:id="@+id/estateSoldDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/creationCTA"
+                    style="@style/CTA.Filled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/xx_large"
+                    android:text="@string/estate_final_step_creation_CTA" />
+            </LinearLayout>
+        </ScrollView>
 </layout>
