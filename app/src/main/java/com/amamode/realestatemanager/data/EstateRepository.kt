@@ -12,8 +12,11 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         }
     }
 
-    override fun getInterestPoints(estateId: Long): LiveData<List<InterestPointEntity>> {
-        return dao.getInterestPoints(estateId)
+    override suspend fun getEstateDetails(estateId: Long): EstateDetails {
+        val estateEntity = dao.getEstateById(estateId)
+        val interestPointsEntity = dao.getInterestPoints(estateId)
+        val interestPoints = interestPointsEntity.map { it.toInterestPoint() }
+        return estateEntity.toEstateDetails(interestPoints)
     }
 
     override suspend fun createEstate(

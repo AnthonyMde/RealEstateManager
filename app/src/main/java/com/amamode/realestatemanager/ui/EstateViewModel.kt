@@ -5,13 +5,15 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.amamode.realestatemanager.domain.*
+import com.amamode.realestatemanager.domain.errors.RoomError
 import com.amamode.realestatemanager.ui.creation.EstateType
 import com.amamode.realestatemanager.utils.BaseViewModel
+import com.amamode.realestatemanager.utils.Resource
 import kotlinx.coroutines.launch
 import java.util.*
 
 class EstateViewModel(private val estateService: EstateService) : BaseViewModel() {
-    val estateDetailsEntityList: LiveData<List<EstatePreview>> = estateService.getEstateList()
+    val estateEntityList: LiveData<List<EstatePreview>> = estateService.getEstateList()
     val firstStepformMediator = MediatorLiveData<Boolean>()
 
     /* FIRST STEP */
@@ -33,6 +35,20 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         firstStepformMediator.addSource(rooms) { firstStepIsCorrectlyFilled() }
         firstStepformMediator.addSource(surface) { firstStepIsCorrectlyFilled() }
         firstStepformMediator.addSource(price) { firstStepIsCorrectlyFilled() }
+    }
+
+    fun getEstateDetails(estateId: Long): LiveData<Resource<EstateDetails>> {
+        val result = MutableLiveData<Resource<EstateDetails>>()
+        result.postValue(Resource.Loading())
+        viewModelScope.launch {
+            try {
+                val estateDetails = estateService.getEstateDetails(estateId)
+                result.postValue(Resource.Success(estateDetails))
+            } catch (e: Exception) {
+                result.postValue(Resource.Error(RoomError("Can not retrieve EstateDetails object with error : ${e.message}")))
+            }
+        }
+        return result
     }
 
     fun createEstate(interestPoints: Array<InterestPoint>, onMarketDate: Date?, soldDate: Date?) =

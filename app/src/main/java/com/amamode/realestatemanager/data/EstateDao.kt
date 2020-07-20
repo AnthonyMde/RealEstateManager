@@ -11,8 +11,11 @@ interface EstateDao {
     @Query("SELECT * from estate_table ORDER BY id DESC")
     fun getEstateListById(): LiveData<List<EstateEntity>>
 
-    @Query("SELECT * from interest_point_table WHERE id LIKE :estateId")
-    fun getInterestPoints(estateId: Long): LiveData<List<InterestPointEntity>>
+    @Query("SELECT * from estate_table WHERE id LIKE :estateId")
+    suspend fun getEstateById(estateId: Long): EstateEntity
+
+    @Query("SELECT * from interest_point_table WHERE estateId LIKE :estateId")
+    suspend fun getInterestPoints(estateId: Long): List<InterestPointEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(estateEntity: EstateEntity): Long

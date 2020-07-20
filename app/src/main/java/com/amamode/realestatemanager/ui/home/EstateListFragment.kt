@@ -39,7 +39,7 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        estateViewModel.estateDetailsEntityList.observe(viewLifecycleOwner, Observer {
+        estateViewModel.estateEntityList.observe(viewLifecycleOwner, Observer {
             adapter.setEstateList(it)
         })
     }
