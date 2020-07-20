@@ -14,7 +14,7 @@ interface EstateDao {
     @Query("SELECT * from estate_table WHERE id LIKE :estateId")
     suspend fun getEstateById(estateId: Long): EstateEntity
 
-    @Query("SELECT * from interest_point_table WHERE estateId LIKE :estateId")
+    @Query("SELECT * from interest_point_table WHERE estate_id LIKE :estateId")
     suspend fun getInterestPoints(estateId: Long): List<InterestPointEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

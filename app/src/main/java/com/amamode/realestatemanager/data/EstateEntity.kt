@@ -1,5 +1,6 @@
 package com.amamode.realestatemanager.data
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -13,6 +14,7 @@ data class EstateEntity(
     val rooms: Int,
     val surface: Int,
     val price: Int,
+    @ColumnInfo(name = "on_market_date")
     val onMarketDate: String,
     @Embedded val status: EstateStatus,
     @Embedded val address: EstateAddress?,

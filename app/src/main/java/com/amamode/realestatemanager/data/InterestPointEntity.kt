@@ -1,5 +1,6 @@
 package com.amamode.realestatemanager.data
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -10,12 +11,13 @@ import com.amamode.realestatemanager.domain.InterestPoint
     foreignKeys = [ForeignKey(
         entity = EstateEntity::class,
         parentColumns = ["id"],
-        childColumns = ["estateId"],
+        childColumns = ["estate_id"],
         onDelete = ForeignKey.CASCADE
     )]
 )
 data class InterestPointEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @ColumnInfo(name = "estate_id", index = true)
     val estateId: Long,
     val name: String
 ) {
