@@ -1,5 +1,10 @@
 package com.amamode.realestatemanager.domain
 
-data class InterestPoint(
-    val name: String
-)
+enum class InterestPoint(
+    val nameRes: String
+) {
+    METRO("metro"),
+    SHOP("shop"),
+    SCHOOL("school"),
+    PARC("parc")
+}

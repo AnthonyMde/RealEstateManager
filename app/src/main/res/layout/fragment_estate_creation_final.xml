@@ -42,10 +42,48 @@
                         style="@style/FormField"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Adresse"
+                        android:hint="@string/creation_final_step_street"
                         android:inputType="textPostalAddress"
                         android:maxLines="1"
-                        android:text="@={viewmodel.address}" />
+                        android:text="@={viewmodel.street}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/creationCityEditTextLayout"
+                    style="@style/FormFieldLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/creationCityEditText"
+                        style="@style/FormField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/creation_final_step_town"
+                        android:inputType="textPostalAddress"
+                        android:maxLines="1"
+                        android:text="@={viewmodel.city}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/creationZipCodeEditTextLayout"
+                    style="@style/FormFieldLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/creationZipCodeEditText"
+                        style="@style/FormField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/creation_final_step_zip_code"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text="@={BindingUtils.intToString(viewmodel.zipCode)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -53,72 +91,87 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium"
                     android:textStyle="bold"
-                    android:text="Points d'intérêts"/>
+                    android:text="@string/creation_final_step_interest_point" />
+
                 <CheckBox
                     android:id="@+id/interestPointMetro"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="@dimen/medium"
-                    android:text="Métro"/>
+                    android:text="@string/interest_point_metro"/>
 
                 <CheckBox
                     android:id="@+id/interestPointShop"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="Commerces"/>
+                    android:text="@string/interest_point_shop"/>
 
                 <CheckBox
                     android:id="@+id/interestPointSchool"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="École"/>
+                    android:text="@string/interest_point_school"/>
 
                 <CheckBox
                     android:id="@+id/interestPointParc"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="Parcs"/>
+                    android:text="@string/interest_point_parc"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium"
                     android:textStyle="bold"
-                    android:text="Description"/>
+                    android:text="@string/estate_creation_final_step_description"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:counterEnabled="true"
                     app:counterMaxLength="250">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:inputType="textMultiLine"
                         android:gravity="top"
                         android:padding="@dimen/small"
-                        android:background="@color/lightGray"/>
+                        android:background="@color/lightGray"
+                        android:text="@={viewmodel.description}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
+                <Switch
+                    android:id="@+id/estateOnMarketDateSwitch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium"
-                    android:text="Date d'entrée sur marché"
-                    android:textStyle="bold"/>
+                    android:text="@string/estate_creation_final_step_on_market_date"
+                    android:textStyle="bold" />
 
                 <DatePicker
+                    android:id="@+id/estateOnMarketDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:datePickerMode="spinner"
-                    android:calendarViewShown="false"/>
+                    android:calendarViewShown="false"
+                    android:visibility="gone" />
 
                 <Switch
+                    android:id="@+id/estateSoldDateSwitch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium"
-                    android:text="Bien vendu"
-                    android:textStyle="bold"/>
+                    android:text="@string/creation_final_step_estate_sold"
+                    android:textStyle="bold" />
+
+                <DatePicker
+                    android:id="@+id/estateSoldDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/creationCTA"

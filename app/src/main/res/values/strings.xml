@@ -23,4 +23,15 @@
     <!-- ESTATE FORM LAST STEP -->
     <string name="estate_final_step_creation_CTA">Créer</string>
     <string name="estate_final_step_creation_toolbar">Infos complémentaires</string>
+    <string name="estate_creation_final_step_on_market_date">Date d\'entrée sur le marché</string>
+    <string name="estate_creation_final_step_description">Description</string>
+    <string name="interest_point_parc">Parcs</string>
+    <string name="interest_point_school">École</string>
+    <string name="interest_point_shop">Commerces</string>
+    <string name="interest_point_metro">Métro</string>
+    <string name="creation_final_step_interest_point">Points d\'intérêts</string>
+    <string name="creation_final_step_zip_code">Code postal</string>
+    <string name="creation_final_step_town">Ville</string>
+    <string name="creation_final_step_street">Rue</string>
+    <string name="creation_final_step_estate_sold">Bien vendu</string>
 </resources>

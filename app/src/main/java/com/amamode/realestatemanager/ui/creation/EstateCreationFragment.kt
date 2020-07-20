@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -52,6 +53,14 @@ class EstateCreationFragment : Fragment() {
         creationTypeSpinner.setItems(EstateType.values().map { it.value })
         creationTypeSpinner.setOnItemSelectedListener { _, _, _, item ->
             estateViewModel.type.postValue(item.toString())
+        }
+
+        creationPriceEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE && goToFinalStepCTA.isEnabled) {
+                val action = EstateCreationFragmentDirections.goToCreationFinalStep()
+                findNavController().navigate(action)
+            }
+            return@setOnEditorActionListener true
         }
 
         goToFinalStepCTA.setOnClickListener {

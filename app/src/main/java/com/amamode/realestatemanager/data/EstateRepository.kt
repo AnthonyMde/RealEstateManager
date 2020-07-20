@@ -27,8 +27,8 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
             rooms = estateForm.rooms ?: 0,
             surface = estateForm.surface ?: 0,
             price = estateForm.price ?: 0,
-            onMarketDate = estateForm.onMarketDate ?: Date().toString(),
-            status = EstateStatus(estateForm.sold, estateForm.soldDate),
+            onMarketDate = estateForm.onMarketDate.toString(),
+            status = EstateStatus(estateForm.sold, estateForm.soldDate.toString()),
             address = EstateAddress(estateForm.street, estateForm.zipCode, estateForm.city),
             description = estateForm.description
         )

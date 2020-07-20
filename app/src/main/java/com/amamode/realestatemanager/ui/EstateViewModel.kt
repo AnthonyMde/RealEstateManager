@@ -11,6 +11,7 @@ import com.amamode.realestatemanager.domain.InterestPoint
 import com.amamode.realestatemanager.ui.creation.EstateType
 import com.amamode.realestatemanager.utils.BaseViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 
 class EstateViewModel(private val estateService: EstateService) : BaseViewModel() {
     val estateEntityList: LiveData<List<Estate>> = estateService.getEstateList()
@@ -24,13 +25,10 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     val price = MutableLiveData<Int?>(null)
 
     /* THIRD STEP */
-    val address = MutableLiveData<String?>(null)
+    val street = MutableLiveData("")
     val zipCode = MutableLiveData<Int?>(null)
-    val city = MutableLiveData<String?>(null)
-    val description = MutableLiveData<String?>(null)
-    val onMarketDate = MutableLiveData("")
-    val sold = MutableLiveData(false)
-    val soldDate = MutableLiveData<String?>(null)
+    val city = MutableLiveData("")
+    val description = MutableLiveData("")
 
     init {
         firstStepformMediator.addSource(owner) { firstStepIsCorrectlyFilled() }
@@ -40,16 +38,24 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         firstStepformMediator.addSource(price) { firstStepIsCorrectlyFilled() }
     }
 
-    fun createEstate(interestPoints: Array<InterestPoint>) = viewModelScope.launch {
-        val estateForm = EstateForm(
-            owner = owner.value,
-            type = type.value,
-            rooms = rooms.value,
-            surface = surface.value,
-            price = price.value
-        )
-        estateService.createEstate(estateForm, interestPoints)
-    }
+    fun createEstate(interestPoints: Array<InterestPoint>, onMarketDate: Date?, soldDate: Date?) =
+        viewModelScope.launch {
+            val estateForm = EstateForm(
+                owner = owner.value,
+                type = type.value,
+                rooms = rooms.value,
+                surface = surface.value,
+                price = price.value,
+                street = street.value,
+                city = city.value,
+                zipCode = zipCode.value,
+                description = description.value,
+                onMarketDate = onMarketDate,
+                sold = soldDate != null,
+                soldDate = soldDate
+            )
+            estateService.createEstate(estateForm, interestPoints)
+        }
 
     fun deleteAll() = viewModelScope.launch {
         estateService.deleteAll()

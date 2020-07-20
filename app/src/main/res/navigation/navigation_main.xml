@@ -49,5 +49,12 @@
         android:id="@+id/estateCreationFinalFragment"
         android:name="com.amamode.realestatemanager.ui.creation.EstateCreationFinalFragment"
         android:label="EstateCreationFinalFragment"
-        tools:layout="@layout/fragment_estate_creation_final" />
+        tools:layout="@layout/fragment_estate_creation_final">
+        <action
+            android:id="@+id/returnToEstateList"
+            app:destination="@id/list_dest"
+            app:exitAnim="@anim/slide_out_bottom"
+            app:popUpTo="@id/list_dest"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>
