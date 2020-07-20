@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Estate(
+data class EstateDetails(
     val id: Long,
     var owner: String,
     var type: String,
@@ -14,5 +14,6 @@ data class Estate(
     val onMarketDate: String,
     val status: EstateStatus,
     val address: EstateAddress?,
-    val description: String?
+    val description: String?,
+    val interestPoint: List<InterestPoint>
 ) : Parcelable

@@ -15,7 +15,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val estate = safeArgs.estate
+        val estateId = safeArgs.estateId
         val isTablet = resources.getBoolean(R.bool.isTablet)
 
         if (!isTablet) {
@@ -23,10 +23,10 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         } else {
             addEstateFab.setOnClickListener {
                 activity?.findNavController(R.id.main_nav_container)
-                    ?.navigate(R.id.action_list_dest_to_estateCreationFragment)
+                    ?.navigate(R.id.goToEstateCreation)
             }
         }
-        detailsText.text = "Vous êtes sur l'immeuble de ${estate.owner}"
+        detailsText.text = "Vous êtes sur l'immeuble n° ${estateId}"
     }
 
     /* ONLY FOR MOBILE */

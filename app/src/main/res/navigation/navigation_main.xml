@@ -10,14 +10,14 @@
         android:name="com.amamode.realestatemanager.ui.home.EstateListFragment"
         android:label="EstateList">
         <action
-            android:id="@+id/go_to_detail_dest"
+            android:id="@+id/goToEstateDetails"
             app:destination="@id/detail_dest"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_list_dest_to_estateCreationFragment"
+            android:id="@+id/goToEstateCreation"
             app:destination="@id/estateCreationFragment"
             app:enterAnim="@anim/slide_in_bottom"
             app:popExitAnim="@anim/slide_out_bottom"
@@ -29,8 +29,8 @@
         android:label="EstateDetail"
         >
         <argument
-            android:name="estate"
-            app:argType="com.amamode.realestatemanager.domain.Estate"
+            android:name="estateId"
+            app:argType="long"
             />
     </fragment>
     <fragment

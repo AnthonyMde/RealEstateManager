@@ -3,13 +3,12 @@ package com.amamode.realestatemanager.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.amamode.realestatemanager.domain.*
-import java.util.*
 
 class EstateRepository(private val dao: EstateDao) : EstateService {
 
-    override fun getEstateList(): LiveData<List<Estate>> {
+    override fun getEstateList(): LiveData<List<EstatePreview>> {
         return dao.getEstateListById().map { list ->
-            list.map { it.toEstate() }
+            list.map { it.toEstatePreview() }
         }
     }
 
@@ -44,7 +43,7 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         dao.insert(*interestPointEntity)
     }
 
-    override suspend fun editEstate(estateForm: EstateForm): Estate {
+    override suspend fun editEstate(estateForm: EstateForm): EstateDetails {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

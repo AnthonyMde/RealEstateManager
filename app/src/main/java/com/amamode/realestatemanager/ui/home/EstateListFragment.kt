@@ -39,41 +39,41 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        estateViewModel.estateEntityList.observe(viewLifecycleOwner, Observer {
+        estateViewModel.estateDetailsEntityList.observe(viewLifecycleOwner, Observer {
             adapter.setEstateList(it)
         })
     }
 
     private fun displaySingleLayout() {
         adapter =
-            EstateListAdapter(onEstateClick = { estate ->
+            EstateListAdapter(onEstateClick = { estateId ->
                 val action =
-                    EstateListFragmentDirections.goToDetailDest(
-                        estate
+                    EstateListFragmentDirections.goToEstateDetails(
+                        estateId
                     )
                 findNavController().navigate(action)
             })
 
         estateRV.adapter = adapter
         addEstateFab.setOnClickListener {
-            findNavController().navigate(R.id.action_list_dest_to_estateCreationFragment)
+            findNavController().navigate(R.id.goToEstateCreation)
         }
     }
 
     private fun displayFullLayout(tabletDetailNavHost: NavHostFragment) {
         adapter =
-            EstateListAdapter(onEstateClick = { estate ->
+            EstateListAdapter(onEstateClick = { estateId ->
                 if (firstTime) {
                     firstTime = false
                     val action =
-                        EmptyDetailFragmentDirections.actionEmptyDetailFragmentToDetailDest(
-                            estate
+                        EmptyDetailFragmentDirections.emptyFragmentGoToEstateDetails(
+                            estateId
                         )
                     tabletDetailNavHost.navController.navigate(action)
                 } else {
                     val action =
-                        EstateListFragmentDirections.goToDetailDest(
-                            estate
+                        EstateListFragmentDirections.goToEstateDetails(
+                            estateId
                         )
                     tabletDetailNavHost.navController.navigate(action)
                 }

@@ -12,7 +12,7 @@ class EmptyDetailFragment : Fragment(R.layout.fragment_empty_detail_fragment) {
 
         emptyViewAddEstateCta.setOnClickListener {
             activity?.findNavController(R.id.main_nav_container)
-                ?.navigate(R.id.action_list_dest_to_estateCreationFragment)
+                ?.navigate(R.id.goToEstateCreation)
         }
     }
 }

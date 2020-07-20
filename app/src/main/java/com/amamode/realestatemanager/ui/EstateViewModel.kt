@@ -4,17 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.amamode.realestatemanager.domain.Estate
-import com.amamode.realestatemanager.domain.EstateForm
-import com.amamode.realestatemanager.domain.EstateService
-import com.amamode.realestatemanager.domain.InterestPoint
+import com.amamode.realestatemanager.domain.*
 import com.amamode.realestatemanager.ui.creation.EstateType
 import com.amamode.realestatemanager.utils.BaseViewModel
 import kotlinx.coroutines.launch
 import java.util.*
 
 class EstateViewModel(private val estateService: EstateService) : BaseViewModel() {
-    val estateEntityList: LiveData<List<Estate>> = estateService.getEstateList()
+    val estateDetailsEntityList: LiveData<List<EstatePreview>> = estateService.getEstateList()
     val firstStepformMediator = MediatorLiveData<Boolean>()
 
     /* FIRST STEP */

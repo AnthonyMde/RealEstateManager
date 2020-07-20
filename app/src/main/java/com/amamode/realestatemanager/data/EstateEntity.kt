@@ -3,9 +3,7 @@ package com.amamode.realestatemanager.data
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.amamode.realestatemanager.domain.Estate
-import com.amamode.realestatemanager.domain.EstateAddress
-import com.amamode.realestatemanager.domain.EstateStatus
+import com.amamode.realestatemanager.domain.*
 
 @Entity(tableName = "estate_table")
 data class EstateEntity(
@@ -20,8 +18,8 @@ data class EstateEntity(
     @Embedded val address: EstateAddress?,
     val description: String?
 ) {
-    fun toEstate(): Estate {
-        return Estate(
+    fun toEstateDetails(interestPoints: List<InterestPoint>): EstateDetails {
+        return EstateDetails(
             id = id,
             owner = owner,
             type = type,
@@ -31,7 +29,18 @@ data class EstateEntity(
             onMarketDate = onMarketDate,
             status = status,
             address = address,
-            description = description
+            description = description,
+            interestPoint = interestPoints
+        )
+    }
+
+    fun toEstatePreview(): EstatePreview {
+        return EstatePreview(
+            id = id,
+            type = type,
+            price = price,
+            status = status,
+            address = address
         )
     }
 }
