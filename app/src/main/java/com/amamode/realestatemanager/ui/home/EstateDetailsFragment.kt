@@ -33,7 +33,6 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
                     ?.navigate(R.id.goToEstateCreation)
             }
         }
-        detailsText.text = "Vous êtes sur l'immeuble n° ${estateId}"
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
