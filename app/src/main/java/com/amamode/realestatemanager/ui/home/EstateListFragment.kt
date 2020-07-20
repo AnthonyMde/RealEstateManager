@@ -46,10 +46,11 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
 
     private fun displaySingleLayout() {
         adapter =
-            EstateListAdapter(onEstateClick = { estateId ->
+            EstateListAdapter(onEstateClick = { estateId, estateType ->
                 val action =
                     EstateListFragmentDirections.goToEstateDetails(
-                        estateId
+                        estateId,
+                        estateType
                     )
                 findNavController().navigate(action)
             })
@@ -62,18 +63,20 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
 
     private fun displayFullLayout(tabletDetailNavHost: NavHostFragment) {
         adapter =
-            EstateListAdapter(onEstateClick = { estateId ->
+            EstateListAdapter(onEstateClick = { estateId, estateType ->
                 if (firstTime) {
                     firstTime = false
                     val action =
                         EmptyDetailFragmentDirections.emptyFragmentGoToEstateDetails(
-                            estateId
+                            estateId,
+                            estateType
                         )
                     tabletDetailNavHost.navController.navigate(action)
                 } else {
                     val action =
                         EstateListFragmentDirections.goToEstateDetails(
-                            estateId
+                            estateId,
+                            estateType
                         )
                     tabletDetailNavHost.navController.navigate(action)
                 }

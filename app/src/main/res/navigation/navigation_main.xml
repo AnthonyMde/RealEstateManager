@@ -32,6 +32,9 @@
             android:name="estateId"
             app:argType="long"
             />
+        <argument
+            android:name="estateType"
+            app:argType="string"/>
     </fragment>
     <fragment
         android:id="@+id/estateCreationFragment"

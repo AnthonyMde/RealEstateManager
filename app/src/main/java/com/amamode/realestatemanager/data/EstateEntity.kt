@@ -5,6 +5,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.amamode.realestatemanager.domain.*
+import java.util.*
 
 @Entity(tableName = "estate_table")
 data class EstateEntity(
@@ -15,7 +16,7 @@ data class EstateEntity(
     val surface: Int,
     val price: Int,
     @ColumnInfo(name = "on_market_date")
-    val onMarketDate: String,
+    val onMarketDate: Date?,
     @Embedded val status: EstateStatus,
     @Embedded val address: EstateAddress?,
     val description: String?

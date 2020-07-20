@@ -10,7 +10,7 @@ import com.amamode.realestatemanager.domain.EstatePreview
 import kotlinx.android.synthetic.main.item_estate_list.view.*
 
 class EstateListAdapter(
-    val onEstateClick: (Long) -> Unit
+    val onEstateClick: (Long, String) -> Unit
 ) :
     RecyclerView.Adapter<EstateListAdapter.ViewHolder>() {
     private var estateList: List<EstatePreview> = emptyList()
@@ -43,7 +43,7 @@ class EstateListAdapter(
             itemView.estateTitle.text = estate.type
 
             itemView.setOnClickListener {
-                onEstateClick(estate.id)
+                onEstateClick(estate.id, estate.type)
             }
         }
     }

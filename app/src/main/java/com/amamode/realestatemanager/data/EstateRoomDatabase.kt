@@ -1,11 +1,17 @@
 package com.amamode.realestatemanager.data
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import java.text.SimpleDateFormat
+import java.util.*
 
-@Database(entities = [EstateEntity::class, InterestPointEntity::class], version = 1, exportSchema = false)
+private const val FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+@Database(
+    entities = [EstateEntity::class, InterestPointEntity::class],
+    version = 1,
+    exportSchema = false
+)
+@TypeConverters(EstateTypeConverters::class)
 abstract class EstateRoomDatabase : RoomDatabase() {
     abstract fun estateDao(): EstateDao
 
@@ -29,5 +35,25 @@ abstract class EstateRoomDatabase : RoomDatabase() {
                 return instance
             }
         }
+    }
+}
+
+@TypeConverters
+object EstateTypeConverters {
+
+    @TypeConverter
+    @JvmStatic
+    fun toDateTime(value: String?): Date? {
+        return value?.let {
+            return SimpleDateFormat(FORMAT, Locale.getDefault()).parse(value)
+        }
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun fromDateTime(date: Date?): String? {
+        if (date == null)
+            return null
+        return SimpleDateFormat(FORMAT, Locale.getDefault()).format(date)
     }
 }

@@ -11,6 +11,9 @@
         <argument
             android:name="estateId"
             app:argType="long"/>
+        <argument
+            android:name="estateType"
+            app:argType="string"/>
         <action
             android:id="@+id/goToEstateDetails"
             app:destination="@id/detail_dest"
