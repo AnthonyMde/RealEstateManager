@@ -4,17 +4,232 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context=".EstateDetails">
+    tools:context=".ui.MainActivity">
 
-    <TextView
-        android:id="@+id/detailsText"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        tools:text="fragment details"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:clipToPadding="false"
+        android:padding="@dimen/medium">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/estateDetailsStatus"
+                style="@style/CategoryTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/middleGuideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/estate_details_status_sold" />
+
+            <TextView
+                android:id="@+id/estateDetailsStatusDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@id/middleGuideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsStatus"
+                tools:text="Le 17/04/04" />
+
+            <TextView
+                android:id="@+id/estateDetailsOnMarketTitle"
+                style="@style/CategoryTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/estate_details_on_market_date_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/middleGuideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/estateDetailsOnMarketDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/estate_details_on_market_unknown_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/middleGuideline"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsOnMarketTitle" />
+
+            <TextView
+                android:id="@+id/estateDetailsPhotoTitle"
+                style="@style/Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xx_large"
+                android:text="@string/estate_details_photo_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsStatusDate" />
+
+            <TextView
+                android:id="@+id/estateDetailsDescriptionTitle"
+                style="@style/Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x_large"
+                android:text="@string/estate_details_description_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsPhotoTitle" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/estateDetailsDescriptionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsDescriptionTitle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/estateDetailsDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/lightGray"
+                    android:editable="false"
+                    android:gravity="top"
+                    android:padding="@dimen/small" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/estateDetailsInfoTitle"
+                style="@style/Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x_large"
+                android:text="@string/estate_details_info_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsDescriptionLayout" />
+
+            <TextView
+                android:id="@+id/estateDetailsRoomTitle"
+                style="@style/CategoryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                android:text="@string/estate_details_room_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsInfoTitle" />
+
+            <TextView
+                android:id="@+id/estateDetailsRoom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xx_small"
+                app:layout_constraintEnd_toStartOf="@id/middleGuideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsRoomTitle"
+                tools:text="3 pièces" />
+
+            <TextView
+                android:id="@+id/estateDetailsSurfaceTitle"
+                style="@style/CategoryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/estate_details_surface_title"
+                app:layout_constraintStart_toEndOf="@id/middleGuideline"
+                app:layout_constraintTop_toTopOf="@id/estateDetailsRoomTitle" />
+
+            <TextView
+                android:id="@+id/estateDetailsSurface"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xx_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/middleGuideline"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsSurfaceTitle"
+                tools:text="170 sq m" />
+
+            <TextView
+                android:id="@+id/estateDetailsPriceTitle"
+                style="@style/CategoryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium"
+                android:text="@string/estate_details_price_title"
+                app:layout_constraintStart_toEndOf="@id/middleGuideline"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsSurface" />
+
+            <TextView
+                android:id="@+id/estateDetailsPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xx_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/middleGuideline"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsPriceTitle"
+                tools:text="700 000$" />
+
+            <TextView
+                android:id="@+id/estateDetailsLocationTitle"
+                style="@style/CategoryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium"
+                android:text="@string/estate_details_location_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsRoom" />
+
+            <TextView
+                android:id="@+id/estateDetailsLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xx_small"
+                app:layout_constraintEnd_toStartOf="@id/middleGuideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsLocationTitle"
+                tools:text="Toulouse \nPépouze \n32000" />
+
+            <TextView
+                android:id="@+id/estateDetailsOwnerTitle"
+                style="@style/CategoryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium"
+                android:text="@string/estate_details_owner_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsLocation" />
+
+            <TextView
+                android:id="@+id/estateDetailsOwner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xx_small"
+                app:layout_constraintEnd_toStartOf="@id/middleGuideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsOwnerTitle"
+                tools:text="Anthony" />
+
+            <TextView
+                android:id="@+id/estateDetailsInterestPointsTitle"
+                style="@style/Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x_large"
+                android:text="@string/estate_details_interest_points_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsOwner" />
+
+            <TextView
+                android:id="@+id/estateDetailsInterestPoints"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xx_small"
+                android:text="@string/estate_details_no_interest_points"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsInterestPointsTitle" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/middleGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addEstateFab"
@@ -27,5 +242,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="@dimen/medium"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
