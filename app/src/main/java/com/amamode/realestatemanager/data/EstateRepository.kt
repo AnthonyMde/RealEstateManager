@@ -40,14 +40,39 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
             throw IllegalArgumentException("Can not create estate")
         }
 
-        val interestPointEntity =
+        val interestPointsEntity =
             interestPoints.map { it.toInterestPointEntity(estateId) }.toTypedArray()
 
-        dao.insert(*interestPointEntity)
+        dao.insert(*interestPointsEntity)
     }
 
-    override suspend fun editEstate(estateForm: EstateForm): EstateDetails {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun updateEstate(
+        estateId: Long,
+        estateForm: EstateForm,
+        interestPoints: Array<InterestPoint>
+    ) {
+        val estateEntity = EstateEntity(
+            id = estateId,
+            owner = estateForm.owner ?: "unknown owner",
+            type = estateForm.type ?: "unknown type",
+            rooms = estateForm.rooms ?: 0,
+            surface = estateForm.surface ?: 0,
+            price = estateForm.price ?: 0,
+            onMarketDate = estateForm.onMarketDate,
+            status = EstateStatus(estateForm.sold, estateForm.soldDate),
+            address = EstateAddress(estateForm.street, estateForm.zipCode, estateForm.city),
+            description = estateForm.description
+        )
+        dao.update(estateEntity)
+
+        if (estateId == -1L) {
+            throw IllegalArgumentException("Can not create estate")
+        }
+
+        val interestPointsEntity =
+            interestPoints.map { it.toInterestPointEntity(estateId) }.toTypedArray()
+        dao.deleteInterestPoints(estateId)
+        dao.insert(*interestPointsEntity)
     }
 
     override suspend fun deleteAll() {

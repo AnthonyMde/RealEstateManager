@@ -1,10 +1,7 @@
 package com.amamode.realestatemanager.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface EstateDao {
@@ -17,11 +14,17 @@ interface EstateDao {
     @Query("SELECT * from interest_point_table WHERE estate_id LIKE :estateId")
     suspend fun getInterestPoints(estateId: Long): List<InterestPointEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(estateEntity: EstateEntity): Long
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun update(estateEntity: EstateEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg interestPoints: InterestPointEntity)
+
+    @Query("DELETE FROM interest_point_table WHERE estate_id LIKE :estateId")
+    suspend fun deleteInterestPoints(estateId: Long)
 
     @Query("DELETE FROM estate_table")
     suspend fun deleteAll()

@@ -18,8 +18,12 @@ import com.amamode.realestatemanager.databinding.FragmentEstateCreationFinalBind
 import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.domain.InterestPoint
 import com.amamode.realestatemanager.ui.EstateViewModel
+import com.amamode.realestatemanager.utils.Resource
 import kotlinx.android.synthetic.main.fragment_estate_creation_final.*
+import org.jetbrains.anko.support.v4.longToast
+import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 import java.util.*
 
 class EstateCreationFinalFragment : Fragment() {
@@ -114,7 +118,27 @@ class EstateCreationFinalFragment : Fragment() {
     }
 
     private fun updateEstate() {
-        // TODO update estate
+        val interestPoints = getInterestPoints()
+        val onMarketDate = getTimeFromDatePicker(estateOnMarketDate)
+        val soldDate = getTimeFromDatePicker(estateSoldDate)
+        estateViewModel.updateEstate(estateToModify?.id, interestPoints, onMarketDate, soldDate)
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                when (it) {
+                    is Resource.Loading -> toast("Chargement")
+                    is Resource.Success -> {
+                        val action = EstateCreationFinalFragmentDirections.returnToEstateDetails(
+                            estateToModify?.id!!,
+                            estateViewModel.type.value!!
+                        )
+                        findNavController().navigate(action)
+                        toast(getString(R.string.estate_update_success_toast))
+                    }
+                    is Resource.Error -> {
+                        longToast("Erreur durant la mise à jour")
+                        Timber.e(it.error)
+                    }
+                }
+            })
     }
 
     private fun setTimeToDatePicker(datePicker: DatePicker, date: Date?) {

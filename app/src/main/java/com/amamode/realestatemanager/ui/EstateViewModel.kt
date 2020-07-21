@@ -116,4 +116,41 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         zipCode.postValue(null)
         description.postValue("")
     }
+
+    fun updateEstate(
+        estateId: Long?,
+        interestPoints: Array<InterestPoint>,
+        onMarketDate: Date?,
+        soldDate: Date?
+    ): LiveData<Resource<Unit>> {
+        val result = MutableLiveData<Resource<Unit>>()
+        result.postValue(Resource.Loading())
+        viewModelScope.launch {
+            if (estateId == null) {
+                throw RoomError("No id found to update this estate")
+            }
+            val estateForm = EstateForm(
+                owner = owner.value,
+                type = type.value,
+                rooms = rooms.value,
+                surface = surface.value,
+                price = price.value,
+                street = street.value,
+                city = city.value,
+                zipCode = zipCode.value,
+                description = description.value,
+                onMarketDate = onMarketDate,
+                sold = soldDate != null,
+                soldDate = soldDate
+            )
+
+            try {
+                estateService.updateEstate(estateId, estateForm, interestPoints)
+                result.postValue(Resource.Success(Unit))
+            } catch (e: java.lang.Exception) {
+                result.postValue(Resource.Error(e))
+            }
+        }
+        return result
+    }
 }

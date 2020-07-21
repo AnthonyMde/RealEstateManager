@@ -51,4 +51,5 @@
     <string name="estate_details_on_market_unknown_date">Date inconnue</string>
     <string name="estate_details_no_interest_points">Aucun point d\'intérêt renseigné</string>
     <string name="estate_creation_update_button">Mettre à jour</string>
+    <string name="estate_update_success_toast">Mis à jour avec succès</string>
 </resources>
