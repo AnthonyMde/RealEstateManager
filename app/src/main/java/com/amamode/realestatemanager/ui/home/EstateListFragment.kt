@@ -13,10 +13,10 @@ import androidx.navigation.fragment.findNavController
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.ui.EstateViewModel
 import kotlinx.android.synthetic.main.fragment_estate_list.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
-    private val estateViewModel: EstateViewModel by viewModel()
+    private val estateViewModel: EstateViewModel by sharedViewModel()
     private var firstTime = true
     private lateinit var adapter: EstateListAdapter
 
@@ -57,6 +57,7 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
 
         estateRV.adapter = adapter
         addEstateFab.setOnClickListener {
+            estateViewModel.clearFormerCreationData()
             findNavController().navigate(R.id.goToEstateCreation)
         }
     }

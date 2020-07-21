@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.EstateDetails
@@ -16,16 +17,17 @@ import com.amamode.realestatemanager.ui.EstateViewModel
 import com.amamode.realestatemanager.utils.Resource
 import kotlinx.android.synthetic.main.fragment_estate_details.*
 import org.jetbrains.anko.support.v4.toast
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
 class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
-    private val estateViewModel: EstateViewModel by viewModel()
+    private val estateViewModel: EstateViewModel by sharedViewModel()
     private val safeArgs: EstateDetailsFragmentArgs by navArgs()
     private val estateId: Long by lazy { safeArgs.estateId }
     private val estateType: String by lazy { safeArgs.estateType }
+    private var estateDetails: EstateDetails? = null
     private val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,8 +36,13 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
 
         if (!isTablet) {
             setupToolbar()
+            editEstateFab.setOnClickListener {
+                val action = EstateDetailsFragmentDirections.goToEstateCreation(estateDetails)
+                findNavController().navigate(action)
+            }
         } else {
             addEstateFab.setOnClickListener {
+                estateViewModel.clearFormerCreationData()
                 activity?.findNavController(R.id.main_nav_container)
                     ?.navigate(R.id.goToEstateCreation)
             }
@@ -53,6 +60,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
                 is Resource.Success -> {
                     Timber.d("result = ${it.data}")
                     configureLayout(it.data)
+                    estateDetails = it.data
                 }
                 is Resource.Error -> {
                     Timber.e("${it.error}")

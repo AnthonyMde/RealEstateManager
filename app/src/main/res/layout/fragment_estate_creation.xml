@@ -53,6 +53,7 @@
                     android:id="@+id/creationTypeSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={viewmodel.type}"
                     app:ms_background_color="@color/spinnerBackgound"
                     android:layout_marginStart="@dimen/large"
                     android:layout_marginTop="@dimen/medium"

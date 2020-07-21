@@ -11,14 +11,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationBinding
+import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.ui.EstateViewModel
 import kotlinx.android.synthetic.main.fragment_estate_creation.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EstateCreationFragment : Fragment() {
     private val estateViewModel: EstateViewModel by sharedViewModel()
+    private val safeArgs: EstateCreationFragmentArgs by navArgs()
+    private val estateToModify: EstateDetails? by lazy { safeArgs.estateToModify }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,15 +49,16 @@ class EstateCreationFragment : Fragment() {
         if (!isTablet) {
             setupToolbar()
         }
+
+        estateToModify?.let {
+            estateViewModel.populateData(it)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         creationTypeSpinner.setItems(EstateType.values().map { it.value })
-        creationTypeSpinner.setOnItemSelectedListener { _, _, _, item ->
-            estateViewModel.type.postValue(item.toString())
-        }
 
         creationPriceEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE && goToFinalStepCTA.isEnabled) {
@@ -64,7 +69,7 @@ class EstateCreationFragment : Fragment() {
         }
 
         goToFinalStepCTA.setOnClickListener {
-            val action = EstateCreationFragmentDirections.goToCreationFinalStep()
+            val action = EstateCreationFragmentDirections.goToCreationFinalStep(estateToModify)
             findNavController().navigate(action)
         }
 

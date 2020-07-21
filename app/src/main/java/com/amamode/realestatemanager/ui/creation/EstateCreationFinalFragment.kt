@@ -12,8 +12,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationFinalBinding
+import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.domain.InterestPoint
 import com.amamode.realestatemanager.ui.EstateViewModel
 import kotlinx.android.synthetic.main.fragment_estate_creation_final.*
@@ -22,6 +24,8 @@ import java.util.*
 
 class EstateCreationFinalFragment : Fragment() {
     private val estateViewModel: EstateViewModel by sharedViewModel()
+    private val safeArgs: EstateCreationFinalFragmentArgs by navArgs()
+    private val estateToModify: EstateDetails? by lazy { safeArgs.estateToModify }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +54,7 @@ class EstateCreationFinalFragment : Fragment() {
         }
 
         creationCTA.setOnClickListener {
-            createEstate()
+            if (estateToModify == null) createEstate() else updateEstate()
         }
 
         estateOnMarketDateSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -62,18 +66,69 @@ class EstateCreationFinalFragment : Fragment() {
             estateSoldDate.visibility = if (isChecked)
                 VISIBLE else GONE
         }
+
+        if (estateToModify != null) {
+            creationCTA.text = getString(R.string.estate_creation_update_button)
+            setOnMarketDatePicker()
+            setSoldDatePicker()
+            setInterestPoints()
+        }
+    }
+
+    private fun setInterestPoints() {
+        if (estateToModify?.interestPoint?.isNotEmpty() == true) {
+            estateToModify?.interestPoint?.forEach {
+                when (it) {
+                    InterestPoint.METRO -> interestPointMetro.isChecked = true
+                    InterestPoint.PARC -> interestPointParc.isChecked = true
+                    InterestPoint.SCHOOL -> interestPointSchool.isChecked = true
+                    InterestPoint.SHOP -> interestPointShop.isChecked = true
+                }
+            }
+        }
+    }
+
+    private fun setSoldDatePicker() {
+        if (estateToModify?.status?.sold == true) {
+            estateSoldDateSwitch.isChecked = true
+            setTimeToDatePicker(estateSoldDate, estateToModify?.status?.soldDate)
+            estateSoldDate.visibility = VISIBLE
+        }
+    }
+
+    private fun setOnMarketDatePicker() {
+        if (estateToModify?.onMarketDate != null) {
+            estateOnMarketDateSwitch.isChecked = true
+            setTimeToDatePicker(estateOnMarketDate, estateToModify?.onMarketDate)
+            estateOnMarketDate.visibility = VISIBLE
+        }
     }
 
     private fun createEstate() {
         val interestPoints = getInterestPoints()
-        val onMarketDate = getDateOfPicker(estateOnMarketDate)
-        val soldDate = getDateOfPicker(estateSoldDate)
+        val onMarketDate = getTimeFromDatePicker(estateOnMarketDate)
+        val soldDate = getTimeFromDatePicker(estateSoldDate)
         estateViewModel.createEstate(interestPoints, onMarketDate, soldDate)
         val action = EstateCreationFinalFragmentDirections.returnToEstateList()
         findNavController().navigate(action)
     }
 
-    private fun getDateOfPicker(datePicker: DatePicker): Date? {
+    private fun updateEstate() {
+        // TODO update estate
+    }
+
+    private fun setTimeToDatePicker(datePicker: DatePicker, date: Date?) {
+        if (date == null) return
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        datePicker.updateDate(
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+    }
+
+    private fun getTimeFromDatePicker(datePicker: DatePicker): Date? {
         if (datePicker.visibility == GONE) return null
 
         val calendar = Calendar.getInstance()

@@ -16,14 +16,14 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     val estateEntityList: LiveData<List<EstatePreview>> = estateService.getEstateList()
     val firstStepformMediator = MediatorLiveData<Boolean>()
 
-    /* FIRST STEP */
+    /* CREATION FIRST STEP */
     val owner = MutableLiveData("")
     val type = MutableLiveData(EstateType.HOUSE.value)
     val rooms = MutableLiveData<Int?>(null)
     val surface = MutableLiveData<Int?>(null)
     val price = MutableLiveData<Int?>(null)
 
-    /* THIRD STEP */
+    /* CREATION THIRD STEP */
     val street = MutableLiveData("")
     val zipCode = MutableLiveData<Int?>(null)
     val city = MutableLiveData("")
@@ -91,5 +91,29 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     override fun onCleared() {
         super.onCleared()
         firstStepformMediator.removeSource(owner)
+    }
+
+    fun populateData(estateToModify: EstateDetails) {
+        owner.postValue(estateToModify.owner)
+        type.postValue(estateToModify.type)
+        rooms.postValue(estateToModify.rooms)
+        surface.postValue(estateToModify.surface)
+        price.postValue(estateToModify.price)
+        street.postValue(estateToModify.address?.street)
+        city.postValue(estateToModify.address?.city)
+        zipCode.postValue(estateToModify.address?.zipCode)
+        description.postValue(estateToModify.description)
+    }
+
+    fun clearFormerCreationData() {
+        owner.postValue("")
+        type.postValue(EstateType.HOUSE.value)
+        rooms.postValue(null)
+        surface.postValue(null)
+        price.postValue(null)
+        street.postValue("")
+        city.postValue("")
+        zipCode.postValue(null)
+        description.postValue("")
     }
 }
