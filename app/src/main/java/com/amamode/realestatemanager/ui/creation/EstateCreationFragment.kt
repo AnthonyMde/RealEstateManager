@@ -61,20 +61,20 @@ class EstateCreationFragment : Fragment() {
         creationTypeSpinner.setItems(EstateType.values().map { it.value })
 
         creationPriceEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE && goToFinalStepCTA.isEnabled) {
-                val action = EstateCreationFragmentDirections.goToCreationFinalStep(estateToModify)
+            if (actionId == EditorInfo.IME_ACTION_DONE && goToPhotoStepCTA.isEnabled) {
+                val action = EstateCreationFragmentDirections.goToPhotoStep(estateToModify)
                 findNavController().navigate(action)
             }
             return@setOnEditorActionListener true
         }
 
-        goToFinalStepCTA.setOnClickListener {
-            val action = EstateCreationFragmentDirections.goToCreationFinalStep(estateToModify)
+        goToPhotoStepCTA.setOnClickListener {
+            val action = EstateCreationFragmentDirections.goToPhotoStep(estateToModify)
             findNavController().navigate(action)
         }
 
         estateViewModel.firstStepformMediator.observe(viewLifecycleOwner, Observer {
-            goToFinalStepCTA.isEnabled = it
+            goToPhotoStepCTA.isEnabled = it
         })
     }
 
@@ -84,7 +84,6 @@ class EstateCreationFragment : Fragment() {
         (activity as? AppCompatActivity)?.apply {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             title = getString(R.string.estate_form_toolbar_title)
-
         }
     }
 }

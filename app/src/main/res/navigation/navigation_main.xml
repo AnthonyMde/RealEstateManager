@@ -5,6 +5,7 @@
     android:id="@+id/navigation_dashboard"
     app:startDestination="@id/list_dest">
 
+    <!-- ESTATE LIST -->
     <fragment
         android:id="@+id/list_dest"
         android:name="com.amamode.realestatemanager.ui.home.EstateListFragment"
@@ -23,6 +24,8 @@
             app:popExitAnim="@anim/slide_out_bottom"
             app:popUpTo="@id/list_dest" />
     </fragment>
+
+    <!-- ESTATE DETAIL -->
     <fragment
         android:id="@+id/detail_dest"
         android:name="com.amamode.realestatemanager.ui.home.EstateDetailsFragment"
@@ -40,12 +43,33 @@
             app:popExitAnim="@anim/slide_out_bottom"
             app:popUpTo="@id/detail_dest" />
     </fragment>
+
+    <!-- CREATION FIRST STEP -->
     <fragment
         android:id="@+id/estateCreationFragment"
         android:name="com.amamode.realestatemanager.ui.creation.EstateCreationFragment"
-        android:label="EstateCreationFragment" >
+        android:label="EstateCreationFragment">
+        <argument
+            android:name="estateToModify"
+            app:argType="com.amamode.realestatemanager.domain.EstateDetails"
+            android:defaultValue="@null"
+            app:nullable="true" />
         <action
-            android:id="@+id/goToCreationFinalStep"
+            android:id="@+id/goToPhotoStep"
+            app:destination="@id/estateCreationPhotoStepFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- CREATION PHOTO STEP -->
+    <fragment
+        android:id="@+id/estateCreationPhotoStepFragment"
+        android:name="com.amamode.realestatemanager.ui.creation.EstateCreationPhotoStepFragment"
+        android:label="EstateCreationPhotoStepFragment">
+        <action
+            android:id="@+id/goToFinalStep"
             app:destination="@id/estateCreationFinalFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -53,10 +77,12 @@
             app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="estateToModify"
-            app:argType="com.amamode.realestatemanager.domain.EstateDetails"
             android:defaultValue="@null"
+            app:argType="com.amamode.realestatemanager.domain.EstateDetails"
             app:nullable="true" />
     </fragment>
+
+    <!-- CREATION FINAL STEP -->
     <fragment
         android:id="@+id/estateCreationFinalFragment"
         android:name="com.amamode.realestatemanager.ui.creation.EstateCreationFinalFragment"
@@ -68,15 +94,15 @@
             app:exitAnim="@anim/slide_out_bottom"
             app:popUpTo="@id/list_dest"
             app:popUpToInclusive="true" />
-        <argument
-            android:name="estateToModify"
-            app:argType="com.amamode.realestatemanager.domain.EstateDetails"
-            android:defaultValue="@null"
-            app:nullable="true" />
         <action
             android:id="@+id/returnToEstateDetails"
             app:destination="@id/detail_dest"
             app:exitAnim="@anim/slide_out_bottom"
             app:popUpTo="@id/list_dest" />
+        <argument
+            android:name="estateToModify"
+            android:defaultValue="@null"
+            app:argType="com.amamode.realestatemanager.domain.EstateDetails"
+            app:nullable="true" />
     </fragment>
 </navigation>

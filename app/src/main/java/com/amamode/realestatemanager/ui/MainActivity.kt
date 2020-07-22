@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         when (currentDestination) {
-            "EstateCreationFinalFragment" -> {
+            in listOf("EstateCreationFinalFragment", "EstateCreationPhotoStepFragment") -> {
                 findNavController(R.id.main_nav_container).popBackStack(R.id.list_dest, false)
             }
             else -> onBackPressed()
@@ -113,20 +113,22 @@ class MainActivity : AppCompatActivity() {
     /* ONLY FOR TABLET */
     private fun configureTabletNavListener(navDestination: NavDestination) {
         currentDestination = navDestination.label.toString()
-        when (currentDestination) {
+        title = when (currentDestination) {
             "EstateList" -> {
-                title = getString(R.string.estate_list_toolbar_title)
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                getString(R.string.estate_list_toolbar_title)
             }
             "EstateCreationFragment" -> {
-                title = getString(R.string.estate_form_toolbar_title)
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                getString(R.string.estate_form_toolbar_title)
+            }
+            "EstateCreationPhotoStepFragment" -> {
+                getString(R.string.estate_creation_photo_toolbar_title)
             }
             "EstateCreationFinalFragment" -> {
-                title = getString(R.string.estate_final_step_creation_toolbar)
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                getString(R.string.estate_final_step_creation_toolbar)
             }
+            else -> getString(R.string.app_name)
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         invalidateOptionsMenu()
     }
 
