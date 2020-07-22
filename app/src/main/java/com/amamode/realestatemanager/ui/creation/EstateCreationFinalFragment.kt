@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
@@ -30,6 +31,7 @@ class EstateCreationFinalFragment : Fragment() {
     private val estateViewModel: EstateViewModel by sharedViewModel()
     private val safeArgs: EstateCreationFinalFragmentArgs by navArgs()
     private val estateToModify: EstateDetails? by lazy { safeArgs.estateToModify }
+    private val isTablet: Boolean by lazy { resources.getBoolean(R.bool.isTablet) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,8 +52,6 @@ class EstateCreationFinalFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val isTablet = resources.getBoolean(R.bool.isTablet)
 
         if (!isTablet) {
             setupToolbar()
@@ -126,12 +126,7 @@ class EstateCreationFinalFragment : Fragment() {
                 when (it) {
                     is Resource.Loading -> toast("Chargement")
                     is Resource.Success -> {
-                        val action = EstateCreationFinalFragmentDirections.returnToEstateDetails(
-                            estateToModify?.id!!,
-                            estateViewModel.type.value!!
-                        )
-                        findNavController().navigate(action)
-                        toast(getString(R.string.estate_update_success_toast))
+                        redirect()
                     }
                     is Resource.Error -> {
                         longToast("Erreur durant la mise à jour")
@@ -139,6 +134,20 @@ class EstateCreationFinalFragment : Fragment() {
                     }
                 }
             })
+    }
+
+    private fun redirect() {
+        if (isTablet) {
+            activity?.findNavController(R.id.main_nav_container)
+                ?.popBackStack(R.id.list_dest, false)
+        } else {
+            val action = EstateCreationFinalFragmentDirections.returnToEstateDetails(
+                estateToModify?.id!!,
+                estateViewModel.type.value!!
+            )
+            findNavController().navigate(action)
+        }
+        toast(getString(R.string.estate_update_success_toast))
     }
 
     private fun setTimeToDatePicker(datePicker: DatePicker, date: Date?) {

@@ -15,6 +15,7 @@ import java.util.*
 class EstateViewModel(private val estateService: EstateService) : BaseViewModel() {
     val estateEntityList: LiveData<List<EstatePreview>> = estateService.getEstateList()
     val firstStepformMediator = MediatorLiveData<Boolean>()
+    var currentEstateDetails: EstateDetails? = null
 
     /* CREATION FIRST STEP */
     val owner = MutableLiveData("")

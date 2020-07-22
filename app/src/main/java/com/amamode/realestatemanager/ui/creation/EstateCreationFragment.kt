@@ -62,7 +62,7 @@ class EstateCreationFragment : Fragment() {
 
         creationPriceEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE && goToFinalStepCTA.isEnabled) {
-                val action = EstateCreationFragmentDirections.goToCreationFinalStep()
+                val action = EstateCreationFragmentDirections.goToCreationFinalStep(estateToModify)
                 findNavController().navigate(action)
             }
             return@setOnEditorActionListener true

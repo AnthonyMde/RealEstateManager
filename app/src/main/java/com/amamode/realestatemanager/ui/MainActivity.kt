@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.amamode.realestatemanager.R
+import com.amamode.realestatemanager.ui.home.EstateListFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -92,9 +93,18 @@ class MainActivity : AppCompatActivity() {
             R.id.filter_estate -> {
                 toast("Show filter dialog")
             }
-            // FOR TESTING PURPOSE
+            // TODO : remove this for delivery
             R.id.delete_estate -> {
                 estateViewModel.deleteAll()
+            }
+            R.id.edit_estate -> {
+                if (estateViewModel.currentEstateDetails == null) {
+                    toast("Veuillez choisir un bien à modifier")
+                    return super.onOptionsItemSelected(item)
+                }
+                val action =
+                    EstateListFragmentDirections.goToEstateCreation(estateViewModel.currentEstateDetails)
+                findNavController(R.id.main_nav_container).navigate(action)
             }
         }
         return super.onOptionsItemSelected(item)

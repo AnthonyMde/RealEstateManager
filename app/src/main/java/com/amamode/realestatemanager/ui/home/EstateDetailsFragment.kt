@@ -27,7 +27,6 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     private val safeArgs: EstateDetailsFragmentArgs by navArgs()
     private val estateId: Long by lazy { safeArgs.estateId }
     private val estateType: String by lazy { safeArgs.estateType }
-    private var estateDetails: EstateDetails? = null
     private val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +36,8 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         if (!isTablet) {
             setupToolbar()
             editEstateFab.setOnClickListener {
-                val action = EstateDetailsFragmentDirections.goToEstateCreation(estateDetails)
+                val action =
+                    EstateDetailsFragmentDirections.goToEstateCreation(estateViewModel.currentEstateDetails)
                 findNavController().navigate(action)
             }
         } else {
@@ -60,7 +60,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
                 is Resource.Success -> {
                     Timber.d("result = ${it.data}")
                     configureLayout(it.data)
-                    estateDetails = it.data
+                    estateViewModel.currentEstateDetails = it.data
                 }
                 is Resource.Error -> {
                     Timber.e("${it.error}")
