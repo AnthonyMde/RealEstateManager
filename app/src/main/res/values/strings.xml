@@ -53,4 +53,5 @@
     <string name="estate_creation_update_button">Mettre à jour</string>
     <string name="estate_update_success_toast">Mis à jour avec succès</string>
     <string name="estate_creation_photo_toolbar_title">Photos</string>
+    <string name="estate_creation_photo_intent_message">Prendre une photo ou la choisir depuis votre gallerie</string>
 </resources>

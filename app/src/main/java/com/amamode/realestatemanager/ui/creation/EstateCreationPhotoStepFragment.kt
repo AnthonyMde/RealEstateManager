@@ -1,6 +1,8 @@
 package com.amamode.realestatemanager.ui.creation
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
@@ -41,12 +43,32 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         }
     }
 
-    private fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(activity?.packageManager!!)?.also {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as? Bitmap
+            if (imageBitmap != null) {
+                imageViewTest.setImageBitmap(imageBitmap)
+            } else {
+                val uri = data?.data
+                imageViewTest.setImageURI(uri)
             }
         }
+    }
+
+    private fun dispatchTakePictureIntent() {
+        val galleryIntent = Intent()
+        galleryIntent.type = "image/*"
+        galleryIntent.action = Intent.ACTION_GET_CONTENT
+
+        val chooser = Intent.createChooser(
+            galleryIntent,
+            getString(R.string.estate_creation_photo_intent_message)
+        )
+        chooser.putExtra(
+            Intent.EXTRA_INITIAL_INTENTS,
+            arrayOf(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+        )
+        startActivityForResult(chooser, REQUEST_IMAGE_CAPTURE)
     }
 
     private fun setupToolbar() {

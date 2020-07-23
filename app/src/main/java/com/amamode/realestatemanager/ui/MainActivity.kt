@@ -10,6 +10,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.ui.home.EstateListFragmentDirections
+import com.facebook.drawee.backends.pipeline.Fresco
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Fresco.initialize(this);
 
         // Show/Hide and configure toolbar according to the current fragment/activity
         listener = if (isTablet) {
