@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.view.View.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,6 +53,12 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         }
 
         configureRV()
+        estateViewModel.estatesPhotoUri.observe(viewLifecycleOwner, Observer { photosUri ->
+            goToFinalStepCTA.isEnabled = !photosUri.isNullOrEmpty()
+            estateCreationEmptyPhotos.visibility =
+                if (photosUri.isNullOrEmpty()) VISIBLE
+                else INVISIBLE
+        })
     }
 
     private fun configureRV() {
@@ -60,7 +68,7 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         estateToModify?.estatePhotosUri?.let {
             photoAdapter.setPhotoUrlList(it)
-            estateViewModel.estatesPhotoUri.addAll(it)
+            estateViewModel.setPhotosUri(*it.toTypedArray())
         }
     }
 
@@ -68,13 +76,13 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (data?.data != null) { // from gallery
                 data.data?.toString()?.let { uri ->
-                    estateViewModel.estatesPhotoUri.add(uri)
+                    estateViewModel.setPhotosUri(uri)
                 }
             } else { // from camera
                 val uri = "file:///${currentPhotoUrl}"
-                estateViewModel.estatesPhotoUri.add(uri)
+                estateViewModel.setPhotosUri(uri)
             }
-            photoAdapter.setPhotoUrlList(estateViewModel.estatesPhotoUri)
+            photoAdapter.setPhotoUrlList(estateViewModel.getPhotosUri())
         } else { // Result was a failure
             toast("Picture wasn't taken!")
         }

@@ -16,7 +16,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     val estateEntityList: LiveData<List<EstatePreview>> = estateService.getEstateList()
     val firstStepformMediator = MediatorLiveData<Boolean>()
     var currentEstateDetails: EstateDetails? = null
-    val estatesPhotoUri: MutableList<String> = mutableListOf()
+    val estatesPhotoUri = MutableLiveData<MutableList<String>>()
 
     /* CREATION FIRST STEP */
     val owner = MutableLiveData("")
@@ -69,7 +69,11 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
                 sold = soldDate != null,
                 soldDate = soldDate
             )
-            estateService.createEstate(estateForm, interestPoints, estatesPhotoUri.toTypedArray())
+            estateService.createEstate(
+                estateForm,
+                interestPoints,
+                estatesPhotoUri.value?.toTypedArray() ?: emptyArray()
+            )
         }
 
     fun deleteAll() = viewModelScope.launch {
@@ -117,6 +121,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         city.postValue("")
         zipCode.postValue(null)
         description.postValue("")
+        estatesPhotoUri.postValue(mutableListOf())
     }
 
     fun updateEstate(
@@ -151,7 +156,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
                     estateId,
                     estateForm,
                     interestPoints,
-                    estatesPhotoUri.toTypedArray()
+                    getPhotosUri().toTypedArray()
                 )
                 result.postValue(Resource.Success(Unit))
             } catch (e: java.lang.Exception) {
@@ -159,5 +164,12 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
             }
         }
         return result
+    }
+
+    fun getPhotosUri() = estatesPhotoUri.value ?: mutableListOf()
+    fun setPhotosUri(vararg uri: String) {
+        val currentPhotosUri = estatesPhotoUri.value ?: mutableListOf()
+        currentPhotosUri.addAll(uri)
+        estatesPhotoUri.postValue(currentPhotosUri)
     }
 }

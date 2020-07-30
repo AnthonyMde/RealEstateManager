@@ -14,22 +14,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
+        android:layout_marginTop="@dimen/xx_large"
         android:paddingEnd="@dimen/large"
         app:layout_constraintTop_toBottomOf="@id/estateCreationPhotoToolbar" />
 
-    <Button
-        android:id="@+id/takePhotoCTA"
+    <TextView
+        android:id="@+id/estateCreationEmptyPhotos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/xxx_large"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:text="Aucune photo ajoutée pour le moment"
+        app:layout_constraintTop_toBottomOf="@id/estateCreationPhotoToolbar"/>
+    <Button
+        android:id="@+id/takePhotoCTA"
+        style="@style/CTA.Filled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/goToFinalStepCTA"
-        android:layout_marginBottom="@dimen/large"
-        android:text="take photo" />
+        android:layout_margin="@dimen/medium"
+        android:text="@string/estate_creation_take_photo_cta" />
 
     <Button
         android:id="@+id/goToFinalStepCTA"
+        style="@style/CTA.Filled"
+        android:enabled="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="go to final step" />
+        android:layout_marginBottom="@dimen/xxx_large"
+        android:layout_marginStart="@dimen/medium"
+        android:layout_marginEnd="@dimen/medium"
+        android:text="@string/estate_creation_go_to_final_step_cta" />
 </androidx.constraintlayout.widget.ConstraintLayout>
