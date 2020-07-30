@@ -29,7 +29,8 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
     private val safeArgs: EstateCreationPhotoStepFragmentArgs by navArgs()
     private val estateToModify: EstateDetails? by lazy { safeArgs.estateToModify }
     private val isTablet: Boolean by lazy { resources.getBoolean(R.bool.isTablet) }
-    private val photoListFile: MutableList<File> = mutableListOf()
+    private val photoUrlList: MutableList<String> = mutableListOf()
+    private lateinit var currentPhotoUrl: String
     private lateinit var photoAdapter: EstateCreationPhotoAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,39 +62,45 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            photoAdapter.setPhotoUrlList(photoListFile)
+            if (data?.data != null) { // from gallery
+                data.data?.toString()?.let { uri ->
+                    photoUrlList.add(uri)
+                }
+            } else { // from camera
+                val uri = "file:///${currentPhotoUrl}"
+                photoUrlList.add(uri)
+            }
+            photoAdapter.setPhotoUrlList(photoUrlList)
         } else { // Result was a failure
             toast("Picture wasn't taken!")
         }
     }
 
     private fun dispatchTakePictureIntent() {
-        /*val galleryIntent = Intent()
+        val galleryIntent = Intent()
         galleryIntent.type = "image/*"
         galleryIntent.action = Intent.ACTION_GET_CONTENT
+
+        val tookPictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val photoFile = getPhotoFileUri()
+        currentPhotoUrl = photoFile!!.absolutePath
+
+        val fileProvider: Uri =
+            FileProvider.getUriForFile(requireContext(), "com.realestate.fileprovider", photoFile!!)
+        tookPictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
         val chooser = Intent.createChooser(
             galleryIntent,
             getString(R.string.estate_creation_photo_intent_message)
         )
+
         chooser.putExtra(
             Intent.EXTRA_INITIAL_INTENTS,
-            arrayOf(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
-        )*/
-        */
+            arrayOf(tookPictureIntent)
+        )
 
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val photoFile = getPhotoFileUri()
-        photoListFile.add(photoFile!!)
-
-        val fileProvider: Uri =
-            FileProvider.getUriForFile(requireContext(), "com.realestate.fileprovider", photoFile!!)
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
-
-        if (intent.resolveActivity(activity!!.packageManager) != null) {
-            // Start the image capture intent to take photo
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
-        }
+        // Start the image capture intent to take photo
+        startActivityForResult(chooser, REQUEST_IMAGE_CAPTURE)
     }
 
     private fun getPhotoFileUri(): File? {

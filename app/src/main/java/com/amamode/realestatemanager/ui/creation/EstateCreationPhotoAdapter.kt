@@ -1,16 +1,14 @@
 package com.amamode.realestatemanager.ui.creation
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amamode.realestatemanager.R
 import kotlinx.android.synthetic.main.item_creation_photo.view.*
-import java.io.File
 
 class EstateCreationPhotoAdapter() : RecyclerView.Adapter<EstateCreationPhotoAdapter.ViewHolder>() {
-    private var estatePhotoUrlList: List<File> = emptyList()
+    private var estatePhotoUrlList: List<String> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -30,15 +28,14 @@ class EstateCreationPhotoAdapter() : RecyclerView.Adapter<EstateCreationPhotoAda
         holder.bindView(estatePhotoUrlList[position])
     }
 
-    fun setPhotoUrlList(estatePhotoList: List<File>) {
-        this.estatePhotoUrlList = estatePhotoList
+    fun setPhotoUrlList(estatePhotoUrlList: List<String>) {
+        this.estatePhotoUrlList = estatePhotoUrlList
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bindView(file: File) {
-            val uri = Uri.fromFile(file)
-            itemView.estatePhoto.setImageURI(uri)
+        fun bindView(url: String) {
+            itemView.estatePhoto.setImageURI(url)
         }
     }
 }
