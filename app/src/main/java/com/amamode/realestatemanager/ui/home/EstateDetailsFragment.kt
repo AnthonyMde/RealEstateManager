@@ -11,8 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.ui.EstatePhotoAdapter
 import com.amamode.realestatemanager.ui.EstateViewModel
 import com.amamode.realestatemanager.utils.Resource
 import kotlinx.android.synthetic.main.fragment_estate_details.*
@@ -28,6 +30,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     private val estateId: Long by lazy { safeArgs.estateId }
     private val estateType: String by lazy { safeArgs.estateType }
     private val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private lateinit var photosAdapter: EstatePhotoAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,6 +50,16 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
                     ?.navigate(R.id.goToEstateCreation)
             }
         }
+
+        configurePhotoRV()
+    }
+
+    private fun configurePhotoRV() {
+        photosAdapter = EstatePhotoAdapter()
+        estateDetailsPhotosRV.apply {
+            adapter = photosAdapter
+            layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -60,6 +73,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
                 is Resource.Success -> {
                     Timber.d("result = ${it.data}")
                     configureLayout(it.data)
+                    photosAdapter.setPhotoUrlList(it.data.estatePhotosUri)
                     estateViewModel.currentEstateDetails = it.data
                 }
                 is Resource.Error -> {

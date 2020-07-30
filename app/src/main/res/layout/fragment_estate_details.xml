@@ -71,6 +71,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsStatusDate" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/estateDetailsPhotosRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsPhotoTitle"/>
+
             <TextView
                 android:id="@+id/estateDetailsDescriptionTitle"
                 style="@style/Subtitle"
@@ -79,7 +85,7 @@
                 android:layout_marginTop="@dimen/x_large"
                 android:text="@string/estate_details_description_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/estateDetailsPhotoTitle" />
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsPhotosRV" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/estateDetailsDescriptionLayout"

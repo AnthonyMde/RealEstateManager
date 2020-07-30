@@ -1,4 +1,4 @@
-package com.amamode.realestatemanager.ui.creation
+package com.amamode.realestatemanager.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amamode.realestatemanager.R
 import kotlinx.android.synthetic.main.item_creation_photo.view.*
 
-class EstateCreationPhotoAdapter() : RecyclerView.Adapter<EstateCreationPhotoAdapter.ViewHolder>() {
+class EstatePhotoAdapter() : RecyclerView.Adapter<EstatePhotoAdapter.ViewHolder>() {
     private var estatePhotoUrlList: List<String> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

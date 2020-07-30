@@ -16,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.ui.EstatePhotoAdapter
 import com.amamode.realestatemanager.ui.EstateViewModel
 import kotlinx.android.synthetic.main.fragment_estate_creation_photo_step.*
 import org.jetbrains.anko.support.v4.toast
@@ -30,7 +31,7 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
     private val estateToModify: EstateDetails? by lazy { safeArgs.estateToModify }
     private val isTablet: Boolean by lazy { resources.getBoolean(R.bool.isTablet) }
     private lateinit var currentPhotoUrl: String
-    private lateinit var photoAdapter: EstateCreationPhotoAdapter
+    private lateinit var photoAdapter: EstatePhotoAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,10 +54,14 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
     }
 
     private fun configureRV() {
-        photoAdapter = EstateCreationPhotoAdapter()
+        photoAdapter = EstatePhotoAdapter()
         estateCreationPhotoRV.adapter = photoAdapter
         estateCreationPhotoRV.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        estateToModify?.estatePhotosUri?.let {
+            photoAdapter.setPhotoUrlList(it)
+            estateViewModel.estatesPhotoUri.addAll(it)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
