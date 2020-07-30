@@ -16,5 +16,6 @@ data class EstateDetails(
     val status: EstateStatus,
     val address: EstateAddress?,
     val description: String?,
-    val interestPoint: List<InterestPoint>
+    val interestPoint: List<InterestPoint>,
+    val estatePhotosUri: List<String>
 ) : Parcelable

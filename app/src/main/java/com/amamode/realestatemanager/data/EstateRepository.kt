@@ -15,13 +15,16 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
     override suspend fun getEstateDetails(estateId: Long): EstateDetails {
         val estateEntity = dao.getEstateById(estateId)
         val interestPointsEntity = dao.getInterestPoints(estateId)
+        val estatePhotosUriEntity = dao.getEstatePhotosUri(estateId)
+        val estatePhotosUri = estatePhotosUriEntity.map { it.uriString }
         val interestPoints = interestPointsEntity.map { it.toInterestPoint() }
-        return estateEntity.toEstateDetails(interestPoints)
+        return estateEntity.toEstateDetails(interestPoints, estatePhotosUri)
     }
 
     override suspend fun createEstate(
         estateForm: EstateForm,
-        interestPoints: Array<InterestPoint>
+        interestPoints: Array<InterestPoint>,
+        estatePhotosUri: Array<String>
     ) {
         val estateEntity = EstateEntity(
             owner = estateForm.owner ?: "unknown owner",
@@ -42,14 +45,18 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
 
         val interestPointsEntity =
             interestPoints.map { it.toInterestPointEntity(estateId) }.toTypedArray()
+        val estatePhotoUriEntity =
+            estatePhotosUri.map { toPhotoUriEntity(estateId, it) }.toTypedArray()
 
         dao.insert(*interestPointsEntity)
+        dao.insert(*estatePhotoUriEntity)
     }
 
     override suspend fun updateEstate(
         estateId: Long,
         estateForm: EstateForm,
-        interestPoints: Array<InterestPoint>
+        interestPoints: Array<InterestPoint>,
+        estatePhotosUri: Array<String>
     ) {
         val estateEntity = EstateEntity(
             id = estateId,
@@ -71,8 +78,11 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
 
         val interestPointsEntity =
             interestPoints.map { it.toInterestPointEntity(estateId) }.toTypedArray()
+        val estatePhotoUriEntity =
+            estatePhotosUri.map { toPhotoUriEntity(estateId, it) }.toTypedArray()
         dao.deleteInterestPoints(estateId)
         dao.insert(*interestPointsEntity)
+        dao.insert(*estatePhotoUriEntity)
     }
 
     override suspend fun deleteAll() {
@@ -82,5 +92,10 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
     private fun InterestPoint.toInterestPointEntity(estateId: Long) = InterestPointEntity(
         estateId = estateId,
         name = this.name
+    )
+
+    private fun toPhotoUriEntity(estateId: Long, uri: String) = EstatePhotoUriEntity(
+        estateId = estateId,
+        uriString = uri
     )
 }

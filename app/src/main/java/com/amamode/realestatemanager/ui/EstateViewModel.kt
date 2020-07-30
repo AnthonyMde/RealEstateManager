@@ -16,6 +16,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     val estateEntityList: LiveData<List<EstatePreview>> = estateService.getEstateList()
     val firstStepformMediator = MediatorLiveData<Boolean>()
     var currentEstateDetails: EstateDetails? = null
+    val estatesPhotoUri: MutableList<String> = mutableListOf()
 
     /* CREATION FIRST STEP */
     val owner = MutableLiveData("")
@@ -68,7 +69,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
                 sold = soldDate != null,
                 soldDate = soldDate
             )
-            estateService.createEstate(estateForm, interestPoints)
+            estateService.createEstate(estateForm, interestPoints, estatesPhotoUri.toTypedArray())
         }
 
     fun deleteAll() = viewModelScope.launch {
@@ -146,7 +147,12 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
             )
 
             try {
-                estateService.updateEstate(estateId, estateForm, interestPoints)
+                estateService.updateEstate(
+                    estateId,
+                    estateForm,
+                    interestPoints,
+                    estatesPhotoUri.toTypedArray()
+                )
                 result.postValue(Resource.Success(Unit))
             } catch (e: java.lang.Exception) {
                 result.postValue(Resource.Error(e))

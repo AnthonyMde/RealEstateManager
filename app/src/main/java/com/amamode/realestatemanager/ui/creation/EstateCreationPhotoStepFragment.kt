@@ -29,7 +29,6 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
     private val safeArgs: EstateCreationPhotoStepFragmentArgs by navArgs()
     private val estateToModify: EstateDetails? by lazy { safeArgs.estateToModify }
     private val isTablet: Boolean by lazy { resources.getBoolean(R.bool.isTablet) }
-    private val photoUrlList: MutableList<String> = mutableListOf()
     private lateinit var currentPhotoUrl: String
     private lateinit var photoAdapter: EstateCreationPhotoAdapter
 
@@ -64,13 +63,13 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (data?.data != null) { // from gallery
                 data.data?.toString()?.let { uri ->
-                    photoUrlList.add(uri)
+                    estateViewModel.estatesPhotoUri.add(uri)
                 }
             } else { // from camera
                 val uri = "file:///${currentPhotoUrl}"
-                photoUrlList.add(uri)
+                estateViewModel.estatesPhotoUri.add(uri)
             }
-            photoAdapter.setPhotoUrlList(photoUrlList)
+            photoAdapter.setPhotoUrlList(estateViewModel.estatesPhotoUri)
         } else { // Result was a failure
             toast("Picture wasn't taken!")
         }

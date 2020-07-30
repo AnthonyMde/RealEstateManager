@@ -21,7 +21,7 @@ data class EstateEntity(
     @Embedded val address: EstateAddress?,
     val description: String?
 ) {
-    fun toEstateDetails(interestPoints: List<InterestPoint>): EstateDetails {
+    fun toEstateDetails(interestPoints: List<InterestPoint>, estatePhotosUri: List<String>): EstateDetails {
         return EstateDetails(
             id = id,
             owner = owner,
@@ -33,7 +33,8 @@ data class EstateEntity(
             status = status,
             address = address,
             description = description,
-            interestPoint = interestPoints
+            interestPoint = interestPoints,
+            estatePhotosUri = estatePhotosUri
         )
     }
 
