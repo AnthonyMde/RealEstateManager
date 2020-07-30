@@ -2,7 +2,6 @@ package com.amamode.realestatemanager.ui.creation
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -14,6 +13,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.ui.EstateViewModel
@@ -22,7 +22,6 @@ import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.io.File
 
-
 private const val REQUEST_IMAGE_CAPTURE = 1034
 
 class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creation_photo_step) {
@@ -30,7 +29,8 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
     private val safeArgs: EstateCreationPhotoStepFragmentArgs by navArgs()
     private val estateToModify: EstateDetails? by lazy { safeArgs.estateToModify }
     private val isTablet: Boolean by lazy { resources.getBoolean(R.bool.isTablet) }
-    private var photoFile: File? = null
+    private val photoListFile: MutableList<File> = mutableListOf()
+    private lateinit var photoAdapter: EstateCreationPhotoAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,19 +48,20 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         if (!isTablet) {
             setupToolbar()
         }
+
+        configureRV()
+    }
+
+    private fun configureRV() {
+        photoAdapter = EstateCreationPhotoAdapter()
+        estateCreationPhotoRV.adapter = photoAdapter
+        estateCreationPhotoRV.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            /*val imageBitmap = data?.extras?.get("data") as? Bitmap
-            if (imageBitmap != null) {
-                imageViewTest.setImageBitmap(imageBitmap)
-            } else {
-                val uri = data?.data
-                imageViewTest.setImageURI(uri)
-            }*/
-            val takenImage = BitmapFactory.decodeFile(photoFile?.absolutePath)
-            imageViewTest.setImageBitmap(takenImage);
+            photoAdapter.setPhotoUrlList(photoListFile)
         } else { // Result was a failure
             toast("Picture wasn't taken!")
         }
@@ -82,7 +83,8 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         */
 
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        photoFile = getPhotoFileUri()
+        val photoFile = getPhotoFileUri()
+        photoListFile.add(photoFile!!)
 
         val fileProvider: Uri =
             FileProvider.getUriForFile(requireContext(), "com.realestate.fileprovider", photoFile!!)
