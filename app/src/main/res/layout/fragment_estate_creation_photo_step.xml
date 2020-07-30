@@ -13,8 +13,9 @@
         android:id="@+id/estateCreationPhotoRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/estateCreationPhotoToolbar"
-        />
+        android:clipToPadding="false"
+        android:paddingEnd="@dimen/large"
+        app:layout_constraintTop_toBottomOf="@id/estateCreationPhotoToolbar" />
 
     <Button
         android:id="@+id/takePhotoCTA"

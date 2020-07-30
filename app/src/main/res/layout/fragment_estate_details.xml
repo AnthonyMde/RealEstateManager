@@ -13,14 +13,16 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         app:layout_constraintTop_toBottomOf="@id/estateDetailsToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/xxx_large">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium">
+            android:layout_marginTop="@dimen/medium"
+            android:layout_marginBottom="@dimen/medium">
 
             <TextView
                 android:id="@+id/estateDetailsStatus"
@@ -29,7 +31,7 @@
                 android:layout_height="wrap_content"
                 tools:text="@string/estate_details_status_sold"
                 app:layout_constraintEnd_toStartOf="@id/middleGuideline"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -39,7 +41,7 @@
                 tools:text="Le 17/04/04"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toStartOf="@id/middleGuideline"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsStatus" />
 
             <TextView
@@ -49,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/estate_details_on_market_date_title"
                 app:layout_constraintStart_toEndOf="@id/middleGuideline"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -58,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/estate_details_on_market_unknown_date"
                 app:layout_constraintStart_toEndOf="@id/middleGuideline"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsOnMarketTitle" />
 
             <TextView
@@ -68,10 +70,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xx_large"
                 android:text="@string/estate_details_photo_title"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsStatusDate" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="@dimen/medium"
+                android:paddingEnd="@dimen/large"
+                android:clipToPadding="false"
                 android:id="@+id/estateDetailsPhotosRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/x_large"
                 android:text="@string/estate_details_description_title"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsPhotosRV" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -110,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/x_large"
                 android:text="@string/estate_details_info_title"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsDescriptionLayout" />
 
             <TextView
@@ -120,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small"
                 android:text="@string/estate_details_room_title"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsInfoTitle" />
 
             <TextView
@@ -129,7 +134,7 @@
                 android:layout_height="wrap_content"
                 tools:text="3 pièces"
                 android:layout_marginTop="@dimen/xx_small"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintEnd_toStartOf="@id/middleGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsRoomTitle" />
 
@@ -148,7 +153,7 @@
                 android:layout_height="wrap_content"
                 tools:text="170 sq m"
                 android:layout_marginTop="@dimen/xx_small"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
                 app:layout_constraintStart_toEndOf="@id/middleGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsSurfaceTitle" />
 
@@ -168,7 +173,7 @@
                 android:layout_height="wrap_content"
                 tools:text="700 000$"
                 android:layout_marginTop="@dimen/xx_small"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
                 app:layout_constraintStart_toEndOf="@id/middleGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsPriceTitle" />
 
@@ -179,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium"
                 android:text="@string/estate_details_location_title"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsRoom" />
 
             <TextView
@@ -188,7 +193,7 @@
                 android:layout_height="wrap_content"
                 tools:text="Toulouse \nPépouze \n32000"
                 android:layout_marginTop="@dimen/xx_small"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintEnd_toStartOf="@id/middleGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsLocationTitle" />
 
@@ -199,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium"
                 android:text="@string/estate_details_owner_title"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsLocation" />
 
             <TextView
@@ -208,7 +213,7 @@
                 android:layout_height="wrap_content"
                 tools:text="Anthony"
                 android:layout_marginTop="@dimen/xx_small"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintEnd_toStartOf="@id/middleGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsOwnerTitle" />
 
@@ -219,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/x_large"
                 android:text="@string/estate_details_interest_points_title"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsOwner" />
 
             <TextView
@@ -228,8 +233,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/estate_details_no_interest_points"
                 android:layout_marginTop="@dimen/xx_small"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsInterestPointsTitle" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -239,8 +244,22 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/startGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/medium"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/endGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/medium"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/editEstateFab"

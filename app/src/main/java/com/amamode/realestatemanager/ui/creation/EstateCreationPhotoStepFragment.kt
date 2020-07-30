@@ -83,7 +83,7 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
     private fun dispatchTakePictureIntent() {
         val galleryIntent = Intent()
         galleryIntent.type = "image/*"
-        galleryIntent.action = Intent.ACTION_GET_CONTENT
+        galleryIntent.action = Intent.ACTION_OPEN_DOCUMENT
 
         val tookPictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val photoFile = getPhotoFileUri()
