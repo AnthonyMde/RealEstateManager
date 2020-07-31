@@ -64,21 +64,24 @@ class EstateCreationFragment : Fragment() {
 
         creationPriceEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE && goToPhotoStepCTA.isEnabled) {
-                val action = EstateCreationFragmentDirections.goToPhotoStep(estateToModify)
-                findNavController().navigate(action)
+                goToNextStep()
             }
             return@setOnEditorActionListener true
         }
 
         goToPhotoStepCTA.setOnClickListener {
-            val action = EstateCreationFragmentDirections.goToPhotoStep(estateToModify)
-            estateViewModel.type = getEstateType(creationTypeSpinner.selectedIndex)
-            findNavController().navigate(action)
+            goToNextStep()
         }
 
         estateViewModel.firstStepformMediator.observe(viewLifecycleOwner, Observer {
             goToPhotoStepCTA.isEnabled = it
         })
+    }
+
+    private fun goToNextStep() {
+        estateViewModel.type = getEstateType(creationTypeSpinner.selectedIndex)
+        val action = EstateCreationFragmentDirections.goToPhotoStep(estateToModify)
+        findNavController().navigate(action)
     }
 
     /* ONLY FOR MOBILE */

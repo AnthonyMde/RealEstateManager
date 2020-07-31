@@ -143,6 +143,7 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             title = getString(R.string.estate_creation_photo_toolbar_title)
         }
+        estateCreationPhotoToolbar.visibility = VISIBLE
     }
 
     private fun showPhotoDescriptionDialog(uri: Uri?) {

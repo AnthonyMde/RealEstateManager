@@ -86,7 +86,11 @@ class MainActivity : AppCompatActivity() {
             "EstateList" -> {
                 menu?.setGroupVisible(R.id.tablet_menu_icons, true)
             }
-            in listOf("EstateCreationFragment", "EstateCreationFinalFragment") -> {
+            in listOf(
+                "EstateCreationFragment",
+                "EstateCreationPhotoStepFragment",
+                "EstateCreationFinalFragment"
+            ) -> {
                 menu?.setGroupVisible(R.id.tablet_menu_icons, false)
             }
         }

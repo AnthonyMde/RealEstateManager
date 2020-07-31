@@ -7,6 +7,7 @@
     <include
         android:id="@+id/estateCreationPhotoToolbar"
         layout="@layout/toolbar"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView

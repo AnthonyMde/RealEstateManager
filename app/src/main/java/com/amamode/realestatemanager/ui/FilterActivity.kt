@@ -25,10 +25,13 @@ class FilterActivity : AppCompatActivity() {
         filterEstateTypeSpinner.setItems(EstateType.values().map { getString(it.nameRes) })
     }
 
-    private fun getFilterData(): FilterEntity = FilterEntity(
-        owner = filterEstateOwner.text.toString(),
-        type = getEstateType(filterEstateTypeSpinner.selectedIndex)
-    )
+    private fun getFilterData(): FilterEntity {
+        val ownerText = filterEstateOwner.text.toString().trim()
+        return FilterEntity(
+            owner = if (ownerText.isNotEmpty()) ownerText else null,
+            type = getEstateType(filterEstateTypeSpinner.selectedIndex)
+        )
+    }
 }
 
 fun getEstateType(position: Int): EstateType =
