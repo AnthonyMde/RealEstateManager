@@ -108,12 +108,19 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         estateDetailsDescription.setText(estate.description ?: "")
         estateDetailsRoom.text = estate.rooms.toString()
         estateDetailsSurface.text = estate.surface.toString()
-        if (estate.address == null) {
-            getString(R.string.estate_details_location_unknown)
-        } else {
-            estateDetailsLocation.text =
-                "${estate.address.street} \n${estate.address.city} \n${estate.address.zipCode}"
-        }
+
+        val city =
+            if (estate.address?.city?.isEmpty() == true)
+                getString(R.string.estate_details_location_unknown_city)
+            else estate.address?.city
+        val street =
+            if (estate.address?.street?.isEmpty() == true)
+                getString(R.string.estate_details_location_unknown_street)
+            else estate.address?.street
+        val zipCode =
+            estate.address?.zipCode ?: getString(R.string.estate_details_location_unknown_zipcode)
+        estateDetailsLocation.text = "$city \n${street} \n${zipCode}"
+
         estateDetailsPrice.text = estate.price.toString()
         estateDetailsOwner.text = estate.owner
         if (estate.interestPoint.isNotEmpty()) {
