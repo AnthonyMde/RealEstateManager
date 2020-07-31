@@ -5,10 +5,7 @@ import com.amamode.realestatemanager.ui.creation.EstateType
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class EstatePreview(
-    val id: Long,
-    var type: EstateType,
-    var price: Int,
-    val status: EstateStatus,
-    val address: EstateAddress?
+data class FilterEntity(
+    val owner: String? = null,
+    val type: EstateType? = null
 ) : Parcelable

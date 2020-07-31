@@ -16,6 +16,7 @@ import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationBinding
 import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.ui.EstateViewModel
+import com.amamode.realestatemanager.ui.getEstateType
 import kotlinx.android.synthetic.main.fragment_estate_creation.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -58,7 +59,8 @@ class EstateCreationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        creationTypeSpinner.setItems(EstateType.values().map { it.value })
+        creationTypeSpinner.setItems(EstateType.values().map { getString(it.nameRes) })
+        creationTypeSpinner.selectedIndex = 0
 
         creationPriceEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE && goToPhotoStepCTA.isEnabled) {
@@ -70,6 +72,7 @@ class EstateCreationFragment : Fragment() {
 
         goToPhotoStepCTA.setOnClickListener {
             val action = EstateCreationFragmentDirections.goToPhotoStep(estateToModify)
+            estateViewModel.type = getEstateType(creationTypeSpinner.selectedIndex)
             findNavController().navigate(action)
         }
 

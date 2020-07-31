@@ -1,5 +1,12 @@
 package com.amamode.realestatemanager.ui.creation
 
-enum class EstateType(val value: String) {
-    HOUSE("Maison"), APPARTMENT("Appartement"), LOFT("Loft"), DUPLEX("Duplex"), VILLA("Villa")
+import com.amamode.realestatemanager.R
+
+enum class EstateType(val nameRes: Int) {
+    HOUSE(R.string.estate_type_house),
+    APARTMENT(R.string.estate_type_apartment),
+    LOFT(R.string.estate_type_loft),
+    DUPLEX(R.string.estate_type_duplex),
+    VILLA(R.string.estate_type_villa),
+    UNKNOWN(R.string.estate_type_unknown)
 }

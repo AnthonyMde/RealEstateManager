@@ -3,11 +3,21 @@ package com.amamode.realestatemanager.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.amamode.realestatemanager.domain.*
+import com.amamode.realestatemanager.ui.creation.EstateType
 
 class EstateRepository(private val dao: EstateDao) : EstateService {
 
     override fun getEstateList(): LiveData<List<EstatePreview>> {
         return dao.getEstateListById().map { list ->
+            list.map { it.toEstatePreview() }
+        }
+    }
+
+    override fun filter(filterData: FilterEntity): LiveData<List<EstatePreview>> {
+        return dao.filter(
+            filterData.owner,
+            filterData.type?.name
+        ).map { list ->
             list.map { it.toEstatePreview() }
         }
     }
@@ -28,7 +38,7 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
     ) {
         val estateEntity = EstateEntity(
             owner = estateForm.owner ?: "unknown owner",
-            type = estateForm.type ?: "unknown type",
+            type = estateForm.type?.name ?: EstateType.UNKNOWN.name,
             rooms = estateForm.rooms ?: 0,
             surface = estateForm.surface ?: 0,
             price = estateForm.price ?: 0,
@@ -61,7 +71,7 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         val estateEntity = EstateEntity(
             id = estateId,
             owner = estateForm.owner ?: "unknown owner",
-            type = estateForm.type ?: "unknown type",
+            type = estateForm.type?.name ?: EstateType.UNKNOWN.name,
             rooms = estateForm.rooms ?: 0,
             surface = estateForm.surface ?: 0,
             price = estateForm.price ?: 0,

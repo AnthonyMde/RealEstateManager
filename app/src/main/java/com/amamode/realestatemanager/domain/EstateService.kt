@@ -11,6 +11,8 @@ interface EstateService {
         estatePhotosUri: Array<Pair<String,String>>
     )
 
+    fun filter(filterData: FilterEntity): LiveData<List<EstatePreview>>
+
     suspend fun updateEstate(
         estateId: Long,
         estateForm: EstateForm,

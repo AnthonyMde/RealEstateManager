@@ -63,4 +63,10 @@
     <string name="estate_creation_photo_desc_popup_ok">OK</string>
     <string name="estate_creation_photo_not_taken">La photo n\'a pas été prise</string>
     <string name="estate_creation_delete_photo_cta_desc">Supprimer photo</string>
+    <string name="estate_type_house">Maison</string>
+    <string name="estate_type_apartment">Appartement</string>
+    <string name="estate_type_loft">Loft</string>
+    <string name="estate_type_duplex">Duplex</string>
+    <string name="estate_type_villa">Villa</string>
+    <string name="estate_type_unknown">Inconnu</string>
 </resources>

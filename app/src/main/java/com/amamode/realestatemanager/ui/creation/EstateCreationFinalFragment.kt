@@ -112,7 +112,7 @@ class EstateCreationFinalFragment : Fragment() {
         val interestPoints = getInterestPoints()
         val onMarketDate = getTimeFromDatePicker(estateOnMarketDate)
         val soldDate = getTimeFromDatePicker(estateSoldDate)
-        estateViewModel.createEstate(interestPoints, onMarketDate, soldDate)
+        estateViewModel.createEstate(interestPoints, estateViewModel.type, onMarketDate, soldDate)
         val action = EstateCreationFinalFragmentDirections.returnToEstateList()
         findNavController().navigate(action)
     }
@@ -121,7 +121,13 @@ class EstateCreationFinalFragment : Fragment() {
         val interestPoints = getInterestPoints()
         val onMarketDate = getTimeFromDatePicker(estateOnMarketDate)
         val soldDate = getTimeFromDatePicker(estateSoldDate)
-        estateViewModel.updateEstate(estateToModify?.id, interestPoints, onMarketDate, soldDate)
+        estateViewModel.updateEstate(
+            estateToModify?.id,
+            interestPoints,
+            estateViewModel.type,
+            onMarketDate,
+            soldDate
+        )
             .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 when (it) {
                     is Resource.Loading -> toast("Chargement")
@@ -143,7 +149,7 @@ class EstateCreationFinalFragment : Fragment() {
         } else {
             val action = EstateCreationFinalFragmentDirections.returnToEstateDetails(
                 estateToModify?.id!!,
-                estateViewModel.type.value!!
+                estateViewModel.type
             )
             findNavController().navigate(action)
         }

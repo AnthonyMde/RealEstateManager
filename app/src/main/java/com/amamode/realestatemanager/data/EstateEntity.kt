@@ -5,6 +5,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.amamode.realestatemanager.domain.*
+import com.amamode.realestatemanager.ui.creation.EstateType
 import java.util.*
 
 @Entity(tableName = "estate_table")
@@ -28,7 +29,7 @@ data class EstateEntity(
         return EstateDetails(
             id = id,
             owner = owner,
-            type = type,
+            type = EstateType.valueOf(type),
             rooms = rooms,
             surface = surface,
             price = price,
@@ -44,7 +45,7 @@ data class EstateEntity(
     fun toEstatePreview(): EstatePreview {
         return EstatePreview(
             id = id,
-            type = type,
+            type = EstateType.valueOf(type),
             price = price,
             status = status,
             address = address

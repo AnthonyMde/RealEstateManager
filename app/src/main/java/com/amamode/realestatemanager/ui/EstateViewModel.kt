@@ -1,9 +1,6 @@
 package com.amamode.realestatemanager.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.amamode.realestatemanager.domain.*
 import com.amamode.realestatemanager.domain.errors.RoomError
 import com.amamode.realestatemanager.ui.creation.EstateType
@@ -13,7 +10,12 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class EstateViewModel(private val estateService: EstateService) : BaseViewModel() {
-    val estateEntityList: LiveData<List<EstatePreview>> = estateService.getEstateList()
+    private val filterInput = MutableLiveData<FilterEntity>()
+    val estateEntityList: LiveData<List<EstatePreview>> =
+        Transformations.switchMap(filterInput) { filterData ->
+            estateService.filter(filterData)
+        }
+
     val firstStepformMediator = MediatorLiveData<Boolean>()
     var currentEstateDetails: EstateDetails? = null
 
@@ -24,10 +26,10 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
 
     /* CREATION FIRST STEP */
     val owner = MutableLiveData("")
-    val type = MutableLiveData(EstateType.HOUSE.value)
     val rooms = MutableLiveData<Int?>(null)
     val surface = MutableLiveData<Int?>(null)
     val price = MutableLiveData<Int?>(null)
+    var type: EstateType = EstateType.HOUSE
 
     /* CREATION THIRD STEP */
     val street = MutableLiveData("")
@@ -37,10 +39,18 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
 
     init {
         firstStepformMediator.addSource(owner) { firstStepIsCorrectlyFilled() }
-        firstStepformMediator.addSource(type) { firstStepIsCorrectlyFilled() }
         firstStepformMediator.addSource(rooms) { firstStepIsCorrectlyFilled() }
         firstStepformMediator.addSource(surface) { firstStepIsCorrectlyFilled() }
         firstStepformMediator.addSource(price) { firstStepIsCorrectlyFilled() }
+    }
+
+    fun setFilter(filterData: FilterEntity) {
+        filterInput.value = filterData
+    }
+
+    fun clearFilter() {
+        // with no parameter, returns all results
+        filterInput.value = FilterEntity()
     }
 
     fun getEstateDetails(estateId: Long): LiveData<Resource<EstateDetails>> {
@@ -57,11 +67,16 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         return result
     }
 
-    fun createEstate(interestPoints: Array<InterestPoint>, onMarketDate: Date?, soldDate: Date?) =
+    fun createEstate(
+        interestPoints: Array<InterestPoint>,
+        type: EstateType,
+        onMarketDate: Date?,
+        soldDate: Date?
+    ) =
         viewModelScope.launch {
             val estateForm = EstateForm(
                 owner = owner.value,
-                type = type.value,
+                type = type,
                 rooms = rooms.value,
                 surface = surface.value,
                 price = price.value,
@@ -87,7 +102,6 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     private fun firstStepIsCorrectlyFilled() {
         if (
             owner.value?.isEmpty() == false &&
-            type.value?.isEmpty() == false &&
             rooms.value != null &&
             surface.value != null &&
             price.value != null
@@ -105,7 +119,6 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
 
     fun populateData(estateToModify: EstateDetails) {
         owner.postValue(estateToModify.owner)
-        type.postValue(estateToModify.type)
         rooms.postValue(estateToModify.rooms)
         surface.postValue(estateToModify.surface)
         price.postValue(estateToModify.price)
@@ -117,7 +130,6 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
 
     fun clearFormerCreationData() {
         owner.postValue("")
-        type.postValue(EstateType.HOUSE.value)
         rooms.postValue(null)
         surface.postValue(null)
         price.postValue(null)
@@ -131,6 +143,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     fun updateEstate(
         estateId: Long?,
         interestPoints: Array<InterestPoint>,
+        estateType: EstateType,
         onMarketDate: Date?,
         soldDate: Date?
     ): LiveData<Resource<Unit>> {
@@ -142,7 +155,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
             }
             val estateForm = EstateForm(
                 owner = owner.value,
-                type = type.value,
+                type = estateType,
                 rooms = rooms.value,
                 surface = surface.value,
                 price = price.value,

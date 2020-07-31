@@ -16,6 +16,7 @@ import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.ui.EstatePhotoAdapter
 import com.amamode.realestatemanager.ui.EstateViewModel
+import com.amamode.realestatemanager.ui.creation.EstateType
 import com.amamode.realestatemanager.utils.Resource
 import kotlinx.android.synthetic.main.fragment_estate_details.*
 import org.jetbrains.anko.support.v4.toast
@@ -28,7 +29,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     private val estateViewModel: EstateViewModel by sharedViewModel()
     private val safeArgs: EstateDetailsFragmentArgs by navArgs()
     private val estateId: Long by lazy { safeArgs.estateId }
-    private val estateType: String by lazy { safeArgs.estateType }
+    private val estateType: EstateType by lazy { safeArgs.estateType }
     private val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private lateinit var photosAdapter: EstatePhotoAdapter
 
@@ -141,7 +142,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         (activity as? AppCompatActivity)?.setSupportActionBar(estateDetailsToolbar as Toolbar)
         (activity as? AppCompatActivity)?.apply {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            title = estateType
+            title = getString(estateType.nameRes)
         }
     }
 }

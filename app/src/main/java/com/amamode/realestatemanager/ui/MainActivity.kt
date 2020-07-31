@@ -1,5 +1,6 @@
 package com.amamode.realestatemanager.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,11 +10,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.amamode.realestatemanager.R
+import com.amamode.realestatemanager.domain.FilterEntity
 import com.amamode.realestatemanager.ui.home.EstateListFragmentDirections
 import com.facebook.drawee.backends.pipeline.Fresco
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
+private const val INTENT_FILTER_REQUEST_CODE = 1025
 
 class MainActivity : AppCompatActivity() {
     private val estateViewModel: EstateViewModel by viewModel()
@@ -38,6 +42,9 @@ class MainActivity : AppCompatActivity() {
                 configureMobileNavListener(navDestination)
             }
         }
+
+        // Initialize with no filter
+        estateViewModel.clearFilter()
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -86,6 +93,17 @@ class MainActivity : AppCompatActivity() {
         return super.onPrepareOptionsMenu(menu)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == FILTER_RESULT_CODE) {
+            val filterData = data?.getParcelableExtra<FilterEntity>(FILTER_DATA_EXTRA)
+            filterData?.let { estateViewModel.setFilter(it) }
+        } else {
+            toast("Something goes wrong")
+        }
+    }
+
     /* USED BY BOTH TABLET AND MOBILE */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -93,7 +111,8 @@ class MainActivity : AppCompatActivity() {
                 toast("Go to location")
             }
             R.id.filter_estate -> {
-                toast("Show filter dialog")
+                val intent = Intent(this, FilterActivity::class.java)
+                startActivityForResult(intent, INTENT_FILTER_REQUEST_CODE)
             }
             // TODO : remove this for delivery
             R.id.delete_estate -> {

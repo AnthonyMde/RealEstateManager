@@ -5,6 +5,13 @@ import androidx.room.*
 
 @Dao
 interface EstateDao {
+    @Query(
+        """SELECT * from estate_table 
+        WHERE (:owner IS NULL OR owner LIKE :owner) 
+        AND (:type IS NULL OR type LIKE :type)"""
+    )
+    fun filter(owner: String?, type: String?): LiveData<List<EstateEntity>>
+
     @Query("SELECT * from estate_table ORDER BY id DESC")
     fun getEstateListById(): LiveData<List<EstateEntity>>
 

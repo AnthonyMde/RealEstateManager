@@ -35,7 +35,7 @@
             app:argType="long" />
         <argument
             android:name="estateType"
-            app:argType="string" />
+            app:argType="com.amamode.realestatemanager.ui.creation.EstateType" />
         <action
             android:id="@+id/goToEstateCreation"
             app:destination="@id/estateCreationFragment"

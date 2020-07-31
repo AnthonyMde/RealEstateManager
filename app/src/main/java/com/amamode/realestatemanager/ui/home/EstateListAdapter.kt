@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amamode.realestatemanager.R
-import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.domain.EstatePreview
+import com.amamode.realestatemanager.ui.creation.EstateType
 import kotlinx.android.synthetic.main.item_estate_list.view.*
 
 class EstateListAdapter(
-    val onEstateClick: (Long, String) -> Unit
+    val onEstateClick: (Long, EstateType) -> Unit
 ) :
     RecyclerView.Adapter<EstateListAdapter.ViewHolder>() {
     private var estateList: List<EstatePreview> = emptyList()
@@ -40,7 +40,7 @@ class EstateListAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(estate: EstatePreview) {
-            itemView.estateTitle.text = estate.type
+            itemView.estateTitle.text = itemView.context.getString(estate.type.nameRes)
 
             itemView.setOnClickListener {
                 onEstateClick(estate.id, estate.type)
