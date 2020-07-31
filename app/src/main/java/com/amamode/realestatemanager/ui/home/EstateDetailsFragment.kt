@@ -55,7 +55,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     }
 
     private fun configurePhotoRV() {
-        photosAdapter = EstatePhotoAdapter()
+        photosAdapter = EstatePhotoAdapter(grid = false)
         estateDetailsPhotosRV.apply {
             adapter = photosAdapter
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)

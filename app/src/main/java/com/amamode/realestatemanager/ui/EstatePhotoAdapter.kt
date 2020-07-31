@@ -7,14 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amamode.realestatemanager.R
 import kotlinx.android.synthetic.main.item_creation_photo.view.*
 
-class EstatePhotoAdapter() : RecyclerView.Adapter<EstatePhotoAdapter.ViewHolder>() {
+class EstatePhotoAdapter(val grid: Boolean = false) :
+    RecyclerView.Adapter<EstatePhotoAdapter.ViewHolder>() {
     // first is photo uri, second is photo description
     private var estatePhotoList: List<Pair<String, String>> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val viewRes = if (grid) R.layout.item_creation_photo_grid
+        else R.layout.item_creation_photo
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_creation_photo,
+                viewRes,
                 parent,
                 false
             )

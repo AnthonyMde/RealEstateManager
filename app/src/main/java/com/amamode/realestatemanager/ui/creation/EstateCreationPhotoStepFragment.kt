@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.ui.EstatePhotoAdapter
@@ -30,6 +30,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.io.File
 
 private const val REQUEST_IMAGE_CAPTURE = 1034
+private const val NUMBER_OF_COLUMNS = 2
 
 class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creation_photo_step) {
     private val estateViewModel: EstateViewModel by sharedViewModel()
@@ -66,10 +67,10 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
     }
 
     private fun configureRV() {
-        photoAdapter = EstatePhotoAdapter()
+        photoAdapter = EstatePhotoAdapter(grid = true)
         estateCreationPhotoRV.adapter = photoAdapter
         estateCreationPhotoRV.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(requireContext(), NUMBER_OF_COLUMNS)
         estateToModify?.estatePhotosUri?.let {
             photoAdapter.setPhotoUrlList(it)
             estateViewModel.setPhotos(*it.toTypedArray())
