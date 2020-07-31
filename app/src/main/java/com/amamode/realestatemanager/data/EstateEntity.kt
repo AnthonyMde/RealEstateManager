@@ -37,7 +37,7 @@ data class EstateEntity(
             address = address,
             description = description,
             interestPoint = interestPoints,
-            estatePhotosUri = estatePhotos
+            estatePhotos = estatePhotos
         )
     }
 

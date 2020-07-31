@@ -39,6 +39,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         if (!isTablet) {
             setupToolbar()
             editEstateFab.setOnClickListener {
+                estateViewModel.clearFormerCreationData()
                 val action =
                     EstateDetailsFragmentDirections.goToEstateCreation(estateViewModel.currentEstateDetails)
                 findNavController().navigate(action)
@@ -55,7 +56,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     }
 
     private fun configurePhotoRV() {
-        photosAdapter = EstatePhotoAdapter(grid = false)
+        photosAdapter = EstatePhotoAdapter(isEditable = false)
         estateDetailsPhotosRV.apply {
             adapter = photosAdapter
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
@@ -73,7 +74,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
                 is Resource.Success -> {
                     Timber.d("result = ${it.data}")
                     configureLayout(it.data)
-                    photosAdapter.setPhotoUrlList(it.data.estatePhotosUri)
+                    photosAdapter.setPhotoUrlList(it.data.estatePhotos)
                     estateViewModel.currentEstateDetails = it.data
                 }
                 is Resource.Error -> {

@@ -81,6 +81,7 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         val estatePhotoUriEntity =
             estatePhotosUri.map { toPhotoUriEntity(estateId, it.first, it.second) }.toTypedArray()
         dao.deleteInterestPoints(estateId)
+        dao.deleteEstatePhotos(estateId)
         dao.insert(*interestPointsEntity)
         dao.insert(*estatePhotoUriEntity)
     }

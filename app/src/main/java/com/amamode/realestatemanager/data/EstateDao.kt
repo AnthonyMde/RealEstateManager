@@ -32,6 +32,9 @@ interface EstateDao {
     @Query("DELETE FROM interest_point_table WHERE estate_id LIKE :estateId")
     suspend fun deleteInterestPoints(estateId: Long)
 
+    @Query("DELETE FROM estate_photo_table WHERE estate_id LIKE :estateId")
+    suspend fun deleteEstatePhotos(estateId: Long)
+
     @Query("DELETE FROM estate_table")
     suspend fun deleteAll()
 }

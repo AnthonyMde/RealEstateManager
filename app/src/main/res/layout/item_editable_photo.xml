@@ -27,4 +27,19 @@
         android:gravity="center"
         />
 
+    <FrameLayout
+        android:id="@+id/deletePhotoCTA"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:background="@color/alphaBlack">
+        <ImageView
+            android:contentDescription="@string/estate_creation_delete_photo_cta_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_close_24"/>
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

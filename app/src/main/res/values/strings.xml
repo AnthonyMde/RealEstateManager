@@ -62,4 +62,5 @@
     <string name="estate_creation_photo_desc_popup_title">Ajouter description</string>
     <string name="estate_creation_photo_desc_popup_ok">OK</string>
     <string name="estate_creation_photo_not_taken">La photo n\'a pas été prise</string>
+    <string name="estate_creation_delete_photo_cta_desc">Supprimer photo</string>
 </resources>

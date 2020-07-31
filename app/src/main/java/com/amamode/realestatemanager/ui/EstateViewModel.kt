@@ -16,8 +16,11 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     val estateEntityList: LiveData<List<EstatePreview>> = estateService.getEstateList()
     val firstStepformMediator = MediatorLiveData<Boolean>()
     var currentEstateDetails: EstateDetails? = null
+
     // first is photo uri, second is photo description
-    val estatePhotos = MutableLiveData<MutableList<Pair<String, String>>>()
+    private val _estatePhotos = MutableLiveData<MutableList<Pair<String, String>>>()
+    val estatePhotos: LiveData<MutableList<Pair<String, String>>>
+        get() = _estatePhotos
 
     /* CREATION FIRST STEP */
     val owner = MutableLiveData("")
@@ -122,7 +125,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         city.postValue("")
         zipCode.postValue(null)
         description.postValue("")
-        estatePhotos.postValue(mutableListOf())
+        _estatePhotos.postValue(mutableListOf())
     }
 
     fun updateEstate(
@@ -168,9 +171,19 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     }
 
     fun getPhotos() = estatePhotos.value ?: mutableListOf()
-    fun setPhotos(vararg photos: Pair<String, String>) {
+    fun addPhotos(vararg photos: Pair<String, String>) {
         val currentPhotos = estatePhotos.value ?: mutableListOf()
         currentPhotos.addAll(photos)
-        estatePhotos.postValue(currentPhotos)
+        _estatePhotos.postValue(currentPhotos)
+    }
+
+    fun removePhotos(vararg photos: Pair<String, String>) {
+        val currentPhotos = estatePhotos.value ?: mutableListOf()
+        currentPhotos.removeAll(photos)
+        _estatePhotos.postValue(currentPhotos)
+    }
+
+    fun clearPhoto() {
+        _estatePhotos.value = mutableListOf()
     }
 }

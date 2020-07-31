@@ -67,13 +67,21 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
     }
 
     private fun configureRV() {
-        photoAdapter = EstatePhotoAdapter(grid = true)
+        photoAdapter = EstatePhotoAdapter(isEditable = true) { photo ->
+            estateViewModel.removePhotos(photo)
+            photoAdapter.setPhotoUrlList(estateViewModel.getPhotos())
+        }
         estateCreationPhotoRV.adapter = photoAdapter
         estateCreationPhotoRV.layoutManager =
             GridLayoutManager(requireContext(), NUMBER_OF_COLUMNS)
-        estateToModify?.estatePhotosUri?.let {
-            photoAdapter.setPhotoUrlList(it)
-            estateViewModel.setPhotos(*it.toTypedArray())
+
+        val formerPhotos = estateToModify?.estatePhotos
+        if (formerPhotos != null) {
+            photoAdapter.setPhotoUrlList(formerPhotos)
+            estateViewModel.clearPhoto()
+            estateViewModel.addPhotos(*formerPhotos.toTypedArray())
+        } else {
+            photoAdapter.setPhotoUrlList(estateViewModel.getPhotos())
         }
     }
 
@@ -87,10 +95,10 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
 
     private fun savePhoto(uri: Uri?, description: String) {
         if (uri != null) { // from gallery
-            estateViewModel.setPhotos(Pair(uri.toString(), description))
+            estateViewModel.addPhotos(Pair(uri.toString(), description))
         } else { // from camera
             val fileUri = "file:///${currentPhotoUri}"
-            estateViewModel.setPhotos(Pair(fileUri, description))
+            estateViewModel.addPhotos(Pair(fileUri, description))
         }
         photoAdapter.setPhotoUrlList(estateViewModel.getPhotos())
     }
