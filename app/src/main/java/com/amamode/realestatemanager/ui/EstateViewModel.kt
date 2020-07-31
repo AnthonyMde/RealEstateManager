@@ -16,7 +16,8 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     val estateEntityList: LiveData<List<EstatePreview>> = estateService.getEstateList()
     val firstStepformMediator = MediatorLiveData<Boolean>()
     var currentEstateDetails: EstateDetails? = null
-    val estatesPhotoUri = MutableLiveData<MutableList<String>>()
+    // first is photo uri, second is photo description
+    val estatePhotos = MutableLiveData<MutableList<Pair<String, String>>>()
 
     /* CREATION FIRST STEP */
     val owner = MutableLiveData("")
@@ -72,7 +73,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
             estateService.createEstate(
                 estateForm,
                 interestPoints,
-                estatesPhotoUri.value?.toTypedArray() ?: emptyArray()
+                estatePhotos.value?.toTypedArray() ?: emptyArray()
             )
         }
 
@@ -121,7 +122,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         city.postValue("")
         zipCode.postValue(null)
         description.postValue("")
-        estatesPhotoUri.postValue(mutableListOf())
+        estatePhotos.postValue(mutableListOf())
     }
 
     fun updateEstate(
@@ -156,7 +157,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
                     estateId,
                     estateForm,
                     interestPoints,
-                    getPhotosUri().toTypedArray()
+                    getPhotos().toTypedArray()
                 )
                 result.postValue(Resource.Success(Unit))
             } catch (e: java.lang.Exception) {
@@ -166,10 +167,10 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         return result
     }
 
-    fun getPhotosUri() = estatesPhotoUri.value ?: mutableListOf()
-    fun setPhotosUri(vararg uri: String) {
-        val currentPhotosUri = estatesPhotoUri.value ?: mutableListOf()
-        currentPhotosUri.addAll(uri)
-        estatesPhotoUri.postValue(currentPhotosUri)
+    fun getPhotos() = estatePhotos.value ?: mutableListOf()
+    fun setPhotos(vararg photos: Pair<String, String>) {
+        val currentPhotos = estatePhotos.value ?: mutableListOf()
+        currentPhotos.addAll(photos)
+        estatePhotos.postValue(currentPhotos)
     }
 }

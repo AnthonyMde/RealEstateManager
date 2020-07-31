@@ -15,7 +15,7 @@ interface EstateDao {
     suspend fun getInterestPoints(estateId: Long): List<InterestPointEntity>
 
     @Query("SELECT * from estate_photo_table WHERE estate_id LIKE :estateId")
-    suspend fun getEstatePhotosUri(estateId: Long): List<EstatePhotoUriEntity>
+    suspend fun getEstatePhotosUri(estateId: Long): List<EstatePhotoEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(estateEntity: EstateEntity): Long
@@ -27,7 +27,7 @@ interface EstateDao {
     suspend fun insert(vararg interestPoints: InterestPointEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg estatePhotoUri: EstatePhotoUriEntity)
+    suspend fun insert(vararg estatePhoto: EstatePhotoEntity)
 
     @Query("DELETE FROM interest_point_table WHERE estate_id LIKE :estateId")
     suspend fun deleteInterestPoints(estateId: Long)

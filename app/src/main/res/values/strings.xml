@@ -56,4 +56,8 @@
     <string name="estate_creation_photo_intent_message">Prendre une photo ou la choisir depuis votre gallerie</string>
     <string name="estate_creation_go_to_final_step_cta">Suivant</string>
     <string name="estate_creation_take_photo_cta">Prendre une photo</string>
+    <string name="estate_creation_photo_desc_toast">Une description est requise</string>
+    <string name="estate_creation_photo_desc_popup_title">Ajouter description</string>
+    <string name="estate_creation_photo_desc_popup_ok">OK</string>
+    <string name="estate_creation_photo_not_taken">La photo n\'a pas été prise</string>
 </resources>

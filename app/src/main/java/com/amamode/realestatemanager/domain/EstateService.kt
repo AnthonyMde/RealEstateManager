@@ -8,14 +8,14 @@ interface EstateService {
     suspend fun createEstate(
         estateForm: EstateForm,
         interestPoints: Array<InterestPoint>,
-        estatePhotosUri: Array<String>
+        estatePhotosUri: Array<Pair<String,String>>
     )
 
     suspend fun updateEstate(
         estateId: Long,
         estateForm: EstateForm,
         interestPoints: Array<InterestPoint>,
-        estatePhotosUri: Array<String>
+        estatePhotosUri: Array<Pair<String,String>>
     )
 
     suspend fun deleteAll()

@@ -14,9 +14,10 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class EstatePhotoUriEntity(
+data class EstatePhotoEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(name = "estate_id", index = true)
     val estateId: Long,
-    val uriString: String
+    val uriString: String,
+    val description: String
 )

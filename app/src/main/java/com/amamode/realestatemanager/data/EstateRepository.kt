@@ -16,15 +16,15 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         val estateEntity = dao.getEstateById(estateId)
         val interestPointsEntity = dao.getInterestPoints(estateId)
         val estatePhotosUriEntity = dao.getEstatePhotosUri(estateId)
-        val estatePhotosUri = estatePhotosUriEntity.map { it.uriString }
+        val estatePhotos = estatePhotosUriEntity.map { Pair(it.uriString, it.description) }
         val interestPoints = interestPointsEntity.map { it.toInterestPoint() }
-        return estateEntity.toEstateDetails(interestPoints, estatePhotosUri)
+        return estateEntity.toEstateDetails(interestPoints, estatePhotos)
     }
 
     override suspend fun createEstate(
         estateForm: EstateForm,
         interestPoints: Array<InterestPoint>,
-        estatePhotosUri: Array<String>
+        estatePhotosUri: Array<Pair<String, String>>
     ) {
         val estateEntity = EstateEntity(
             owner = estateForm.owner ?: "unknown owner",
@@ -46,7 +46,7 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         val interestPointsEntity =
             interestPoints.map { it.toInterestPointEntity(estateId) }.toTypedArray()
         val estatePhotoUriEntity =
-            estatePhotosUri.map { toPhotoUriEntity(estateId, it) }.toTypedArray()
+            estatePhotosUri.map { toPhotoUriEntity(estateId, it.first, it.second) }.toTypedArray()
 
         dao.insert(*interestPointsEntity)
         dao.insert(*estatePhotoUriEntity)
@@ -56,7 +56,7 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         estateId: Long,
         estateForm: EstateForm,
         interestPoints: Array<InterestPoint>,
-        estatePhotosUri: Array<String>
+        estatePhotosUri: Array<Pair<String, String>>
     ) {
         val estateEntity = EstateEntity(
             id = estateId,
@@ -79,7 +79,7 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         val interestPointsEntity =
             interestPoints.map { it.toInterestPointEntity(estateId) }.toTypedArray()
         val estatePhotoUriEntity =
-            estatePhotosUri.map { toPhotoUriEntity(estateId, it) }.toTypedArray()
+            estatePhotosUri.map { toPhotoUriEntity(estateId, it.first, it.second) }.toTypedArray()
         dao.deleteInterestPoints(estateId)
         dao.insert(*interestPointsEntity)
         dao.insert(*estatePhotoUriEntity)
@@ -94,8 +94,9 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         name = this.name
     )
 
-    private fun toPhotoUriEntity(estateId: Long, uri: String) = EstatePhotoUriEntity(
+    private fun toPhotoUriEntity(estateId: Long, uri: String, desc: String) = EstatePhotoEntity(
         estateId = estateId,
-        uriString = uri
+        uriString = uri,
+        description = desc
     )
 }

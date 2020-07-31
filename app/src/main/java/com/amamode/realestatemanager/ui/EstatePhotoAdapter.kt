@@ -8,7 +8,8 @@ import com.amamode.realestatemanager.R
 import kotlinx.android.synthetic.main.item_creation_photo.view.*
 
 class EstatePhotoAdapter() : RecyclerView.Adapter<EstatePhotoAdapter.ViewHolder>() {
-    private var estatePhotoUrlList: List<String> = emptyList()
+    // first is photo uri, second is photo description
+    private var estatePhotoList: List<Pair<String, String>> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -21,21 +22,22 @@ class EstatePhotoAdapter() : RecyclerView.Adapter<EstatePhotoAdapter.ViewHolder>
     }
 
     override fun getItemCount(): Int {
-        return estatePhotoUrlList.size
+        return estatePhotoList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindView(estatePhotoUrlList[position])
+        holder.bindView(estatePhotoList[position])
     }
 
-    fun setPhotoUrlList(estatePhotoUrlList: List<String>) {
-        this.estatePhotoUrlList = estatePhotoUrlList
+    fun setPhotoUrlList(estatePhotosList: List<Pair<String, String>>) {
+        this.estatePhotoList = estatePhotosList
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bindView(url: String) {
-            itemView.estatePhoto.setImageURI(url)
+        fun bindView(photo: Pair<String, String>) {
+            itemView.estatePhoto.setImageURI(photo.first)
+            itemView.estataPhotoDescription.text = photo.second
         }
     }
 }

@@ -6,8 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.InputType
 import android.view.View
-import android.view.View.*
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
@@ -32,7 +36,7 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
     private val safeArgs: EstateCreationPhotoStepFragmentArgs by navArgs()
     private val estateToModify: EstateDetails? by lazy { safeArgs.estateToModify }
     private val isTablet: Boolean by lazy { resources.getBoolean(R.bool.isTablet) }
-    private lateinit var currentPhotoUrl: String
+    private lateinit var currentPhotoUri: String
     private lateinit var photoAdapter: EstatePhotoAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +57,7 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         }
 
         configureRV()
-        estateViewModel.estatesPhotoUri.observe(viewLifecycleOwner, Observer { photosUri ->
+        estateViewModel.estatePhotos.observe(viewLifecycleOwner, Observer { photosUri ->
             goToFinalStepCTA.isEnabled = !photosUri.isNullOrEmpty()
             estateCreationEmptyPhotos.visibility =
                 if (photosUri.isNullOrEmpty()) VISIBLE
@@ -68,24 +72,26 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         estateToModify?.estatePhotosUri?.let {
             photoAdapter.setPhotoUrlList(it)
-            estateViewModel.setPhotosUri(*it.toTypedArray())
+            estateViewModel.setPhotos(*it.toTypedArray())
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            if (data?.data != null) { // from gallery
-                data.data?.toString()?.let { uri ->
-                    estateViewModel.setPhotosUri(uri)
-                }
-            } else { // from camera
-                val uri = "file:///${currentPhotoUrl}"
-                estateViewModel.setPhotosUri(uri)
-            }
-            photoAdapter.setPhotoUrlList(estateViewModel.getPhotosUri())
+            showPhotoDescriptionDialog(data?.data)
         } else { // Result was a failure
-            toast("Picture wasn't taken!")
+            toast(getString(R.string.estate_creation_photo_not_taken))
         }
+    }
+
+    private fun savePhoto(uri: Uri?, description: String) {
+        if (uri != null) { // from gallery
+            estateViewModel.setPhotos(Pair(uri.toString(), description))
+        } else { // from camera
+            val fileUri = "file:///${currentPhotoUri}"
+            estateViewModel.setPhotos(Pair(fileUri, description))
+        }
+        photoAdapter.setPhotoUrlList(estateViewModel.getPhotos())
     }
 
     private fun dispatchTakePictureIntent() {
@@ -94,11 +100,11 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         galleryIntent.action = Intent.ACTION_OPEN_DOCUMENT
 
         val tookPictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val photoFile = getPhotoFileUri()
-        currentPhotoUrl = photoFile!!.absolutePath
+        val photoFile = getPhotoFileUri() ?: return
+        currentPhotoUri = photoFile.absolutePath
 
         val fileProvider: Uri =
-            FileProvider.getUriForFile(requireContext(), "com.realestate.fileprovider", photoFile!!)
+            FileProvider.getUriForFile(requireContext(), "com.realestate.fileprovider", photoFile)
         tookPictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
 
         val chooser = Intent.createChooser(
@@ -128,5 +134,28 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             title = getString(R.string.estate_creation_photo_toolbar_title)
         }
+    }
+
+    private fun showPhotoDescriptionDialog(uri: Uri?) {
+        val ctx = context ?: return
+        val builder = AlertDialog.Builder(ctx)
+        builder.setTitle(getString(R.string.estate_creation_photo_desc_popup_title))
+
+        val input = EditText(ctx)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
+        builder.setPositiveButton(getString(R.string.estate_creation_photo_desc_popup_ok)) { _, _ ->
+            val desc = input.text.toString()
+            if (desc.isEmpty()) {
+                toast(R.string.estate_creation_photo_desc_toast)
+                showPhotoDescriptionDialog(uri)
+            } else {
+                savePhoto(uri, desc)
+            }
+        }
+        builder.setCancelable(false)
+
+        builder.show()
     }
 }

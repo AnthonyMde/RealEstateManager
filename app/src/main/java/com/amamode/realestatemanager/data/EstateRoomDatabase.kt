@@ -7,7 +7,7 @@ import java.util.*
 
 private const val FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 @Database(
-    entities = [EstateEntity::class, InterestPointEntity::class, EstatePhotoUriEntity::class],
+    entities = [EstateEntity::class, InterestPointEntity::class, EstatePhotoEntity::class],
     version = 1,
     exportSchema = false
 )
