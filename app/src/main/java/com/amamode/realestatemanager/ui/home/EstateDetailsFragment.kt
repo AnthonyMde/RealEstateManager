@@ -30,7 +30,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     private val safeArgs: EstateDetailsFragmentArgs by navArgs()
     private val estateId: Long by lazy { safeArgs.estateId }
     private val estateType: EstateType by lazy { safeArgs.estateType }
-    private val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private lateinit var photosAdapter: EstatePhotoAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

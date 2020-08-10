@@ -1,32 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="120dp">
+
+            <TextView
+                android:id="@+id/filterTypeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:text="@string/filter_estate_type_title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/filterEstateTypeSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterTypeTitle"
+                app:ms_background_color="@color/spinnerBackgound" />
+
+            <TextView
+                android:id="@+id/filterMainInfoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:text="@string/filter_info_section_title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterEstateTypeSpinner" />
+
+            <EditText
+                android:id="@+id/filterEstateOwner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:autofillHints="personName"
+                android:hint="@string/filter_owner_hint"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterMainInfoTitle" />
+
+            <EditText
+                android:id="@+id/filterEstatePriceMin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:layout_marginEnd="@dimen/medium"
+                android:autofillHints="none"
+                android:hint="@string/filter_price_min_hint"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@id/middleGuideline"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterEstateOwner" />
+
+            <EditText
+                android:id="@+id/filterEstatePriceMax"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:layout_marginEnd="@dimen/medium"
+                android:autofillHints="none"
+                android:hint="@string/filter_price_max_hint"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
+                app:layout_constraintStart_toStartOf="@id/middleGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterEstateOwner" />
+
+            <EditText
+                android:id="@+id/filterEstateSpaceMax"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:layout_marginEnd="@dimen/medium"
+                android:autofillHints="none"
+                android:hint="@string/filter_space_max_hint"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
+                app:layout_constraintStart_toStartOf="@id/middleGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterEstatePriceMin" />
+
+            <EditText
+                android:id="@+id/filterEstateSpaceMin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:layout_marginEnd="@dimen/medium"
+                android:autofillHints="none"
+                android:hint="@string/filter_space_min_hint"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@id/middleGuideline"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterEstatePriceMin" />
+
+            <EditText
+                android:id="@+id/filterEstateOnMarketDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:layout_marginEnd="@dimen/medium"
+                android:autofillHints="none"
+                android:drawableEnd="@drawable/arrow_down_gray"
+                android:hint="@string/filter_from_date_hint"
+                android:inputType="datetime"
+                app:layout_constraintEnd_toEndOf="@id/middleGuideline"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterEstateSpaceMin" />
+
+            <EditText
+                android:id="@+id/filterEstateCity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/medium"
+                android:autofillHints="none"
+                android:hint="@string/filter_estate_city_hint"
+                android:inputType="textPostalAddress"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
+                app:layout_constraintStart_toStartOf="@id/middleGuideline"
+                app:layout_constraintTop_toTopOf="@id/filterEstateOnMarketDate" />
+
+            <TextView
+                android:id="@+id/filterPhotosTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:text="@string/filter_photo_minimum_title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterEstateOnMarketDate" />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/filterPhotosNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                app:layout_constraintEnd_toEndOf="@id/middleGuideline"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterPhotosTitle"
+                app:ms_background_color="@color/spinnerBackgound" />
+
+            <TextView
+                android:id="@+id/filterInterestPointTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x_large"
+                android:text="@string/creation_final_step_interest_point"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterPhotosNumber" />
+
+            <CheckBox
+                android:id="@+id/filterInterestPointMetro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium"
+                android:text="@string/interest_point_metro"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterInterestPointTitle" />
+
+            <CheckBox
+                android:id="@+id/filterInterestPointShop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/interest_point_shop"
+                app:layout_constraintStart_toStartOf="@id/middleGuideline"
+                app:layout_constraintTop_toTopOf="@id/filterInterestPointMetro" />
+
+            <CheckBox
+                android:id="@+id/filterInterestPointSchool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium"
+                android:text="@string/interest_point_school"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterInterestPointMetro" />
+
+            <CheckBox
+                android:id="@+id/filterInterestPointParc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/interest_point_parc"
+                app:layout_constraintStart_toStartOf="@id/middleGuideline"
+                app:layout_constraintTop_toTopOf="@id/filterInterestPointSchool" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/startGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/medium" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/endGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/medium" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/middleGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/filterEstateCTA"
+        style="@style/CTA.Filled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        style="@style/CTA.Filled"
-        android:text="Filtrer les résultats"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <com.jaredrummler.materialspinner.MaterialSpinner
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/filterEstateTypeSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:ms_background_color="@color/spinnerBackgound"
-        android:layout_marginStart="@dimen/large"
-        android:layout_marginTop="@dimen/medium"
-        android:layout_marginEnd="@dimen/large"/>
-
-    <EditText
-        android:hint="owner"
-        app:layout_constraintTop_toBottomOf="@id/filterEstateTypeSpinner"
-        android:id="@+id/filterEstateOwner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_margin="@dimen/medium"
+        android:text="@string/filter_filter_cta"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
