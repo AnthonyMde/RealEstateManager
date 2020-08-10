@@ -2,18 +2,34 @@ package com.amamode.realestatemanager.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.util.*
 
 @Dao
 interface EstateDao {
     @Query(
         """SELECT * from estate_table 
         WHERE (:owner IS NULL OR owner LIKE :owner) 
-        AND (:type IS NULL OR type LIKE :type)"""
+        AND (:type IS NULL OR type LIKE :type)
+        AND (:minPrice IS NULL OR price >= :minPrice)
+        AND (:maxPrice IS NULL OR price <= :maxPrice)
+        AND (:minSurface IS NULL OR surface >= :minSurface)
+        AND (:maxSurface IS NULL OR surface <= :maxSurface)
+        AND (:fromDate IS NULL OR on_market_date >= :fromDate)
+        AND (:city IS NULL OR city LIKE :city)"""
     )
-    fun filter(owner: String?, type: String?): LiveData<List<EstateEntity>>
+    suspend fun filter(
+        owner: String?,
+        type: String?,
+        minPrice: Double?,
+        maxPrice: Double?,
+        minSurface: Int?,
+        maxSurface: Int?,
+        fromDate: Date?,
+        city: String?
+    ): List<EstateEntity>
 
     @Query("SELECT * from estate_table ORDER BY id DESC")
-    fun getEstateListById(): LiveData<List<EstateEntity>>
+    suspend fun getEstateListById(): List<EstateEntity>
 
     @Query("SELECT * from estate_table WHERE id LIKE :estateId")
     suspend fun getEstateById(estateId: Long): EstateEntity

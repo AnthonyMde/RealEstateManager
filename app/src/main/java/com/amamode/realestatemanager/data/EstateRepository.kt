@@ -1,25 +1,35 @@
 package com.amamode.realestatemanager.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.amamode.realestatemanager.domain.*
 import com.amamode.realestatemanager.ui.creation.EstateType
 
 class EstateRepository(private val dao: EstateDao) : EstateService {
 
-    override fun getEstateList(): LiveData<List<EstatePreview>> {
-        return dao.getEstateListById().map { list ->
-            list.map { it.toEstatePreview() }
+    override suspend fun getEstateList(): List<EstateDetails> {
+        return dao.getEstateListById().map { estate ->
+            getEstateDetails(estate.id)
         }
     }
 
-    override fun filter(filterData: FilterEntity): LiveData<List<EstatePreview>> {
-        return dao.filter(
+    override suspend fun filter(filterData: FilterEntity): List<EstateDetails> {
+        val list = dao.filter(
             filterData.owner,
-            filterData.type?.name
-        ).map { list ->
-            list.map { it.toEstatePreview() }
+            filterData.type?.name,
+            filterData.minPrice,
+            filterData.maxPrice,
+            filterData.minSurface,
+            filterData.maxSurface,
+            filterData.fromDate,
+            filterData.city
+        )
+        var result = list.map { getEstateDetails(it.id) }
+        result =
+            result.filter { estateDetails -> estateDetails.estatePhotos.size >= filterData.minPhotos ?: 0 }
+        if (!filterData.interestPoints.isNullOrEmpty()) {
+            result =
+                result.filter { estateDetails -> estateDetails.interestPoint.containsAll(filterData.interestPoints) }
         }
+        return result
     }
 
     override suspend fun getEstateDetails(estateId: Long): EstateDetails {

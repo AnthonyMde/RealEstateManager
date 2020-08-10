@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.FilterEntity
+import com.amamode.realestatemanager.domain.InterestPoint
 import com.amamode.realestatemanager.ui.creation.EstateType
 import kotlinx.android.synthetic.main.activity_filter.*
 import java.text.SimpleDateFormat
@@ -19,6 +20,7 @@ const val FILTER_DATA_EXTRA = "FILTER_DATA"
 
 class FilterActivity : AppCompatActivity() {
     private val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private var selectedDate: Date? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,16 +38,35 @@ class FilterActivity : AppCompatActivity() {
         filterEstateTypeSpinner.setItems(spinnerTypeValues)
         configureDatePicker(filterEstateOnMarketDate)
 
-        val spinnerPhotoValues = listOf("0", "1", "2", "3", "4", "5+")
+        val spinnerPhotoValues = listOf("0", "1", "2", "3", "4+")
         filterPhotosNumber.setItems(spinnerPhotoValues)
     }
 
     private fun getFilterData(): FilterEntity {
         val ownerText = filterEstateOwner.text.toString().trim()
+        val city = filterEstateCity.text.toString().trim()
         return FilterEntity(
             owner = if (ownerText.isNotEmpty()) ownerText else null,
-            type = getFilterEstateType(filterEstateTypeSpinner.selectedIndex)
+            type = getFilterEstateType(filterEstateTypeSpinner.selectedIndex),
+            minPrice = filterEstatePriceMin.text.toString().trim().toDoubleOrNull(),
+            maxPrice = filterEstatePriceMax.text.toString().trim().toDoubleOrNull(),
+            minSurface = filterEstateSurfaceMin.text.toString().trim().toIntOrNull(),
+            maxSurface = filterEstateSurfaceMax.text.toString().trim().toIntOrNull(),
+            fromDate = selectedDate,
+            city = if (city.isNotEmpty()) city else null,
+            minPhotos = filterPhotosNumber.selectedIndex,
+            interestPoints = getInterestPoints()
         )
+    }
+
+    private fun getInterestPoints(): List<InterestPoint>? {
+        val interestPoints = mutableListOf<InterestPoint>()
+        if (filterInterestPointMetro.isChecked) interestPoints.add(InterestPoint.METRO)
+        if (filterInterestPointShop.isChecked) interestPoints.add(InterestPoint.SHOP)
+        if (filterInterestPointSchool.isChecked) interestPoints.add(InterestPoint.SCHOOL)
+        if (filterInterestPointParc.isChecked) interestPoints.add(InterestPoint.PARC)
+
+        return if (interestPoints.isNotEmpty()) interestPoints else null
     }
 
     private fun getFilterEstateType(position: Int): EstateType? =
@@ -87,6 +108,7 @@ class FilterActivity : AppCompatActivity() {
         calendar.set(Calendar.YEAR, datePicker.year)
         calendar.set(Calendar.MONTH, datePicker.month)
         calendar.set(Calendar.DAY_OF_MONTH, datePicker.dayOfMonth)
-        return calendar.time
+        selectedDate = calendar.time
+        return selectedDate
     }
 }

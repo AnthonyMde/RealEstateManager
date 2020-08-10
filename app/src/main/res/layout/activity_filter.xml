@@ -84,7 +84,7 @@
                 app:layout_constraintTop_toBottomOf="@id/filterEstateOwner" />
 
             <EditText
-                android:id="@+id/filterEstateSpaceMax"
+                android:id="@+id/filterEstateSurfaceMax"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/large"
@@ -97,7 +97,7 @@
                 app:layout_constraintTop_toBottomOf="@id/filterEstatePriceMin" />
 
             <EditText
-                android:id="@+id/filterEstateSpaceMin"
+                android:id="@+id/filterEstateSurfaceMin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/large"
@@ -121,7 +121,7 @@
                 android:inputType="datetime"
                 app:layout_constraintEnd_toEndOf="@id/middleGuideline"
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/filterEstateSpaceMin" />
+                app:layout_constraintTop_toBottomOf="@id/filterEstateSurfaceMin" />
 
             <EditText
                 android:id="@+id/filterEstateCity"

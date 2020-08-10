@@ -41,14 +41,4 @@ data class EstateEntity(
             estatePhotos = estatePhotos
         )
     }
-
-    fun toEstatePreview(): EstatePreview {
-        return EstatePreview(
-            id = id,
-            type = EstateType.valueOf(type),
-            price = price,
-            status = status,
-            address = address
-        )
-    }
 }

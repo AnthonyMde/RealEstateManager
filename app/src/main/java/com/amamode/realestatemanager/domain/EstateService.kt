@@ -1,9 +1,7 @@
 package com.amamode.realestatemanager.domain
 
-import androidx.lifecycle.LiveData
-
 interface EstateService {
-    fun getEstateList(): LiveData<List<EstatePreview>>
+    suspend fun getEstateList(): List<EstateDetails>
     suspend fun getEstateDetails(estateId: Long): EstateDetails
     suspend fun createEstate(
         estateForm: EstateForm,
@@ -11,7 +9,7 @@ interface EstateService {
         estatePhotosUri: Array<Pair<String,String>>
     )
 
-    fun filter(filterData: FilterEntity): LiveData<List<EstatePreview>>
+    suspend fun filter(filterData: FilterEntity): List<EstateDetails>
 
     suspend fun updateEstate(
         estateId: Long,

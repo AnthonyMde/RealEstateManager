@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amamode.realestatemanager.R
-import com.amamode.realestatemanager.domain.EstatePreview
+import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.ui.creation.EstateType
 import kotlinx.android.synthetic.main.item_estate_list.view.*
 
@@ -13,7 +13,7 @@ class EstateListAdapter(
     val onEstateClick: (Long, EstateType) -> Unit
 ) :
     RecyclerView.Adapter<EstateListAdapter.ViewHolder>() {
-    private var estateList: List<EstatePreview> = emptyList()
+    private var estateList: List<EstateDetails> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -33,13 +33,13 @@ class EstateListAdapter(
         holder.bindView(estateList[position])
     }
 
-    fun setEstateList(estateDetailsList: List<EstatePreview>) {
+    fun setEstateList(estateDetailsList: List<EstateDetails>) {
         this.estateList = estateDetailsList
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bindView(estate: EstatePreview) {
+        fun bindView(estate: EstateDetails) {
             itemView.estateTitle.text = itemView.context.getString(estate.type.nameRes)
 
             itemView.setOnClickListener {

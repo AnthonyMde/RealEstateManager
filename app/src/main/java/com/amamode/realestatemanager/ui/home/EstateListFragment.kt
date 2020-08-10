@@ -12,8 +12,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.ui.EstateViewModel
+import com.amamode.realestatemanager.utils.Resource
 import kotlinx.android.synthetic.main.fragment_estate_list.*
+import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
     private val estateViewModel: EstateViewModel by sharedViewModel()
@@ -40,7 +43,13 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
         super.onActivityCreated(savedInstanceState)
 
         estateViewModel.estateEntityList.observe(viewLifecycleOwner, Observer {
-            adapter.setEstateList(it)
+            when (it) {
+                is Resource.Success -> {
+                    adapter.setEstateList(it.data)
+                }
+                is Resource.Loading -> toast("loading")
+                is Resource.Error -> Timber.e("Error while loading estate list => ${it.error}")
+            }
         })
     }
 

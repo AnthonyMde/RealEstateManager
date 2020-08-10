@@ -1,6 +1,9 @@
 package com.amamode.realestatemanager.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.amamode.realestatemanager.domain.*
 import com.amamode.realestatemanager.domain.errors.RoomError
 import com.amamode.realestatemanager.ui.creation.EstateType
@@ -10,11 +13,9 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class EstateViewModel(private val estateService: EstateService) : BaseViewModel() {
-    private val filterInput = MutableLiveData<FilterEntity>()
-    val estateEntityList: LiveData<List<EstatePreview>> =
-        Transformations.switchMap(filterInput) { filterData ->
-            estateService.filter(filterData)
-        }
+    private val _estateEntityList = MutableLiveData<Resource<List<EstateDetails>>>()
+    val estateEntityList: LiveData<Resource<List<EstateDetails>>>
+        get() = _estateEntityList
 
     val firstStepformMediator = MediatorLiveData<Boolean>()
     var currentEstateDetails: EstateDetails? = null
@@ -45,12 +46,26 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     }
 
     fun setFilter(filterData: FilterEntity) {
-        filterInput.value = filterData
+        _estateEntityList.value = Resource.Loading()
+        viewModelScope.launch {
+            try {
+                val data = estateService.filter(filterData)
+                _estateEntityList.postValue(Resource.Success(data))
+            } catch (e: java.lang.Exception) {
+                _estateEntityList.postValue(Resource.Error(e))
+            }
+        }
     }
 
     fun clearFilter() {
-        // with no parameter, returns all results
-        filterInput.value = FilterEntity()
+        viewModelScope.launch {
+            try {
+                val data = estateService.getEstateList()
+                _estateEntityList.postValue(Resource.Success(data))
+            } catch (e: java.lang.Exception) {
+                _estateEntityList.postValue(Resource.Error(e))
+            }
+        }
     }
 
     fun getEstateDetails(estateId: Long): LiveData<Resource<EstateDetails>> {
