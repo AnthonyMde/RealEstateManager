@@ -54,6 +54,7 @@ class FilterActivity : AppCompatActivity() {
             maxSurface = filterEstateSurfaceMax.text.toString().trim().toIntOrNull(),
             fromDate = selectedDate,
             city = if (city.isNotEmpty()) city else null,
+            zipCode = filterEstateZipCode.text.toString().trim().toIntOrNull(),
             minPhotos = filterPhotosNumber.selectedIndex,
             interestPoints = getInterestPoints()
         )

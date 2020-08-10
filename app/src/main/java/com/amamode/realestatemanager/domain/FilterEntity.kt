@@ -15,6 +15,7 @@ data class FilterEntity(
     val maxSurface: Int? = null,
     val fromDate: Date? = null,
     val city: String? = null,
+    val zipCode: Int? = null,
     val minPhotos: Int? = null,
     val interestPoints: List<InterestPoint>? = null
 ) : Parcelable

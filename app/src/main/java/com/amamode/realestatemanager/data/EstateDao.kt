@@ -15,7 +15,8 @@ interface EstateDao {
         AND (:minSurface IS NULL OR surface >= :minSurface)
         AND (:maxSurface IS NULL OR surface <= :maxSurface)
         AND (:fromDate IS NULL OR on_market_date >= :fromDate)
-        AND (:city IS NULL OR city LIKE :city)"""
+        AND (:city IS NULL OR city LIKE :city)
+        AND (:zipCode IS NULL OR zip_code LIKE :zipCode)"""
     )
     suspend fun filter(
         owner: String?,
@@ -25,7 +26,8 @@ interface EstateDao {
         minSurface: Int?,
         maxSurface: Int?,
         fromDate: Date?,
-        city: String?
+        city: String?,
+        zipCode: Int?
     ): List<EstateEntity>
 
     @Query("SELECT * from estate_table ORDER BY id DESC")

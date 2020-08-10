@@ -110,6 +110,31 @@
                 app:layout_constraintTop_toBottomOf="@id/filterEstatePriceMin" />
 
             <EditText
+                android:id="@+id/filterEstateCity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large"
+                android:layout_marginEnd="@dimen/medium"
+                android:autofillHints="none"
+                android:hint="@string/filter_estate_city_hint"
+                android:inputType="textPostalAddress"
+                app:layout_constraintEnd_toEndOf="@id/middleGuideline"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/filterEstateSurfaceMin" />
+
+            <EditText
+                android:id="@+id/filterEstateZipCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/medium"
+                android:autofillHints="none"
+                android:hint="@string/filter_estate_zipcode_hint"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@id/endGuideline"
+                app:layout_constraintStart_toStartOf="@id/middleGuideline"
+                app:layout_constraintTop_toTopOf="@id/filterEstateCity" />
+
+            <EditText
                 android:id="@+id/filterEstateOnMarketDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -121,19 +146,7 @@
                 android:inputType="datetime"
                 app:layout_constraintEnd_toEndOf="@id/middleGuideline"
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/filterEstateSurfaceMin" />
-
-            <EditText
-                android:id="@+id/filterEstateCity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/medium"
-                android:autofillHints="none"
-                android:hint="@string/filter_estate_city_hint"
-                android:inputType="textPostalAddress"
-                app:layout_constraintEnd_toEndOf="@id/endGuideline"
-                app:layout_constraintStart_toStartOf="@id/middleGuideline"
-                app:layout_constraintTop_toTopOf="@id/filterEstateOnMarketDate" />
+                app:layout_constraintTop_toBottomOf="@id/filterEstateCity" />
 
             <TextView
                 android:id="@+id/filterPhotosTitle"

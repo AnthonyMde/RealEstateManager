@@ -20,7 +20,8 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
             filterData.minSurface,
             filterData.maxSurface,
             filterData.fromDate,
-            filterData.city
+            filterData.city,
+            filterData.zipCode
         )
         var result = list.map { getEstateDetails(it.id) }
         result =

@@ -81,4 +81,5 @@
     <string name="filter_from_date_hint">Depuis le</string>
     <string name="filter_estate_city_hint">Ville</string>
     <string name="filter_photo_minimum_title">Photos minimum</string>
+    <string name="filter_estate_zipcode_hint">Code postal</string>
 </resources>

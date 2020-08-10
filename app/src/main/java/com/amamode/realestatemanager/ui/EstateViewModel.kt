@@ -60,7 +60,7 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
     fun clearFilter() {
         viewModelScope.launch {
             try {
-                val data = estateService.getEstateList()
+                val data = estateService.filter(FilterEntity())
                 _estateEntityList.postValue(Resource.Success(data))
             } catch (e: java.lang.Exception) {
                 _estateEntityList.postValue(Resource.Error(e))
