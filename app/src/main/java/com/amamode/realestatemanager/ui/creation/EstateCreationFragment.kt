@@ -16,7 +16,6 @@ import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationBinding
 import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.ui.EstateViewModel
-import com.amamode.realestatemanager.ui.getEstateType
 import kotlinx.android.synthetic.main.fragment_estate_creation.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -92,4 +91,14 @@ class EstateCreationFragment : Fragment() {
             title = getString(R.string.estate_form_toolbar_title)
         }
     }
+
+    private fun getEstateType(position: Int): EstateType =
+        when (position) {
+            0 -> EstateType.HOUSE
+            1 -> EstateType.APARTMENT
+            2 -> EstateType.LOFT
+            3 -> EstateType.DUPLEX
+            4 -> EstateType.VILLA
+            else -> EstateType.UNKNOWN
+        }
 }

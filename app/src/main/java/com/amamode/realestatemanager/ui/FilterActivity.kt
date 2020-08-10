@@ -22,24 +22,29 @@ class FilterActivity : AppCompatActivity() {
             finish()
         }
 
-        filterEstateTypeSpinner.setItems(EstateType.values().map { getString(it.nameRes) })
+        val spinnerValues = EstateType.values().map { getString(it.nameRes) }
+            .toMutableList()
+        spinnerValues.add(0, getString(R.string.filter_type_all_estate))
+        spinnerValues.removeAt(spinnerValues.size - 1)
+        filterEstateTypeSpinner.setItems(spinnerValues)
     }
 
     private fun getFilterData(): FilterEntity {
         val ownerText = filterEstateOwner.text.toString().trim()
         return FilterEntity(
             owner = if (ownerText.isNotEmpty()) ownerText else null,
-            type = getEstateType(filterEstateTypeSpinner.selectedIndex)
+            type = getFilterEstateType(filterEstateTypeSpinner.selectedIndex)
         )
     }
-}
 
-fun getEstateType(position: Int): EstateType =
-    when (position) {
-        0 -> EstateType.HOUSE
-        1 -> EstateType.APARTMENT
-        2 -> EstateType.LOFT
-        3 -> EstateType.DUPLEX
-        4 -> EstateType.VILLA
-        else -> EstateType.UNKNOWN
-    }
+    private fun getFilterEstateType(position: Int): EstateType? =
+        when (position) {
+            0 -> null
+            1 -> EstateType.HOUSE
+            2 -> EstateType.APARTMENT
+            3 -> EstateType.LOFT
+            4 -> EstateType.DUPLEX
+            5 -> EstateType.VILLA
+            else -> EstateType.UNKNOWN
+        }
+}

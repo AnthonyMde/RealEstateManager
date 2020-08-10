@@ -69,4 +69,5 @@
     <string name="estate_type_duplex">Duplex</string>
     <string name="estate_type_villa">Villa</string>
     <string name="estate_type_unknown">Inconnu</string>
+    <string name="filter_type_all_estate">Tous</string>
 </resources>
