@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.amamode.realestatemanager.BuildConfig
 import com.amamode.realestatemanager.domain.*
 import com.amamode.realestatemanager.domain.errors.RoomError
 import com.amamode.realestatemanager.ui.creation.EstateType
@@ -213,5 +214,15 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
 
     fun clearPhoto() {
         _estatePhotos.value = mutableListOf()
+    }
+
+    fun getStaticMapStringUri(address: EstateAddress): String {
+        val apiKey = BuildConfig.API_KEY_GOOGLE_PLACES
+
+        val street = address.street?.replace(" ", "+")
+        val city = address.city?.replace(" ", "+")
+        val urlAddress = "$street+$city"
+
+        return "https://maps.googleapis.com/maps/api/staticmap?size=300x300&maptype=roadmap%20&markers=color:red%7C$urlAddress&key=$apiKey"
     }
 }

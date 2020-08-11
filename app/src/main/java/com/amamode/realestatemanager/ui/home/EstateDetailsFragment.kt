@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amamode.realestatemanager.R
+import com.amamode.realestatemanager.domain.EstateAddress
 import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.ui.EstatePhotoAdapter
 import com.amamode.realestatemanager.ui.EstateViewModel
@@ -86,6 +87,8 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     }
 
     private fun configureLayout(estate: EstateDetails) {
+        configureStaticMap(estate.address)
+
         if (estate.status.sold) {
             estateDetailsStatus.text = getString(R.string.estate_details_status_sold)
         } else {
@@ -135,6 +138,12 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
 
             estateDetailsInterestPoints.text = builder.removeSuffix(suffix)
         }
+    }
+
+    private fun configureStaticMap(address: EstateAddress?) {
+        address ?: return
+        val mapsUri = estateViewModel.getStaticMapStringUri(address)
+        staticMap.setImageURI(mapsUri)
     }
 
     /* ONLY FOR MOBILE */
