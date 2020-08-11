@@ -216,13 +216,13 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         _estatePhotos.value = mutableListOf()
     }
 
-    fun getStaticMapStringUri(address: EstateAddress): String {
+    fun getStaticMapUri(address: EstateAddress): String {
         val apiKey = BuildConfig.API_KEY_GOOGLE_PLACES
 
         val street = address.street?.replace(" ", "+")
         val city = address.city?.replace(" ", "+")
         val urlAddress = "$street+$city"
 
-        return "https://maps.googleapis.com/maps/api/staticmap?size=300x300&maptype=roadmap%20&markers=color:red%7C$urlAddress&key=$apiKey"
+        return "https://maps.googleapis.com/maps/api/staticmap?size=1200x1200&maptype=roadmap%20&markers=color:red%7C$urlAddress&key=$apiKey"
     }
 }

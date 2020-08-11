@@ -142,7 +142,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
 
     private fun configureStaticMap(address: EstateAddress?) {
         address ?: return
-        val mapsUri = estateViewModel.getStaticMapStringUri(address)
+        val mapsUri = estateViewModel.getStaticMapUri(address)
         staticMap.setImageURI(mapsUri)
     }
 

@@ -230,6 +230,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/estateDetailsInterestPointsTitle" />
 
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/staticMap"
+                android:layout_width="0dp"
+                android:layout_height="400dp"
+                android:layout_marginTop="@dimen/x_large"
+                app:failureImage="@drawable/static_map_error"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/estateDetailsInterestPoints"/>
+
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/middleGuideline"
                 android:layout_width="wrap_content"
