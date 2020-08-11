@@ -12,12 +12,13 @@
         layout="@layout/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toBottomOf="@id/estateListToolbar"
         android:id="@+id/estateRV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_estate_list" />
+        tools:listitem="@layout/item_estate_list"
+        app:layout_constraintTop_toBottomOf="@id/estateListToolbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addEstateFab"
