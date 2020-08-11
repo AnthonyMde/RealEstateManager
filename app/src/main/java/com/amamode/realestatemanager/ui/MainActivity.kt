@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Initialize with no filter
-        estateViewModel.clearFilter()
+        estateViewModel.getFullEstateList()
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

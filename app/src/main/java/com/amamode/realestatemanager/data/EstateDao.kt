@@ -49,10 +49,10 @@ interface EstateDao {
     suspend fun update(estateEntity: EstateEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg interestPoints: InterestPointEntity)
+    suspend fun insert(vararg interestPoints: InterestPointEntity): List<Long>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg estatePhoto: EstatePhotoEntity)
+    suspend fun insert(vararg estatePhoto: EstatePhotoEntity): List<Long>
 
     @Query("DELETE FROM interest_point_table WHERE estate_id LIKE :estateId")
     suspend fun deleteInterestPoints(estateId: Long)

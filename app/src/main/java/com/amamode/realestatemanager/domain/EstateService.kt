@@ -7,7 +7,7 @@ interface EstateService {
         estateForm: EstateForm,
         interestPoints: Array<InterestPoint>,
         estatePhotosUri: Array<Pair<String,String>>
-    )
+    ): Boolean
 
     suspend fun filter(filterData: FilterEntity): List<EstateDetails>
 

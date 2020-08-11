@@ -11,6 +11,7 @@ import com.amamode.realestatemanager.ui.creation.EstateType
 import com.amamode.realestatemanager.utils.BaseViewModel
 import com.amamode.realestatemanager.utils.Resource
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 
 class EstateViewModel(private val estateService: EstateService) : BaseViewModel() {
@@ -58,10 +59,10 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
         }
     }
 
-    fun clearFilter() {
+    fun getFullEstateList() {
         viewModelScope.launch {
             try {
-                val data = estateService.filter(FilterEntity())
+                val data = estateService.filter(FilterEntity()) // filter is empty
                 _estateEntityList.postValue(Resource.Success(data))
             } catch (e: java.lang.Exception) {
                 _estateEntityList.postValue(Resource.Error(e))
@@ -104,15 +105,22 @@ class EstateViewModel(private val estateService: EstateService) : BaseViewModel(
                 sold = soldDate != null,
                 soldDate = soldDate
             )
-            estateService.createEstate(
+            val hasSucceed = estateService.createEstate(
                 estateForm,
                 interestPoints,
                 estatePhotos.value?.toTypedArray() ?: emptyArray()
             )
+
+            if (hasSucceed) {
+                getFullEstateList()
+            } else {
+                Timber.e("Estate creation failed")
+            }
         }
 
     fun deleteAll() = viewModelScope.launch {
         estateService.deleteAll()
+        getFullEstateList()
     }
 
     private fun firstStepIsCorrectlyFilled() {

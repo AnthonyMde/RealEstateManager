@@ -2,6 +2,7 @@ package com.amamode.realestatemanager.data
 
 import com.amamode.realestatemanager.domain.*
 import com.amamode.realestatemanager.ui.creation.EstateType
+import timber.log.Timber
 
 class EstateRepository(private val dao: EstateDao) : EstateService {
 
@@ -42,11 +43,12 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         return estateEntity.toEstateDetails(interestPoints, estatePhotos)
     }
 
+    // Returns true if creation is successful
     override suspend fun createEstate(
         estateForm: EstateForm,
         interestPoints: Array<InterestPoint>,
         estatePhotosUri: Array<Pair<String, String>>
-    ) {
+    ): Boolean {
         val estateEntity = EstateEntity(
             owner = estateForm.owner ?: "unknown owner",
             type = estateForm.type?.name ?: EstateType.UNKNOWN.name,
@@ -61,7 +63,8 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         val estateId = dao.insert(estateEntity)
 
         if (estateId == -1L) {
-            throw IllegalArgumentException("Can not create estate")
+            Timber.e("Room : Cannot create estate")
+            return false
         }
 
         val interestPointsEntity =
@@ -69,8 +72,15 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
         val estatePhotoUriEntity =
             estatePhotosUri.map { toPhotoUriEntity(estateId, it.first, it.second) }.toTypedArray()
 
-        dao.insert(*interestPointsEntity)
-        dao.insert(*estatePhotoUriEntity)
+        if (dao.insert(*interestPointsEntity).contains(-1L)) {
+            Timber.e("Room : Cannot save estate's POI")
+            return false
+        }
+        if (dao.insert(*estatePhotoUriEntity).contains( -1L)) {
+            Timber.e("Room : Cannot save estate's photos")
+            return false
+        }
+        return true
     }
 
     override suspend fun updateEstate(

@@ -132,6 +132,7 @@ class EstateCreationFinalFragment : Fragment() {
                 when (it) {
                     is Resource.Loading -> toast("Chargement")
                     is Resource.Success -> {
+                        estateViewModel.getFullEstateList() // update the list
                         redirect()
                     }
                     is Resource.Error -> {
