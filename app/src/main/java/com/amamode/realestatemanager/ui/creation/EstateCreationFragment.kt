@@ -58,8 +58,7 @@ class EstateCreationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        creationTypeSpinner.setItems(EstateType.values().map { getString(it.nameRes) })
-        creationTypeSpinner.selectedIndex = 0
+        configureSpinner()
 
         creationPriceEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE && goToPhotoStepCTA.isEnabled) {
@@ -75,6 +74,17 @@ class EstateCreationFragment : Fragment() {
         estateViewModel.firstStepformMediator.observe(viewLifecycleOwner, Observer {
             goToPhotoStepCTA.isEnabled = it
         })
+    }
+
+    private fun configureSpinner() {
+        val spinnerItems = EstateType.values().map { getString(it.nameRes) }.toMutableList()
+        spinnerItems.removeAt(spinnerItems.lastIndex)
+        creationTypeSpinner.setItems(spinnerItems)
+        if (estateToModify != null) {
+            creationTypeSpinner.selectedIndex = getEstateTypeIndex(estateToModify?.type)
+        } else {
+            creationTypeSpinner.selectedIndex = 0
+        }
     }
 
     private fun goToNextStep() {
@@ -100,5 +110,15 @@ class EstateCreationFragment : Fragment() {
             3 -> EstateType.DUPLEX
             4 -> EstateType.VILLA
             else -> EstateType.UNKNOWN
+        }
+
+    private fun getEstateTypeIndex(type: EstateType?): Int =
+        when (type) {
+            EstateType.HOUSE -> 0
+            EstateType.APARTMENT -> 1
+            EstateType.LOFT -> 2
+            EstateType.DUPLEX -> 3
+            EstateType.VILLA -> 4
+            else -> 0
         }
 }
