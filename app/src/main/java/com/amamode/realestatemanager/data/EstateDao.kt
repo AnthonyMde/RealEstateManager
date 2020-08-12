@@ -64,8 +64,6 @@ interface EstateDao {
     suspend fun deleteAll()
 
     /* CONTENT PROVIDER METHODS */
-    @Query("DELETE FROM estate_table WHERE id LIKE :estateId")
-    suspend fun deleteEstate(estateId: Long): Int
 
     @Query("SELECT * FROM estate_table WHERE id LIKE :estateId")
     fun getEstateWithCursor(estateId: Long): Cursor

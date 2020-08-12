@@ -73,14 +73,8 @@ class EstateContentProvider : ContentProvider() {
      * Count is the number of line erased during the operation
      * */
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
-        val ctx = context ?: throw IllegalArgumentException("Failed to delete row into $uri")
-        var count: Int = -1
-        runBlocking {
-            count = EstateRoomDatabase.getDatabase(ctx).estateDao()
-                .deleteEstate(ContentUris.parseId(uri))
-            ctx.contentResolver.notifyChange(uri, null)
-        }
-        return count
+        // no opt-in
+        return -1
     }
 
     override fun getType(uri: Uri): String? = "vnd.android.cursor.item/$AUTHORITY.$TABLE_NAME"
