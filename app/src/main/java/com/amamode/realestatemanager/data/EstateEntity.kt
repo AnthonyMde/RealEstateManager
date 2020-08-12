@@ -1,10 +1,14 @@
 package com.amamode.realestatemanager.data
 
+import android.content.ContentValues
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.amamode.realestatemanager.domain.*
+import com.amamode.realestatemanager.domain.EstateAddress
+import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.domain.EstateStatus
+import com.amamode.realestatemanager.domain.InterestPoint
 import com.amamode.realestatemanager.ui.creation.EstateType
 import java.util.*
 
@@ -40,5 +44,35 @@ data class EstateEntity(
             interestPoint = interestPoints,
             estatePhotos = estatePhotos
         )
+    }
+
+    /* UTILS FOR CONTENT PROVIDER */
+
+    companion object {
+        fun estateFromContentValue(values: ContentValues): EstateEntity {
+            val onMarketDate = Date().also { it.time = values.getAsLong("onMarketDate") }
+            val onSoldDate = Date().also { it.time = values.getAsLong("soldDate") }
+            val estateStatus = EstateStatus(
+                sold = values.getAsBoolean("sold"),
+                soldDate = onSoldDate
+            )
+            val estateAddress = EstateAddress(
+                street = values.getAsString("street"),
+                zipCode = values.getAsInteger("zipCode"),
+                city = values.getAsString("city")
+            )
+            return EstateEntity(
+                id = values.getAsLong("id"),
+                owner = values.getAsString("owner"),
+                type = values.getAsString("type"),
+                rooms = values.getAsInteger("rooms"),
+                surface = values.getAsInteger("surface"),
+                price = values.getAsInteger("price"),
+                onMarketDate = onMarketDate,
+                status = estateStatus,
+                address = estateAddress,
+                description = values.getAsString("description")
+            )
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.amamode.realestatemanager.data
 
-import androidx.lifecycle.LiveData
+import android.database.Cursor
 import androidx.room.*
 import java.util.*
 
@@ -46,7 +46,7 @@ interface EstateDao {
     suspend fun insert(estateEntity: EstateEntity): Long
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun update(estateEntity: EstateEntity)
+    suspend fun update(estateEntity: EstateEntity): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg interestPoints: InterestPointEntity): List<Long>
@@ -62,4 +62,11 @@ interface EstateDao {
 
     @Query("DELETE FROM estate_table")
     suspend fun deleteAll()
+
+    /* CONTENT PROVIDER METHODS */
+    @Query("DELETE FROM estate_table WHERE id LIKE :estateId")
+    suspend fun deleteEstate(estateId: Long): Int
+
+    @Query("SELECT * FROM estate_table WHERE id LIKE :estateId")
+    fun getEstateWithCursor(estateId: Long): Cursor
 }

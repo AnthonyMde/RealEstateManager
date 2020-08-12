@@ -25,6 +25,11 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
+        <provider
+            android:name=".provider.EstateContentProvider"
+            android:authorities="com.realestate.estateprovider"
+            android:exported="true"/>
+
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
