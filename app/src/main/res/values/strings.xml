@@ -82,4 +82,10 @@
     <string name="filter_estate_city_hint">Ville</string>
     <string name="filter_photo_minimum_title">Photos minimum</string>
     <string name="filter_estate_zipcode_hint">Code postal</string>
+    <string name="loan_monthly_coast_title">Coût mensuel</string>
+    <string name="loan_bank_cost_title">Coût total de la banque</string>
+    <string name="loan_insurance_rate_title">Taux d\'assurance</string>
+    <string name="loan_rate_title">Taux d\'intérêt</string>
+    <string name="loan_duration_title">Durée</string>
+    <string name="loan_amount_title">Montant</string>
 </resources>

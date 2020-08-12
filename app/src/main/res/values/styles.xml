@@ -51,6 +51,20 @@
         <item name="android:textSize">@dimen/text_medium_large</item>
     </style>
 
+    <style name="LoanTitle" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_large</item>
+    </style>
+
+    <style name="LoanPrice" parent="AppTheme">
+        <item name="android:textSize">@dimen/text_large</item>
+    </style>
+
+    <style name="LoanRate" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorSecondaryDark</item>
+    </style>
+
     <style name="CategoryTitle" parent="AppTheme">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_medium</item>
