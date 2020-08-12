@@ -9,10 +9,13 @@ import com.amamode.realestatemanager.data.EstateEntity
 import com.amamode.realestatemanager.data.EstateRoomDatabase
 import kotlinx.coroutines.runBlocking
 
-private const val AUTHORITY = "com.openclassrooms.savemytrip.provider"
+private const val AUTHORITY = "com.realestate.estateprovider"
 private const val TABLE_NAME = "EstateEntity"
 
 class EstateContentProvider : ContentProvider() {
+    companion object {
+        val URI_ITEM: Uri = Uri.parse("content://$AUTHORITY/$TABLE_NAME")
+    }
 
     override fun onCreate(): Boolean = true
 
