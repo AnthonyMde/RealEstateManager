@@ -88,4 +88,9 @@
     <string name="loan_rate_title">Taux d\'intérêt</string>
     <string name="loan_duration_title">Durée</string>
     <string name="loan_amount_title">Montant</string>
+    <string name="loan_menu_item_title">Simulateur</string>
+    <string name="estate_edition_no_estate_selected_toast">Veuillez choisir un bien à modifier</string>
+    <string name="loan_simulator_no_estate_selected">Veuillez choisir un bien pour la simulation</string>
+    <string name="dollar_currency">$</string>
+    <string name="euro_currency">€</string>
 </resources>

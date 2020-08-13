@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/loan_simulator"
+        android:icon="@drawable/ic_loan_dark_24"
+        android:title="@string/loan_menu_item_title"
+        app:showAsAction="ifRoom" />
+</menu>

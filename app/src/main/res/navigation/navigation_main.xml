@@ -23,6 +23,13 @@
             app:enterAnim="@anim/slide_in_bottom"
             app:popExitAnim="@anim/slide_out_bottom"
             app:popUpTo="@id/list_dest" />
+        <action
+            android:id="@+id/goToLoanSimulator"
+            app:destination="@id/loanFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <!-- ESTATE DETAIL -->
@@ -42,6 +49,13 @@
             app:enterAnim="@anim/slide_in_bottom"
             app:popExitAnim="@anim/slide_out_bottom"
             app:popUpTo="@id/detail_dest" />
+        <action
+            android:id="@+id/goToLoanSimulator"
+            app:destination="@id/loanFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <!-- CREATION FIRST STEP -->
@@ -104,5 +118,15 @@
             android:defaultValue="@null"
             app:argType="com.amamode.realestatemanager.domain.EstateDetails"
             app:nullable="true" />
+    </fragment>
+
+    <!-- LOAN SIMULATOR FRAGMENT -->
+    <fragment
+        android:id="@+id/loanFragment"
+        android:name="com.amamode.realestatemanager.ui.loan.LoanFragment"
+        android:label="LoanFragment">
+        <argument
+            android:name="estatePrice"
+            app:argType="integer"/>
     </fragment>
 </navigation>

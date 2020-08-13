@@ -1,6 +1,8 @@
 package com.amamode.realestatemanager.ui.home
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -40,6 +42,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
 
         if (!isTablet) {
             setupToolbar()
+            setHasOptionsMenu(true)
             editEstateFab.setOnClickListener {
                 estateViewModel.clearFormerCreationData()
                 val action =
@@ -153,5 +156,11 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             title = getString(estateType.nameRes)
         }
+    }
+
+    /* ONLY FOR MOBILE */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.loan_menu, menu)
     }
 }

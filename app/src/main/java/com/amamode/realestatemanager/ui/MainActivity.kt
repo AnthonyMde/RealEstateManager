@@ -124,12 +124,21 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.edit_estate -> {
                 if (estateViewModel.currentEstateDetails == null) {
-                    toast("Veuillez choisir un bien à modifier")
+                    toast(R.string.estate_edition_no_estate_selected_toast)
                     return super.onOptionsItemSelected(item)
                 }
                 val action =
                     EstateListFragmentDirections.goToEstateCreation(estateViewModel.currentEstateDetails)
                 findNavController(R.id.main_nav_container).navigate(action)
+            }
+            R.id.loan_simulator -> {
+                val estatePrice = estateViewModel.currentEstateDetails?.price
+                if (estatePrice != null) {
+                    val action = EstateListFragmentDirections.goToLoanSimulator(estatePrice)
+                    findNavController(R.id.main_nav_container).navigate(action)
+                } else {
+                    toast(R.string.loan_simulator_no_estate_selected)
+                }
             }
         }
         return super.onOptionsItemSelected(item)

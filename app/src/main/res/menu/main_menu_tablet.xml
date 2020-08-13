@@ -26,5 +26,11 @@
             android:icon="@drawable/ic_filter_list_black_24dp"
             android:title="@string/main_menu_filter_icon"
             app:showAsAction="ifRoom" />
+
+        <item
+            android:id="@+id/loan_simulator"
+            android:icon="@drawable/ic_loan_dark_24"
+            android:title="@string/loan_menu_item_title"
+            app:showAsAction="ifRoom" />
     </group>
 </menu>

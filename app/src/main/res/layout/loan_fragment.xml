@@ -30,8 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/medium"
-            android:max="9"
-            android:progress="10"
             app:layout_constraintTop_toBottomOf="@id/loanAmountTitle"/>
 
         <TextView
@@ -56,8 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/medium"
-            android:max="9"
-            android:progress="10"
+            android:max="25"
+            android:progress="15"
             app:layout_constraintTop_toBottomOf="@id/loanDurationTitle"/>
 
         <TextView
