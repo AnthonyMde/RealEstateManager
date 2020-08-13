@@ -3,6 +3,8 @@ package com.amamode.realestatemanager.ui.loan
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -17,6 +19,11 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val isTablet = resources.getBoolean(R.bool.isTablet)
+
+        if (!isTablet) {
+            setupToolbar()
+        }
         loanAmountSeekbar.setOnSeekBarChangeListener(this)
         loanDurationSeekbar.setOnSeekBarChangeListener(this)
         initializeData()
@@ -59,5 +66,14 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
         loanViewModel.amoutSeekBarStep = loanAmountSeekbar.max
         loanAmountSeekbar.progress = loanAmountSeekbar.max
         loanViewModel.setDuration(15)
+    }
+
+    /* ONLY FOR MOBILE */
+    private fun setupToolbar() {
+        (activity as? AppCompatActivity)?.setSupportActionBar(loanToolbar as Toolbar)
+        (activity as? AppCompatActivity)?.apply {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            title = getString(R.string.loan_toolbar_title)
+        }
     }
 }

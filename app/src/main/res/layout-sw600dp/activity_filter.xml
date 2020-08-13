@@ -10,7 +10,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/x_large"
         app:layout_constraintTop_toBottomOf="@id/filterToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -216,6 +215,19 @@
                 app:layout_constraintStart_toStartOf="@id/middleGuideline"
                 app:layout_constraintTop_toTopOf="@id/filterInterestPointSchool" />
 
+            <Button
+                android:id="@+id/filterEstateCTA"
+                style="@style/CTA.Filled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/x_large"
+                android:layout_marginBottom="@dimen/medium"
+                android:layout_marginLeft="@dimen/medium"
+                android:layout_marginRight="@dimen/medium"
+                android:text="@string/filter_filter_cta"
+                app:layout_constraintTop_toBottomOf="@id/filterInterestPointParc" />
+
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/startGuideline"
                 android:layout_width="wrap_content"
@@ -239,16 +251,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/filterEstateCTA"
-        style="@style/CTA.Filled"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_margin="@dimen/medium"
-        android:text="@string/filter_filter_cta"
-        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

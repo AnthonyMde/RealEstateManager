@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/loanToolbar">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium">
+
+        <TextView
+            android:id="@+id/loanAmountTitle"
+            style="@style/LoanTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loan_amount_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/loanAmountPrice"
+            style="@style/LoanPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="250000 €" />
+
+        <SeekBar
+            android:id="@+id/loanAmountSeekbar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/medium"
+            app:layout_constraintTop_toBottomOf="@id/loanAmountTitle" />
+
+        <TextView
+            android:id="@+id/loanDurationTitle"
+            style="@style/LoanTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x_large"
+            android:text="@string/loan_duration_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loanAmountSeekbar" />
+
+        <TextView
+            android:id="@+id/loanDurationNumber"
+            style="@style/LoanPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/loanDurationTitle"
+            tools:text="20 ans" />
+
+        <SeekBar
+            android:id="@+id/loanDurationSeekbar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/medium"
+            android:max="25"
+            android:progress="15"
+            app:layout_constraintTop_toBottomOf="@id/loanDurationTitle" />
+
+        <TextView
+            android:id="@+id/loanRateTitle"
+            style="@style/CategoryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x_large"
+            android:text="@string/loan_rate_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loanDurationSeekbar" />
+
+        <TextView
+            android:id="@+id/loanRate"
+            style="@style/LoanRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium"
+            app:layout_constraintBaseline_toBaselineOf="@id/loanRateTitle"
+            app:layout_constraintStart_toEndOf="@id/loanRateTitle"
+            tools:text="1,00%" />
+
+        <TextView
+            android:id="@+id/loanInsuranceTitle"
+            style="@style/CategoryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:text="@string/loan_insurance_rate_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loanRateTitle" />
+
+        <TextView
+            android:id="@+id/loanInsuranceRate"
+            style="@style/LoanRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium"
+            app:layout_constraintBaseline_toBaselineOf="@id/loanInsuranceTitle"
+            app:layout_constraintStart_toEndOf="@id/loanInsuranceTitle"
+            tools:text="0,34%" />
+
+        <TextView
+            android:id="@+id/loanBankTitle"
+            style="@style/CategoryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:text="@string/loan_bank_cost_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loanInsuranceTitle" />
+
+        <TextView
+            android:id="@+id/loanBankFees"
+            style="@style/LoanRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium"
+            app:layout_constraintBaseline_toBaselineOf="@id/loanBankTitle"
+            app:layout_constraintStart_toEndOf="@id/loanBankTitle"
+            tools:text="34 000 $" />
+
+        <TextView
+            android:id="@+id/loanDepositTitle"
+            style="@style/CategoryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:text="@string/loan_deposit_amount_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loanBankTitle" />
+
+        <TextView
+            android:id="@+id/loanDeposit"
+            style="@style/LoanRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium"
+            app:layout_constraintBaseline_toBaselineOf="@id/loanDepositTitle"
+            app:layout_constraintStart_toEndOf="@id/loanDepositTitle"
+            tools:text="25 000 $" />
+
+        <TextView
+            android:id="@+id/loanResultTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxx_large"
+            android:text="@string/loan_monthly_coast_title"
+            android:textSize="@dimen/text_x_large"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loanDepositTitle" />
+
+        <TextView
+            android:id="@+id/loanResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium"
+            android:textColor="@color/colorSecondaryDark"
+            android:textSize="@dimen/text_x_large"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/loanResultTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="3200 $" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
+

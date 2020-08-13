@@ -89,7 +89,8 @@ class MainActivity : AppCompatActivity() {
             in listOf(
                 "EstateCreationFragment",
                 "EstateCreationPhotoStepFragment",
-                "EstateCreationFinalFragment"
+                "EstateCreationFinalFragment",
+                "LoanFragment"
             ) -> {
                 menu?.setGroupVisible(R.id.tablet_menu_icons, false)
             }
@@ -147,22 +148,29 @@ class MainActivity : AppCompatActivity() {
     /* ONLY FOR TABLET */
     private fun configureTabletNavListener(navDestination: NavDestination) {
         currentDestination = navDestination.label.toString()
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         title = when (currentDestination) {
             "EstateList" -> {
                 getString(R.string.estate_list_toolbar_title)
             }
             "EstateCreationFragment" -> {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 getString(R.string.estate_form_toolbar_title)
             }
             "EstateCreationPhotoStepFragment" -> {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 getString(R.string.estate_creation_photo_toolbar_title)
             }
             "EstateCreationFinalFragment" -> {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 getString(R.string.estate_final_step_creation_toolbar)
+            }
+            "LoanFragment" -> {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                getString(R.string.loan_toolbar_title)
             }
             else -> getString(R.string.app_name)
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         invalidateOptionsMenu()
     }
 
