@@ -9,13 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
+import com.amamode.realestatemanager.domain.CurrencyType
+import com.amamode.realestatemanager.domain.entity.LoanData
+import com.amamode.realestatemanager.ui.CurrencyViewModel
+import com.amamode.realestatemanager.ui.SHARED_PREFS_CURRENCY
 import kotlinx.android.synthetic.main.loan_fragment.*
+import org.jetbrains.anko.support.v4.defaultSharedPreferences
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeListener {
     private val loanViewModel: LoanViewModel by viewModel()
+    private val currencyViewModel: CurrencyViewModel by sharedViewModel()
     private val safeArgs: LoanFragmentArgs by navArgs()
     private val loanPrice: Int by lazy { safeArgs.estatePrice }
+    private val isEuro: Boolean
+        get() = defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,14 +42,49 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
         super.onActivityCreated(savedInstanceState)
 
         loanViewModel.loanData.observe(viewLifecycleOwner, Observer {
-            loanAmountPrice.text = it.amount
-            loanBankFees.text = it.bankFee
-            loanDurationNumber.text = it.duration
-            loanInsuranceRate.text = it.insuranceRate
-            loanRate.text = it.interest
-            loanResult.text = it.monthlyDue
-            loanDeposit.text = it.depositAmount
+            loanDuration.text = it.duration.toString()
+            loanInsuranceRate.text = it.insuranceRate.toString()
+            loanRate.text = it.interest.toString()
+            setPriceText(if (isEuro) CurrencyType.EURO else CurrencyType.DOLLAR, it)
         })
+
+        currencyViewModel.currencyType.observe(viewLifecycleOwner, Observer {
+            val data = loanViewModel.loanData.value ?: return@Observer
+            setPriceText(it, data)
+        })
+    }
+
+    private fun setPriceText(
+        it: CurrencyType?,
+        data: LoanData
+    ) {
+        when (it) {
+            CurrencyType.EURO -> {
+                loanAmount.text = getString(R.string.estate_price_euro, data.amount.toString())
+                loanBankFees.text =
+                    getString(R.string.estate_price_euro, data.bankFee.toString())
+                loanResult.text =
+                    getString(R.string.estate_price_euro, data.monthlyDue.toString())
+                loanDeposit.text =
+                    getString(R.string.estate_price_euro, data.depositAmount.toString())
+            }
+            CurrencyType.DOLLAR -> {
+                loanAmount.text =
+                    currencyViewModel.getNewPriceText(CurrencyType.DOLLAR, data.amount)
+                loanBankFees.text =
+                    currencyViewModel.getNewPriceText(CurrencyType.DOLLAR, data.bankFee.toInt())
+                loanResult.text = currencyViewModel.getNewPriceText(
+                    CurrencyType.DOLLAR,
+                    data.monthlyDue.toInt()
+                )
+                loanDeposit.text = currencyViewModel.getNewPriceText(
+                    CurrencyType.DOLLAR,
+                    data.depositAmount
+                )
+            }
+            else -> {
+            }
+        }
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -63,7 +107,7 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
     private fun initializeData() {
         loanViewModel.setInitialAmount(loanPrice)
         loanAmountSeekbar.max = loanPrice / 10_000 // Create step each 10 000
-        loanViewModel.amoutSeekBarStep = loanAmountSeekbar.max
+        loanViewModel.totalSeekBarStep = loanAmountSeekbar.max
         loanAmountSeekbar.progress = loanAmountSeekbar.max
         loanViewModel.setDuration(15)
     }

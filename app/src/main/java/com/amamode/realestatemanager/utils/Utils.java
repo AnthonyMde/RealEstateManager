@@ -26,13 +26,13 @@ public class Utils {
     @NonNull
     public static BigDecimal convertDollarToEuro(@NonNull BigDecimal dollars) {
         double CHANGE_RATE_EURO = 0.812;
-        return dollars.multiply(BigDecimal.valueOf(CHANGE_RATE_EURO));
+        return dollars.multiply(BigDecimal.valueOf(CHANGE_RATE_EURO).setScale(2, BigDecimal.ROUND_UP));
     }
 
     @NonNull
     public static BigDecimal convertEuroToDollar(@NonNull BigDecimal euros) {
         double CHANGE_RATE_DOLLAR = 1.0791;
-        return euros.multiply(BigDecimal.valueOf(CHANGE_RATE_DOLLAR));
+        return euros.multiply(BigDecimal.valueOf(CHANGE_RATE_DOLLAR).setScale(2, BigDecimal.ROUND_UP));
     }
 
     /**

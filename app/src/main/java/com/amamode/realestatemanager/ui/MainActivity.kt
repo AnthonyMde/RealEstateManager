@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private val isTablet by lazy { resources.getBoolean(R.bool.isTablet) }
     private var currentDestination: String = "EstateList"
     private lateinit var listener: NavController.OnDestinationChangedListener
+    private val isEuro: Boolean
+        get() = defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +81,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (isTablet) {
             menuInflater.inflate(R.menu.main_menu_tablet, menu)
+            menu?.findItem(R.id.switch_currency)
+                ?.setIcon(if (isEuro) R.drawable.ic_euro_black_24 else R.drawable.ic_dollar_black_24)
         }
         return super.onCreateOptionsMenu(menu)
     }
@@ -145,8 +149,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             R.id.switch_currency -> {
-                val isEuro = defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
                 currencyViewModel.switchCurrency(if (isEuro) CurrencyType.DOLLAR else CurrencyType.EURO)
+
+                invalidateOptionsMenu()
             }
         }
         return super.onOptionsItemSelected(item)

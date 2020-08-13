@@ -9,6 +9,7 @@ import com.amamode.realestatemanager.domain.CurrencyType
 import com.amamode.realestatemanager.utils.BaseViewModel
 import com.amamode.realestatemanager.utils.Utils
 import org.jetbrains.anko.defaultSharedPreferences
+import java.math.RoundingMode
 
 const val SHARED_PREFS_CURRENCY = "isEuro"
 class CurrencyViewModel(private val context: Context) : BaseViewModel() {
@@ -20,12 +21,17 @@ class CurrencyViewModel(private val context: Context) : BaseViewModel() {
         if (amount == null) return ""
         return when (to) {
             CurrencyType.EURO -> {
-                val newValue = Utils.convertDollarToEuro(amount.toBigDecimal())
-                context.getString(R.string.estate_price_euro, String.format("%1$,.2f", newValue))
+                val newValue =
+                    Utils.convertDollarToEuro(amount.toBigDecimal().setScale(0, RoundingMode.DOWN))
+                context.getString(
+                    R.string.estate_price_euro,
+                    newValue.toString()
+                )
             }
             CurrencyType.DOLLAR -> {
-                val newValue = Utils.convertEuroToDollar(amount.toBigDecimal())
-                context.getString(R.string.estate_price_dollar, String.format("%1$,.2f", newValue))
+                val newValue =
+                    Utils.convertEuroToDollar(amount.toBigDecimal().setScale(0, RoundingMode.DOWN))
+                context.getString(R.string.estate_price_dollar, newValue.toString())
             }
         }
     }
