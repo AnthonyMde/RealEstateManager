@@ -1,6 +1,8 @@
 package com.amamode.realestatemanager.ui.loan
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +34,7 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
 
         if (!isTablet) {
             setupToolbar()
+            setHasOptionsMenu(true)
         }
         loanAmountSeekbar.setOnSeekBarChangeListener(this)
         loanDurationSeekbar.setOnSeekBarChangeListener(this)
@@ -119,5 +122,11 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             title = getString(R.string.loan_toolbar_title)
         }
+    }
+
+    /* ONLY FOR MOBILE */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.loan_simulator_mobile_menu, menu)
     }
 }

@@ -25,7 +25,6 @@ import com.amamode.realestatemanager.ui.SHARED_PREFS_CURRENCY
 import com.amamode.realestatemanager.ui.creation.EstateType
 import com.amamode.realestatemanager.utils.Resource
 import kotlinx.android.synthetic.main.fragment_estate_details.*
-import org.jetbrains.anko.defaultSharedPreferences
 import org.jetbrains.anko.support.v4.defaultSharedPreferences
 import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -201,6 +200,6 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     /* ONLY FOR MOBILE */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.loan_menu, menu)
+        inflater.inflate(R.menu.details_estate_mobile_menu, menu)
     }
 }
