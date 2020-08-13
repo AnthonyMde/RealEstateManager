@@ -23,6 +23,10 @@ class EstateViewModel(private val estateService: EstateService, private val cont
     val estateEntityList: LiveData<Resource<List<EstateDetails>>>
         get() = _estateEntityList
 
+    private val _launchNotification = MutableLiveData<Unit>()
+    val launchNotification: LiveData<Unit>
+        get() = _launchNotification
+
     val firstStepformMediator = MediatorLiveData<Boolean>()
     var currentEstateDetails: EstateDetails? = null
 
@@ -114,6 +118,7 @@ class EstateViewModel(private val estateService: EstateService, private val cont
 
             if (hasSucceed) {
                 getFullEstateList()
+                _launchNotification.value = _launchNotification.value
             } else {
                 Timber.e("Estate creation failed")
             }

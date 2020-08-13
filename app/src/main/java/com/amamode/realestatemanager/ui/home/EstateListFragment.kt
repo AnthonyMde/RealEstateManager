@@ -1,11 +1,16 @@
 package com.amamode.realestatemanager.ui.home
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -24,6 +29,8 @@ import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
+private const val CHANNEL_ID = "estate_creation_notification"
+
 class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
     private val estateViewModel: EstateViewModel by sharedViewModel()
     private val currencyViewModel: CurrencyViewModel by sharedViewModel()
@@ -35,6 +42,7 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        createNotificationChannel()
         val isTablet = resources.getBoolean(R.bool.isTablet)
 
         estateRV.addItemDecoration(DividerItemDecoration(
@@ -67,6 +75,10 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
         currencyViewModel.currencySwitch.observe(viewLifecycleOwner, Observer {
             adapter.currentCurrency = it
             adapter.notifyDataSetChanged()
+        })
+
+        estateViewModel.launchNotification.observe(viewLifecycleOwner, Observer {
+            sendNotification()
         })
     }
 
@@ -109,6 +121,35 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
                 }
             }, context = context, currentCurrency = getCurrentCurrencyType(context))
         estateRV.adapter = adapter
+    }
+
+    private fun sendNotification() {
+        val ctx = context ?: return
+        val builder = NotificationCompat.Builder(ctx, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_house_black_24)
+            .setContentTitle(getString(R.string.notification_estate_creation_title))
+            .setContentText(getString(R.string.notification_estate_creation_content))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        with(NotificationManagerCompat.from(ctx)) {
+            notify(1, builder.build())
+        }
+    }
+
+    /**
+     * Android version above or egal to Oreo needs a notification channel to be configured
+     * to receive notifications properly.
+     */
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.notification_channel_estate_name)
+            val description = getString(R.string.notification_channel_estate_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance)
+            channel.description = description
+            // Register the channel with the system. We can't change notification behaviors after.
+            val notificationManager = context?.getSystemService(NotificationManager::class.java)
+            notificationManager?.createNotificationChannel(channel)
+        }
     }
 
     /* ONLY FOR MOBILE */
