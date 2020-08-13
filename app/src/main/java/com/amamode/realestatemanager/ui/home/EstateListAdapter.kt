@@ -1,13 +1,16 @@
 package com.amamode.realestatemanager.ui.home
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.ui.creation.EstateType
 import kotlinx.android.synthetic.main.item_estate_list.view.*
+import org.jetbrains.anko.image
 
 class EstateListAdapter(
     val onEstateClick: (Long, EstateType) -> Unit
@@ -38,9 +41,22 @@ class EstateListAdapter(
         notifyDataSetChanged()
     }
 
+    @SuppressLint("SetTextI18n")
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(estate: EstateDetails) {
-            itemView.estateTitle.text = itemView.context.getString(estate.type.nameRes)
+            itemView.estateItemType.text = itemView.context.getString(estate.type.nameRes)
+
+            val cityName = estate.address?.city
+            if (cityName == null || cityName == "") {
+                itemView.estateItemCity.visibility = View.GONE
+            } else {
+                itemView.estateItemCity.visibility = View.VISIBLE
+                itemView.estateItemCity.text = cityName
+            }
+
+            itemView.estateItemPrice.text = "$" + estate.price
+
+            itemView.estateItemPic.setImageURI(estate.estatePhotos.get(0).first)
 
             itemView.setOnClickListener {
                 onEstateClick(estate.id, estate.type)

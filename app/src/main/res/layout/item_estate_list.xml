@@ -1,16 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:padding="5dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/estateItemPic"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:padding="3dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:contentDescription="@null"
+        android:src="@color/colorSecondary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/estateTitle"
+        android:id="@+id/estateItemType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="estate name X"
-        app:layout_constraintStart_toStartOf="parent"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_large"
+        tools:text="Flat"
+        app:layout_constraintStart_toEndOf="@id/estateItemPic"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/estateItemCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        android:textSize="@dimen/text_medium"
+        tools:text="Manhattan"
+        app:layout_constraintStart_toEndOf="@id/estateItemPic"
+        app:layout_constraintTop_toBottomOf="@id/estateItemType" />
+
+    <TextView
+        android:id="@+id/estateItemPrice"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:gravity="bottom"
+        android:paddingEnd="10dp"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_x_large"
+        tools:text="$17,870,000"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintStart_toEndOf="@id/estateItemPic"
+        app:layout_constraintTop_toBottomOf="@id/estateItemCity"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

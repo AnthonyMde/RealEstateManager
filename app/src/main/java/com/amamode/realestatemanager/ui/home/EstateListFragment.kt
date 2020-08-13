@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.ui.EstateViewModel
 import com.amamode.realestatemanager.utils.Resource
@@ -28,6 +30,9 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
 
         val isTablet = resources.getBoolean(R.bool.isTablet)
 
+        estateRV.addItemDecoration(DividerItemDecoration(
+            requireContext(),
+            LinearLayoutManager.VERTICAL))
         if (isTablet) {
             val tabletDetailNavHost =
                 childFragmentManager.findFragmentById(R.id.tablet_detail_nav_container) as NavHostFragment
