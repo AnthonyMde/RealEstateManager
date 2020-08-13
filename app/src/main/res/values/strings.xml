@@ -96,4 +96,7 @@
     <string name="loan_deposit_amount_title">Apport initial</string>
     <string name="loan_toolbar_title">Simulation de prêt</string>
     <string name="filter_toolbar_title">Filtrer les biens</string>
+    <string name="switch_currency_title">Changer la monnaie</string>
+    <string name="estate_price_euro">%1$s €</string>
+    <string name="estate_price_dollar">%1$s $</string>
 </resources>

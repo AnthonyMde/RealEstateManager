@@ -10,10 +10,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.amamode.realestatemanager.R
+import com.amamode.realestatemanager.domain.CurrencyType
 import com.amamode.realestatemanager.domain.FilterEntity
 import com.amamode.realestatemanager.ui.home.EstateListFragmentDirections
 import com.facebook.drawee.backends.pipeline.Fresco
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.defaultSharedPreferences
 import org.jetbrains.anko.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,6 +23,7 @@ private const val INTENT_FILTER_REQUEST_CODE = 1025
 
 class MainActivity : AppCompatActivity() {
     private val estateViewModel: EstateViewModel by viewModel()
+    private val currencyViewModel: CurrencyViewModel by viewModel()
     private lateinit var controller: NavController
     private val isTablet by lazy { resources.getBoolean(R.bool.isTablet) }
     private var currentDestination: String = "EstateList"
@@ -140,6 +143,10 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     toast(R.string.loan_simulator_no_estate_selected)
                 }
+            }
+            R.id.switch_currency -> {
+                val isEuro = defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
+                currencyViewModel.switchCurrency(if (isEuro) CurrencyType.DOLLAR else CurrencyType.EURO)
             }
         }
         return super.onOptionsItemSelected(item)

@@ -15,13 +15,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amamode.realestatemanager.R
+import com.amamode.realestatemanager.domain.CurrencyType
 import com.amamode.realestatemanager.domain.EstateAddress
 import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.ui.CurrencyViewModel
 import com.amamode.realestatemanager.ui.EstatePhotoAdapter
 import com.amamode.realestatemanager.ui.EstateViewModel
+import com.amamode.realestatemanager.ui.SHARED_PREFS_CURRENCY
 import com.amamode.realestatemanager.ui.creation.EstateType
 import com.amamode.realestatemanager.utils.Resource
 import kotlinx.android.synthetic.main.fragment_estate_details.*
+import org.jetbrains.anko.defaultSharedPreferences
+import org.jetbrains.anko.support.v4.defaultSharedPreferences
 import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -30,6 +35,7 @@ import java.util.*
 
 class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     private val estateViewModel: EstateViewModel by sharedViewModel()
+    private val currencyViewModel: CurrencyViewModel by sharedViewModel()
     private val safeArgs: EstateDetailsFragmentArgs by navArgs()
     private val estateId: Long by lazy { safeArgs.estateId }
     private val estateType: EstateType by lazy { safeArgs.estateType }
@@ -60,14 +66,6 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         configurePhotoRV()
     }
 
-    private fun configurePhotoRV() {
-        photosAdapter = EstatePhotoAdapter(isEditable = false)
-        estateDetailsPhotosRV.apply {
-            adapter = photosAdapter
-            layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
-        }
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -84,6 +82,25 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
                 }
                 is Resource.Error -> {
                     Timber.e("${it.error}")
+                }
+            }
+        })
+
+        currencyViewModel.currencyType.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                CurrencyType.EURO -> {
+                    estateDetailsPrice.text =
+                        getString(
+                            R.string.estate_price_euro,
+                            estateViewModel.currentEstateDetails?.price.toString()
+                        )
+                }
+                CurrencyType.DOLLAR -> {
+                    estateDetailsPrice.text =
+                        currencyViewModel.getNewPriceText(
+                            CurrencyType.DOLLAR,
+                            estateViewModel.currentEstateDetails?.price
+                        )
                 }
             }
         })
@@ -116,7 +133,21 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         estateDetailsDescription.setText(estate.description ?: "")
         estateDetailsRoom.text = estate.rooms.toString()
         estateDetailsSurface.text = estate.surface.toString()
+        setPrice(estate)
+        setAddress(estate)
+        setInterestPoints(estate)
+    }
 
+    private fun setPrice(estate: EstateDetails) {
+        val isEuro = defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
+        estateDetailsPrice.text = if (isEuro) {
+            getString(R.string.estate_price_euro, estate.price.toString())
+        } else {
+            currencyViewModel.getNewPriceText(CurrencyType.DOLLAR, estate.price)
+        }
+    }
+
+    private fun setAddress(estate: EstateDetails) {
         val city =
             if (estate.address?.city?.isEmpty() == true)
                 getString(R.string.estate_details_location_unknown_city)
@@ -128,8 +159,9 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         val zipCode =
             estate.address?.zipCode ?: getString(R.string.estate_details_location_unknown_zipcode)
         estateDetailsLocation.text = "$city \n${street} \n${zipCode}"
+    }
 
-        estateDetailsPrice.text = estate.price.toString()
+    private fun setInterestPoints(estate: EstateDetails) {
         estateDetailsOwner.text = estate.owner
         if (estate.interestPoint.isNotEmpty()) {
             val suffix = ", "
@@ -140,6 +172,14 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
             }
 
             estateDetailsInterestPoints.text = builder.removeSuffix(suffix)
+        }
+    }
+
+    private fun configurePhotoRV() {
+        photosAdapter = EstatePhotoAdapter(isEditable = false)
+        estateDetailsPhotosRV.apply {
+            adapter = photosAdapter
+            layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
