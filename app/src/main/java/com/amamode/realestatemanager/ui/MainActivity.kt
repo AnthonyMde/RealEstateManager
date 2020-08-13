@@ -150,7 +150,6 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.switch_currency -> {
                 currencyViewModel.switchCurrency(if (isEuro) CurrencyType.DOLLAR else CurrencyType.EURO)
-
                 invalidateOptionsMenu()
             }
         }

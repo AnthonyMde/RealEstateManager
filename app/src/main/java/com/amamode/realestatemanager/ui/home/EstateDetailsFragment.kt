@@ -40,6 +40,8 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     private val estateType: EstateType by lazy { safeArgs.estateType }
     val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private lateinit var photosAdapter: EstatePhotoAdapter
+    private val isEuro: Boolean
+        get() = defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -201,5 +203,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.details_estate_mobile_menu, menu)
+        menu.findItem(R.id.switch_currency)
+            ?.setIcon(if (isEuro) R.drawable.ic_euro_black_24 else R.drawable.ic_dollar_black_24)
     }
 }

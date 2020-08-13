@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.ui.EstateViewModel
+import com.amamode.realestatemanager.ui.SHARED_PREFS_CURRENCY
 import com.amamode.realestatemanager.utils.Resource
 import kotlinx.android.synthetic.main.fragment_estate_list.*
+import org.jetbrains.anko.support.v4.defaultSharedPreferences
 import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -24,6 +26,8 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
     private val estateViewModel: EstateViewModel by sharedViewModel()
     private var firstTime = true
     private lateinit var adapter: EstateListAdapter
+    private val isEuro: Boolean
+        get() = defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -111,5 +115,7 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.main_menu_mobile, menu)
+        menu.findItem(R.id.switch_currency)
+            ?.setIcon(if (isEuro) R.drawable.ic_euro_black_24 else R.drawable.ic_dollar_black_24)
     }
 }

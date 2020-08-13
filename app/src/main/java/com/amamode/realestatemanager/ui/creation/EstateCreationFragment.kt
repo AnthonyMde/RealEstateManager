@@ -1,9 +1,7 @@
 package com.amamode.realestatemanager.ui.creation
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -16,13 +14,17 @@ import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationBinding
 import com.amamode.realestatemanager.domain.EstateDetails
 import com.amamode.realestatemanager.ui.EstateViewModel
+import com.amamode.realestatemanager.ui.SHARED_PREFS_CURRENCY
 import kotlinx.android.synthetic.main.fragment_estate_creation.*
+import org.jetbrains.anko.support.v4.defaultSharedPreferences
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EstateCreationFragment : Fragment() {
     private val estateViewModel: EstateViewModel by sharedViewModel()
     private val safeArgs: EstateCreationFragmentArgs by navArgs()
     private val estateToModify: EstateDetails? by lazy { safeArgs.estateToModify }
+    private val isEuro: Boolean
+        get() = defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +50,7 @@ class EstateCreationFragment : Fragment() {
 
         if (!isTablet) {
             setupToolbar()
+            setHasOptionsMenu(true)
         }
 
         estateToModify?.let {
@@ -93,15 +96,6 @@ class EstateCreationFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    /* ONLY FOR MOBILE */
-    private fun setupToolbar() {
-        (activity as? AppCompatActivity)?.setSupportActionBar(estateCreationToolbar as Toolbar)
-        (activity as? AppCompatActivity)?.apply {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            title = getString(R.string.estate_form_toolbar_title)
-        }
-    }
-
     private fun getEstateType(position: Int): EstateType =
         when (position) {
             0 -> EstateType.HOUSE
@@ -121,4 +115,21 @@ class EstateCreationFragment : Fragment() {
             EstateType.VILLA -> 4
             else -> 0
         }
+
+    /* ONLY FOR MOBILE */
+    private fun setupToolbar() {
+        (activity as? AppCompatActivity)?.setSupportActionBar(estateCreationToolbar as Toolbar)
+        (activity as? AppCompatActivity)?.apply {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            title = getString(R.string.estate_form_toolbar_title)
+        }
+    }
+
+    /* ONLY FOR MOBILE */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.loan_simulator_mobile_menu, menu)
+        menu.findItem(R.id.switch_currency)
+            ?.setIcon(if (isEuro) R.drawable.ic_euro_black_24 else R.drawable.ic_dollar_black_24)
+    }
 }
