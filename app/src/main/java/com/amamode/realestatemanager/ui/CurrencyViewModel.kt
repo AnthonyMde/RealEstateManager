@@ -13,33 +13,29 @@ import java.math.RoundingMode
 
 const val SHARED_PREFS_CURRENCY = "isEuro"
 class CurrencyViewModel(private val context: Context) : BaseViewModel() {
-    private val _currencyType = MutableLiveData<CurrencyType>()
-    val currencyType: LiveData<CurrencyType>
-        get() = _currencyType
+    private val _currencySwitch = MutableLiveData<CurrencyType>()
+    val currencySwitch: LiveData<CurrencyType>
+        get() = _currencySwitch
 
-    fun getNewPriceText(to: CurrencyType, amount: Int?): String {
-        if (amount == null) return ""
-        return when (to) {
-            CurrencyType.EURO -> {
-                val newValue =
-                    Utils.convertDollarToEuro(amount.toBigDecimal().setScale(0, RoundingMode.DOWN))
-                context.getString(
-                    R.string.estate_price_euro,
-                    newValue.toString()
-                )
-            }
-            CurrencyType.DOLLAR -> {
-                val newValue =
-                    Utils.convertEuroToDollar(amount.toBigDecimal().setScale(0, RoundingMode.DOWN))
-                context.getString(R.string.estate_price_dollar, newValue.toString())
-            }
+    val currentCurrencyType: CurrencyType
+        get() {
+            val isEuro = context.defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
+            return if (isEuro) CurrencyType.EURO else CurrencyType.DOLLAR
         }
-    }
 
     fun switchCurrency(newCurrency: CurrencyType) {
         context.defaultSharedPreferences.edit {
             putBoolean(SHARED_PREFS_CURRENCY, newCurrency == CurrencyType.EURO)
         }
-        _currencyType.postValue(newCurrency)
+        _currencySwitch.postValue(newCurrency)
+    }
+
+    companion object {
+        fun getDollarPriceString(context: Context?, amount: Int?): String {
+            if (amount == null || context == null) return ""
+            val newValue =
+                Utils.convertEuroToDollar(amount.toBigDecimal().setScale(0, RoundingMode.DOWN))
+            return context.getString(R.string.estate_price_dollar, newValue.toString())
+        }
     }
 }

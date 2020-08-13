@@ -1,19 +1,22 @@
 package com.amamode.realestatemanager.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.amamode.realestatemanager.R
+import com.amamode.realestatemanager.domain.CurrencyType
 import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.ui.CurrencyViewModel
 import com.amamode.realestatemanager.ui.creation.EstateType
 import kotlinx.android.synthetic.main.item_estate_list.view.*
-import org.jetbrains.anko.image
 
 class EstateListAdapter(
-    val onEstateClick: (Long, EstateType) -> Unit
+    val onEstateClick: (Long, EstateType) -> Unit,
+    val context: Context?,
+    var currentCurrency: CurrencyType
 ) :
     RecyclerView.Adapter<EstateListAdapter.ViewHolder>() {
     private var estateList: List<EstateDetails> = emptyList()
@@ -54,9 +57,14 @@ class EstateListAdapter(
                 itemView.estateItemCity.text = cityName
             }
 
-            itemView.estateItemPrice.text = "$" + estate.price
+            itemView.estateItemPrice.text = when (currentCurrency) {
+                CurrencyType.EURO -> "${estate.price} €"
+                CurrencyType.DOLLAR -> {
+                    CurrencyViewModel.getDollarPriceString(context, estate.price)
+                }
+            }
 
-            itemView.estateItemPic.setImageURI(estate.estatePhotos.get(0).first)
+            itemView.estateItemPic.setImageURI(estate.estatePhotos[0].first)
 
             itemView.setOnClickListener {
                 onEstateClick(estate.id, estate.type)

@@ -87,7 +87,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
             }
         })
 
-        currencyViewModel.currencyType.observe(viewLifecycleOwner, Observer {
+        currencyViewModel.currencySwitch.observe(viewLifecycleOwner, Observer {
             when (it) {
                 CurrencyType.EURO -> {
                     estateDetailsPrice.text =
@@ -98,8 +98,8 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
                 }
                 CurrencyType.DOLLAR -> {
                     estateDetailsPrice.text =
-                        currencyViewModel.getNewPriceText(
-                            CurrencyType.DOLLAR,
+                        CurrencyViewModel.getDollarPriceString(
+                            context,
                             estateViewModel.currentEstateDetails?.price
                         )
                 }
@@ -144,7 +144,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
         estateDetailsPrice.text = if (isEuro) {
             getString(R.string.estate_price_euro, estate.price.toString())
         } else {
-            currencyViewModel.getNewPriceText(CurrencyType.DOLLAR, estate.price)
+            CurrencyViewModel.getDollarPriceString(context, estate.price)
         }
     }
 

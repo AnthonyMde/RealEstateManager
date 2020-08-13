@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amamode.realestatemanager.R
+import com.amamode.realestatemanager.ui.CurrencyViewModel
 import com.amamode.realestatemanager.ui.EstateViewModel
 import com.amamode.realestatemanager.ui.SHARED_PREFS_CURRENCY
 import com.amamode.realestatemanager.utils.Resource
@@ -24,6 +25,7 @@ import timber.log.Timber
 
 class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
     private val estateViewModel: EstateViewModel by sharedViewModel()
+    private val currencyViewModel: CurrencyViewModel by sharedViewModel()
     private var firstTime = true
     private lateinit var adapter: EstateListAdapter
     private val isEuro: Boolean
@@ -60,6 +62,11 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
                 is Resource.Error -> Timber.e("Error while loading estate list => ${it.error}")
             }
         })
+
+        currencyViewModel.currencySwitch.observe(viewLifecycleOwner, Observer {
+            adapter.currentCurrency = it
+            adapter.notifyDataSetChanged()
+        })
     }
 
     private fun displaySingleLayout() {
@@ -71,7 +78,7 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
                         estateType
                     )
                 findNavController().navigate(action)
-            })
+            }, context = context, currentCurrency = currencyViewModel.currentCurrencyType)
 
         estateRV.adapter = adapter
         addEstateFab.setOnClickListener {
@@ -99,7 +106,7 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
                         )
                     tabletDetailNavHost.navController.navigate(action)
                 }
-            })
+            }, context = context, currentCurrency = currencyViewModel.currentCurrencyType)
         estateRV.adapter = adapter
     }
 

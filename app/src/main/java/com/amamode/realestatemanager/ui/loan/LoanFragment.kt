@@ -51,7 +51,7 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
             setPriceText(if (isEuro) CurrencyType.EURO else CurrencyType.DOLLAR, it)
         })
 
-        currencyViewModel.currencyType.observe(viewLifecycleOwner, Observer {
+        currencyViewModel.currencySwitch.observe(viewLifecycleOwner, Observer {
             val data = loanViewModel.loanData.value ?: return@Observer
             setPriceText(it, data)
         })
@@ -73,17 +73,13 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
             }
             CurrencyType.DOLLAR -> {
                 loanAmount.text =
-                    currencyViewModel.getNewPriceText(CurrencyType.DOLLAR, data.amount)
+                    CurrencyViewModel.getDollarPriceString(context, data.amount)
                 loanBankFees.text =
-                    currencyViewModel.getNewPriceText(CurrencyType.DOLLAR, data.bankFee.toInt())
-                loanResult.text = currencyViewModel.getNewPriceText(
-                    CurrencyType.DOLLAR,
-                    data.monthlyDue.toInt()
-                )
-                loanDeposit.text = currencyViewModel.getNewPriceText(
-                    CurrencyType.DOLLAR,
-                    data.depositAmount
-                )
+                    CurrencyViewModel.getDollarPriceString(context, data.bankFee.toInt())
+                loanResult.text =
+                    CurrencyViewModel.getDollarPriceString(context, data.monthlyDue.toInt())
+                loanDeposit.text =
+                    CurrencyViewModel.getDollarPriceString(context, data.depositAmount)
             }
             else -> {
             }
