@@ -17,6 +17,7 @@ import com.amamode.realestatemanager.ui.CurrencyViewModel
 import com.amamode.realestatemanager.ui.EstateViewModel
 import com.amamode.realestatemanager.ui.SHARED_PREFS_CURRENCY
 import com.amamode.realestatemanager.utils.Resource
+import com.amamode.realestatemanager.utils.getCurrentCurrencyType
 import kotlinx.android.synthetic.main.fragment_estate_list.*
 import org.jetbrains.anko.support.v4.defaultSharedPreferences
 import org.jetbrains.anko.support.v4.toast
@@ -78,7 +79,7 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
                         estateType
                     )
                 findNavController().navigate(action)
-            }, context = context, currentCurrency = currencyViewModel.currentCurrencyType)
+            }, context = context, currentCurrency = getCurrentCurrencyType(context))
 
         estateRV.adapter = adapter
         addEstateFab.setOnClickListener {
@@ -106,7 +107,7 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
                         )
                     tabletDetailNavHost.navController.navigate(action)
                 }
-            }, context = context, currentCurrency = currencyViewModel.currentCurrencyType)
+            }, context = context, currentCurrency = getCurrentCurrencyType(context))
         estateRV.adapter = adapter
     }
 

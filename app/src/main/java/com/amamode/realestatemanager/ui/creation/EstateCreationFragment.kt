@@ -12,15 +12,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationBinding
+import com.amamode.realestatemanager.domain.CurrencyType
 import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.ui.CurrencyViewModel
 import com.amamode.realestatemanager.ui.EstateViewModel
 import com.amamode.realestatemanager.ui.SHARED_PREFS_CURRENCY
+import com.amamode.realestatemanager.utils.Utils
+import com.amamode.realestatemanager.utils.getCurrentCurrencyType
 import kotlinx.android.synthetic.main.fragment_estate_creation.*
 import org.jetbrains.anko.support.v4.defaultSharedPreferences
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EstateCreationFragment : Fragment() {
     private val estateViewModel: EstateViewModel by sharedViewModel()
+    private val currencyViewModel: CurrencyViewModel by sharedViewModel()
     private val safeArgs: EstateCreationFragmentArgs by navArgs()
     private val estateToModify: EstateDetails? by lazy { safeArgs.estateToModify }
     private val isEuro: Boolean
@@ -62,6 +67,12 @@ class EstateCreationFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         configureSpinner()
+        creationPriceEditTextLayout.hint =
+            if (getCurrentCurrencyType(context) == CurrencyType.EURO) {
+                getString(R.string.estate_form_price_hint)
+            } else {
+                getString(R.string.estate_form_price_hint_dollar)
+            }
 
         creationPriceEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE && goToPhotoStepCTA.isEnabled) {
@@ -76,6 +87,24 @@ class EstateCreationFragment : Fragment() {
 
         estateViewModel.firstStepformMediator.observe(viewLifecycleOwner, Observer {
             goToPhotoStepCTA.isEnabled = it
+        })
+
+        currencyViewModel.currencySwitch.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                CurrencyType.EURO -> {
+                    creationPriceEditTextLayout.hint = getString(R.string.estate_form_price_hint)
+                    val dollars = estateViewModel.price.value ?: return@Observer
+                    val euros = Utils.convertDollarToEuro(dollars.toBigDecimal()).toInt()
+                    estateViewModel.price.postValue(euros)
+                }
+                CurrencyType.DOLLAR -> {
+                    creationPriceEditTextLayout.hint =
+                        getString(R.string.estate_form_price_hint_dollar)
+                    val euros = estateViewModel.price.value ?: return@Observer
+                    val dollars = Utils.convertEuroToDollar(euros.toBigDecimal()).toInt()
+                    estateViewModel.price.postValue(dollars)
+                }
+            }
         })
     }
 

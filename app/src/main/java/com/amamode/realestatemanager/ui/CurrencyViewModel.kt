@@ -17,12 +17,6 @@ class CurrencyViewModel(private val context: Context) : BaseViewModel() {
     val currencySwitch: LiveData<CurrencyType>
         get() = _currencySwitch
 
-    val currentCurrencyType: CurrencyType
-        get() {
-            val isEuro = context.defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
-            return if (isEuro) CurrencyType.EURO else CurrencyType.DOLLAR
-        }
-
     fun switchCurrency(newCurrency: CurrencyType) {
         context.defaultSharedPreferences.edit {
             putBoolean(SHARED_PREFS_CURRENCY, newCurrency == CurrencyType.EURO)

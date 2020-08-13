@@ -99,4 +99,5 @@
     <string name="switch_currency_title">Changer la monnaie</string>
     <string name="estate_price_euro">%1$s €</string>
     <string name="estate_price_dollar">%1$s $</string>
+    <string name="estate_form_price_hint_dollar">Prix (dollars)</string>
 </resources>
