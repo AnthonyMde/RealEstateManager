@@ -25,6 +25,7 @@ class LoanViewModel : BaseViewModel() {
     private var loanRate = BigDecimal(0)
     private var monthlyDue = BigDecimal(0)
     private var bankFee = BigDecimal(0)
+    private var depositAmount = BigDecimal(0)
 
     var isEuro = false
     var amoutSeekBarStep = 1000
@@ -45,7 +46,11 @@ class LoanViewModel : BaseViewModel() {
     fun adjustAmount(progress: Int) {
         val ratio = (progress.toDouble() / amoutSeekBarStep).toBigDecimal()
         amount = initialAmount * ratio //Getting percentage of the amount given progress bar
-        _loanData.value = loanData.value?.copy(amount = decimalToIntString(amount))
+        depositAmount = initialAmount - amount
+        _loanData.value = loanData.value?.copy(
+            amount = decimalToIntString(amount),
+            depositAmount = decimalToIntString(depositAmount)
+        )
         computeMonthlyDue()
     }
 

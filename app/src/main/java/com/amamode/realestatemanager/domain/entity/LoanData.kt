@@ -6,5 +6,6 @@ data class LoanData (
     val interest: String = "0",
     val monthlyDue: String = "0",
     val bankFee: String = "0",
+    val depositAmount: String = "0",
     val insuranceRate: String = "0.34"
 )

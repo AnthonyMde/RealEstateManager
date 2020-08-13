@@ -19,11 +19,7 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
         super.onViewCreated(view, savedInstanceState)
         loanAmountSeekbar.setOnSeekBarChangeListener(this)
         loanDurationSeekbar.setOnSeekBarChangeListener(this)
-        loanViewModel.setInitialAmount(loanPrice)
-        loanAmountSeekbar.max = loanPrice / 10_000
-        loanViewModel.amoutSeekBarStep = loanAmountSeekbar.max
-        loanAmountSeekbar.progress = loanAmountSeekbar.max
-        loanViewModel.setDuration(15)
+        initializeData()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -36,6 +32,7 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
             loanInsuranceRate.text = it.insuranceRate
             loanRate.text = it.interest
             loanResult.text = it.monthlyDue
+            loanDeposit.text = it.depositAmount
         })
     }
 
@@ -54,5 +51,13 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
 
     override fun onStopTrackingTouch(seekBar: SeekBar?) {
         // not opt-in
+    }
+
+    private fun initializeData() {
+        loanViewModel.setInitialAmount(loanPrice)
+        loanAmountSeekbar.max = loanPrice / 10_000 // Create step each 10 000
+        loanViewModel.amoutSeekBarStep = loanAmountSeekbar.max
+        loanAmountSeekbar.progress = loanAmountSeekbar.max
+        loanViewModel.setDuration(15)
     }
 }

@@ -93,4 +93,5 @@
     <string name="loan_simulator_no_estate_selected">Veuillez choisir un bien pour la simulation</string>
     <string name="dollar_currency">$</string>
     <string name="euro_currency">€</string>
+    <string name="loan_deposit_amount_title">Apport initial</string>
 </resources>

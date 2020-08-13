@@ -125,6 +125,28 @@
             />
 
         <TextView
+            android:id="@+id/loanDepositTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loan_deposit_amount_title"
+            style="@style/CategoryTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loanBankTitle"
+            android:layout_marginTop="@dimen/small"
+            />
+
+        <TextView
+            android:id="@+id/loanDeposit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="25 000 $"
+            style="@style/LoanRate"
+            android:layout_marginStart="@dimen/medium"
+            app:layout_constraintBaseline_toBaselineOf="@id/loanDepositTitle"
+            app:layout_constraintStart_toEndOf="@id/loanDepositTitle"
+            />
+
+        <TextView
             android:id="@+id/loanResultTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -132,7 +154,7 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_x_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/loanBankTitle"
+            app:layout_constraintTop_toBottomOf="@id/loanDepositTitle"
             android:layout_marginTop="@dimen/xxx_large"
             />
 
