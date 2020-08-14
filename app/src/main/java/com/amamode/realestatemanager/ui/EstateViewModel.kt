@@ -9,10 +9,7 @@ import com.amamode.realestatemanager.BuildConfig
 import com.amamode.realestatemanager.domain.*
 import com.amamode.realestatemanager.domain.errors.RoomError
 import com.amamode.realestatemanager.ui.creation.EstateType
-import com.amamode.realestatemanager.utils.BaseViewModel
-import com.amamode.realestatemanager.utils.Resource
-import com.amamode.realestatemanager.utils.Utils
-import com.amamode.realestatemanager.utils.getCurrentCurrencyType
+import com.amamode.realestatemanager.utils.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
@@ -23,7 +20,7 @@ class EstateViewModel(private val estateService: EstateService, private val cont
     val estateEntityList: LiveData<Resource<List<EstateDetails>>>
         get() = _estateEntityList
 
-    private val _launchNotification = MutableLiveData<Unit>()
+    private val _launchNotification = SingleLiveEvent<Unit>()
     val launchNotification: LiveData<Unit>
         get() = _launchNotification
 
@@ -118,7 +115,7 @@ class EstateViewModel(private val estateService: EstateService, private val cont
 
             if (hasSucceed) {
                 getFullEstateList()
-                _launchNotification.value = _launchNotification.value
+                _launchNotification.call()
             } else {
                 Timber.e("Estate creation failed")
             }
