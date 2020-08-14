@@ -1,5 +1,6 @@
 package com.amamode.realestatemanager.di
 
+import android.os.Build
 import com.amamode.realestatemanager.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,11 +11,15 @@ import java.util.concurrent.TimeUnit
 class NetworkModule {
     companion object {
         fun getRetrofit(): Retrofit {
-            return Retrofit.Builder()
+            val builder = Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(getOkHttpClient())
-                .build()
+
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+                builder.client(getOkHttpClient())
+            }
+
+            return builder.build()
         }
 
         private fun getOkHttpClient(): OkHttpClient {
