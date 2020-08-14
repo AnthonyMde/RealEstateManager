@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amamode.realestatemanager.R
@@ -69,6 +71,8 @@ class EstateListAdapter(
                     CurrencyViewModel.getDollarPriceString(context, estate.price)
                 }
             }
+
+            itemView.estateSoldStamp.visibility = if (estate.status.sold) VISIBLE else INVISIBLE
 
             itemView.estateItemPic.setImageURI(estate.estatePhotos[0].first)
 

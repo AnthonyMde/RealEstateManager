@@ -28,7 +28,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:textSize="@dimen/text_large"
+        android:textSize="@dimen/text_medium_large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/estateItemPic"
@@ -60,12 +60,24 @@
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/text_x_large"
+        android:textSize="@dimen/text_medium_large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/estateItemPic"
         app:layout_constraintTop_toBottomOf="@id/estateItemCity"
         tools:text="$17,870,000" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/estateSoldStamp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        app:backgroundImage="@drawable/ic_stamp"
+        android:layout_margin="@dimen/xxx_small"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/imageGuideline"
