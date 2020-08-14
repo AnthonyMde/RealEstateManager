@@ -11,5 +11,5 @@ val viewModelsModule = module {
     viewModel { EstateViewModel(get(), get()) }
     viewModel { LoanViewModel() }
     viewModel { CurrencyViewModel(get()) }
-    viewModel { MapsViewModel() }
+    viewModel { MapsViewModel(get()) }
 }

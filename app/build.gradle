@@ -24,6 +24,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        buildConfigField "String", "BASE_URL", "\"https://maps.googleapis.com/maps/api/geocode/\""
         buildConfigField "String", "API_KEY_GOOGLE_PLACES", googleServicesApiKey
         resValue "string", "google_places_api_key", googleServicesApiKey
 

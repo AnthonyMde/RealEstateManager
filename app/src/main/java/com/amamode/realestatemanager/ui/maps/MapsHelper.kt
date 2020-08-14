@@ -27,53 +27,28 @@ class MapsHelper(private val googleMap: GoogleMap?) {
         }
     }
 
-    fun setMapsCenter(center: LatLng) {
-        mapsCenter = center
-    }
-
     fun getMapsCenter(): LatLng? {
         return mapsCenter
     }
 
-    /**
-     * Set a marker for each restaurant on found on the map target area.
-     * Icon is red if nobody goes there and green if at least one person (including the current
-     * user) is going there.
-     */
-    fun setRestaurantMarkers(estates: List<EstateDetails>, markerOnClick: (String) -> Unit) {
+    fun setEstateMarkers(estates: List<EstateDetails>, markerOnClick: (Long) -> Unit) {
         googleMap?.clear()
         googleMap?.setOnMarkerClickListener {
-            markerOnClick.invoke(it.tag as String)
+            markerOnClick.invoke(it.tag as Long)
             true
         }
 
         for (estate in estates) {
-            var icon = R.drawable.ic_maps_marker_red
-            // TODO should have latlgn to place the marker
-            // setMarker(icon, latLng, estate)
+            estate.latlng?.let { coordinates -> setMarker(coordinates, estate) }
         }
     }
 
-    /**
-     * Get the north east bounds of the map displayed to the user
-     */
-    fun getNorthEastBounds(): LatLng? {
-        return googleMap?.projection?.visibleRegion?.latLngBounds?.northeast
-    }
-
-    /**
-     * Get the south west bounds of the map displayed to the user
-     */
-    fun getSouthWestBounds(): LatLng? {
-        return googleMap?.projection?.visibleRegion?.latLngBounds?.southwest
-    }
-
-    private fun setMarker(icon: Int, latLng: LatLng, estate: EstateDetails) {
+    private fun setMarker(latLng: LatLng, estate: EstateDetails) {
         val markerOptions = MarkerOptions()
         markerOptions.apply {
             position(latLng)
             title(estate.price.toString())
-            icon(BitmapDescriptorFactory.fromResource(icon))
+            icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_maps_marker_red))
         }
         val marker = googleMap?.addMarker(markerOptions)
         marker?.tag = estate.id
@@ -89,20 +64,6 @@ fun LatLng.distanceTo(locationToCompare: LatLng): Float {
     val locToCompare = Location("last").apply {
         latitude = locationToCompare.latitude
         longitude = locationToCompare.longitude
-    }
-
-    return loc.distanceTo(locToCompare)
-}
-
-fun LatLng.distanceTo(lat: Double, lng: Double): Float {
-    val location = this
-    val loc = Location("now").apply {
-        latitude = location.latitude
-        longitude = location.longitude
-    }
-    val locToCompare = Location("last").apply {
-        latitude = lat
-        longitude = lng
     }
 
     return loc.distanceTo(locToCompare)

@@ -2,6 +2,7 @@ package com.amamode.realestatemanager.domain.entity
 
 import android.os.Parcelable
 import com.amamode.realestatemanager.ui.creation.EstateType
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -19,5 +20,6 @@ data class EstateDetails(
     val description: String?,
     val interestPoint: List<InterestPoint>,
     // first is photo uri, second is photo description
-    val estatePhotos: List<Pair<String, String>>
+    val estatePhotos: List<Pair<String, String>>,
+    val latlng: LatLng? = null
 ) : Parcelable

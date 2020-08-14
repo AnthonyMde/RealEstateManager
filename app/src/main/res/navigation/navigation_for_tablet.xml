@@ -39,7 +39,7 @@
         android:label="EstateCreationFragment">
         <argument
             android:name="estateToModify"
-            app:argType="com.amamode.realestatemanager.domain.EstateDetails"
+            app:argType="com.amamode.realestatemanager.domain.entity.EstateDetails"
             android:defaultValue="@null"
             app:nullable="true" />
         <action
@@ -66,7 +66,7 @@
         <argument
             android:name="estateToModify"
             android:defaultValue="@null"
-            app:argType="com.amamode.realestatemanager.domain.EstateDetails"
+            app:argType="com.amamode.realestatemanager.domain.entity.EstateDetails"
             app:nullable="true" />
     </fragment>
 
@@ -90,7 +90,7 @@
         <argument
             android:name="estateToModify"
             android:defaultValue="@null"
-            app:argType="com.amamode.realestatemanager.domain.EstateDetails"
+            app:argType="com.amamode.realestatemanager.domain.entity.EstateDetails"
             app:nullable="true" />
     </fragment>
     <fragment

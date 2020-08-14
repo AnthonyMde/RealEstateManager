@@ -35,10 +35,9 @@ import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-private const val ZOOM_LEVEL = 16f
+private const val ZOOM_LEVEL = 14f
 private const val MIN_ZOOM = 6f
 private const val MAX_ZOOM = 20f
-private const val DEBOUNCE_TIME = 600L
 private const val METERS_WITHOUT_UPDATE = 10F
 private const val GPS_TIME_UPDATE = 3000L // in millis
 private const val GPS_DIST_UPDATE = 50F // in meters
@@ -48,12 +47,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private val mapsViewModel: MapsViewModel by viewModel()
     private lateinit var mapsView: MapView
     private lateinit var placesClient: PlacesClient
-    private var currentLocation: LatLng? = null
     private var lastPositionOnMap: LatLng? = null
     private var mapsHelper: MapsHelper? = null
     private var estateList: List<EstateDetails>? = null
-
-    private var lastTimePositionChanged: Long = 0L
 
     /**
      * @var fusedLocationClient client which allows to use the fused location API of google.
@@ -70,16 +66,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         activity?.let { fusedLocationClient = LocationServices.getFusedLocationProviderClient(it) }
         setLastLocation()
         estateViewModel.getFullEstateList()
-        /**
-         * Update the places list when the user current location changes.
-         */
-        mapsViewModel.lastLocation.observe(this, Observer { position ->
-            if (currentLocation == position) {
-                return@Observer
-            }
-            // TODO show estate here by radius
-            currentLocation = position
-        })
     }
 
     override fun onCreateView(
@@ -115,11 +101,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             when (it) {
                 is Resource.Success -> {
                     estateList = it.data
-                    mapsHelper?.setRestaurantMarkers(it.data) { placeId ->
-                        val intent = Intent(context, EstateDetailsFragment::class.java)
-                        intent.putExtra("placeId", placeId)
-                        startActivity(intent)
-                    }
+                    displayEstates(it.data)
                 }
                 is Resource.Error -> {
                     toast("We can't retrieve nearby restaurants")
@@ -139,30 +121,29 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         with(googleMap) {
             setMinZoomPreference(MIN_ZOOM)
             setMaxZoomPreference(MAX_ZOOM)
-            setOnCameraIdleListener {
-                mapsHelper?.setMapsCenter(cameraPosition.target)
-
-                // TODO debounce could be removed as we set the estate once for all
-                // We debounce the function to avoid to many request
-                Handler().postDelayed({
-                    if (System.currentTimeMillis() - lastTimePositionChanged >= DEBOUNCE_TIME) {
-                        displayEstates()
-                    }
-                }, DEBOUNCE_TIME)
-                lastTimePositionChanged = System.currentTimeMillis()
-
-                lastPositionOnMap = mapsHelper?.getMapsCenter()
-            }
         }
         setUserLocation()
     }
 
-    private fun displayEstates() {
+    private fun displayEstates(estates: List<EstateDetails>) {
         val center = mapsHelper?.getMapsCenter()
         if (center != null) {
-            // TODO display all estates
-            //viewModel.getRestaurantPlacesByRadius(center)
-            toast("display all estates")
+            mapsViewModel.getEstateCoordinates(estates)
+                .observe(viewLifecycleOwner, Observer {
+                    when (it) {
+                        is Resource.Loading -> toast("loading")
+                        is Resource.Success -> {
+                            mapsHelper?.setEstateMarkers(it.data) { estateId ->
+                                // TODO should go to estate details
+                                toast("Should go to $estateId")
+                            }
+                        }
+                        is Resource.Error -> {
+                            toast("Error")
+                            Timber.e("Error getting estate coordinates : ${it.error}")
+                        }
+                    }
+                })
         }
     }
 
