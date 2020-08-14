@@ -106,6 +106,10 @@ class MainActivity : AppCompatActivity() {
             "EstateList" -> {
                 menu?.setGroupVisible(R.id.tablet_menu_icons, true)
             }
+            in listOf("MapsFragment", "EstateDetail") -> {
+                menu?.setGroupVisible(R.id.tablet_menu_icons, false)
+                menu?.setGroupVisible(R.id.tablet_menu_currency_group, false)
+            }
             in listOf(
                 "EstateCreationFragment",
                 "EstateCreationPhotoStepFragment",
@@ -184,6 +188,14 @@ class MainActivity : AppCompatActivity() {
         title = when (currentDestination) {
             "EstateList" -> {
                 getString(R.string.estate_list_toolbar_title)
+            }
+            "MapsFragment" -> {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                getString(R.string.maps_toolbar_tablet_title)
+            }
+            "EstateDetail" -> {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                getString(R.string.estate_details_toolbar_tablet_title)
             }
             "EstateCreationFragment" -> {
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)

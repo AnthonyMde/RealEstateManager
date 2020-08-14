@@ -61,7 +61,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         val ctx = context ?: return
         Places.initialize(ctx.applicationContext, BuildConfig.API_KEY_GOOGLE_PLACES)
         placesClient = Places.createClient(ctx)
-        activity?.let { fusedLocationClient = LocationServices.getFusedLocationProviderClient(it) }
+        activity?.let {
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(it)
+        }
         setLastLocation()
         estateViewModel.getFullEstateList()
     }
@@ -102,8 +104,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                     displayEstates(it.data)
                 }
                 is Resource.Error -> {
-                    toast("We can't retrieve nearby restaurants")
-                    Timber.e("Network error: ${it.error}")
+                    toast(R.string.unknown_error)
+                    Timber.e("Error fetching estateList in maps : ${it.error}")
                 }
             }
         })
@@ -129,7 +131,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             mapsViewModel.getEstateCoordinates(estates)
                 .observe(viewLifecycleOwner, Observer {
                     when (it) {
-                        is Resource.Loading -> toast("loading")
                         is Resource.Success -> {
                             mapsHelper?.setEstateMarkers(it.data) { estate ->
                                 val action =
@@ -138,7 +139,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                             }
                         }
                         is Resource.Error -> {
-                            toast("Error")
+                            toast(R.string.unknown_error)
                             Timber.e("Error getting estate coordinates : ${it.error}")
                         }
                     }

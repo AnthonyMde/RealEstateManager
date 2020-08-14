@@ -104,4 +104,7 @@
     <string name="notification_channel_estate_description">Notification lors de la création</string>
     <string name="notification_estate_creation_title">Bien créé</string>
     <string name="notification_estate_creation_content">Votre bien a été ajouté avec succès</string>
+    <string name="maps_toolbar_tablet_title">Carte des biens immobiliers</string>
+    <string name="estate_details_toolbar_tablet_title">Bien immobilier</string>
+    <string name="unknown_error">Une erreur inconnue est survenue</string>
 </resources>
