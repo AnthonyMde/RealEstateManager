@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.DatePicker
@@ -45,30 +47,50 @@ class FilterActivity : AppCompatActivity() {
             }
         }
         configureSpinnerAndDatePicker()
-        populateData()
+        val formerFilterData: FilterEntity? = intent.getParcelableExtra(FORMER_FILTER_DATA_EXTRA)
+        formerFilterData?.let { updateData(it) }
     }
 
-    private fun populateData() {
-        val formerFilterData: FilterEntity? = intent.getParcelableExtra(FORMER_FILTER_DATA_EXTRA)
-        formerFilterData?.let { data ->
-            data.type?.let {
-                filterEstateTypeSpinner.selectedIndex = getIndexEstateType(it)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.filter_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.clear_filter -> {
+                // use an empty FilterEntity to clear all data
+                updateData(FilterEntity())
             }
-            data.owner?.let { filterEstateOwner.setText(it) }
-            data.minPrice?.let { filterEstatePriceMin.setText(it.toString()) }
-            data.maxPrice?.let { filterEstatePriceMax.setText(it.toString()) }
-            data.minSurface?.let { filterEstateSurfaceMin.setText(it.toString()) }
-            data.maxSurface?.let { filterEstateSurfaceMax.setText(it.toString()) }
-            data.city?.let { filterEstateCity.setText(it) }
-            data.zipCode?.let { filterEstateZipCode.setText(it.toString()) }
-            data.fromDate?.let {
-                selectedDate = it
-                filterEstateOnMarketDate.setText(format.format(it).toString())
-                clearFilterDateCTA.visibility = VISIBLE
-            }
-            data.minPhotos?.let { filterPhotosNumber.selectedIndex = it }
-            data.interestPoints?.let { setInterestPoints(it) }
         }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun updateData(data: FilterEntity) {
+        filterEstateTypeSpinner.selectedIndex = getIndexEstateType(data.type ?: EstateType.UNKNOWN)
+        filterEstateOwner.setText(data.owner ?: "")
+        data.minPrice?.let { filterEstatePriceMin.setText(it.toString()) }
+            ?: filterEstatePriceMin.setText("")
+        data.maxPrice?.let { filterEstatePriceMax.setText(it.toString()) }
+            ?: filterEstatePriceMax.setText("")
+        data.minSurface?.let { filterEstateSurfaceMin.setText(it.toString()) }
+            ?: filterEstateSurfaceMin.setText("")
+        data.maxSurface?.let { filterEstateSurfaceMax.setText(it.toString()) }
+            ?: filterEstateSurfaceMax.setText("")
+        filterEstateCity.setText(data.city ?: "")
+        data.zipCode?.let { filterEstateZipCode.setText(it.toString()) }
+            ?: filterEstateZipCode.setText("")
+        if (data.fromDate != null) {
+            selectedDate = data.fromDate
+            filterEstateOnMarketDate.setText(format.format(data.fromDate).toString())
+            clearFilterDateCTA.visibility = VISIBLE
+        } else {
+            selectedDate = null
+            filterEstateOnMarketDate.setText("")
+            clearFilterDateCTA.visibility = INVISIBLE
+        }
+        filterPhotosNumber.selectedIndex = data.minPhotos ?: 0
+        setInterestPoints(data.interestPoints ?: emptyList())
     }
 
     private fun configureSpinnerAndDatePicker() {
@@ -112,15 +134,10 @@ class FilterActivity : AppCompatActivity() {
     }
 
     private fun setInterestPoints(points: List<InterestPoint>) {
-        if (points.isEmpty()) return
-        points.forEach {
-            when (it) {
-                InterestPoint.METRO -> filterInterestPointMetro.isChecked = true
-                InterestPoint.SHOP -> filterInterestPointShop.isChecked = true
-                InterestPoint.SCHOOL -> filterInterestPointSchool.isChecked = true
-                InterestPoint.PARC -> filterInterestPointParc.isChecked = true
-            }
-        }
+        filterInterestPointMetro.isChecked = points.contains(InterestPoint.METRO)
+        filterInterestPointShop.isChecked = points.contains(InterestPoint.SHOP)
+        filterInterestPointSchool.isChecked = points.contains(InterestPoint.SCHOOL)
+        filterInterestPointParc.isChecked = points.contains(InterestPoint.PARC)
     }
 
     private fun getFilterEstateType(position: Int): EstateType? =
