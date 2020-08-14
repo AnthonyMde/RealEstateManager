@@ -30,6 +30,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/goToMaps"
+            app:destination="@id/mapsFragment" />
     </fragment>
 
     <!-- ESTATE DETAIL -->
@@ -129,4 +132,8 @@
             android:name="estatePrice"
             app:argType="integer"/>
     </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.amamode.realestatemanager.ui.maps.MapsFragment"
+        android:label="MapsFragment" />
 </navigation>

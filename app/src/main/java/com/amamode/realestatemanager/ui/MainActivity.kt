@@ -1,11 +1,15 @@
 package com.amamode.realestatemanager.ui
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -20,6 +24,7 @@ import org.jetbrains.anko.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val INTENT_FILTER_REQUEST_CODE = 1025
+private const val GPS_PERMISSION_REQUEST = 99
 
 class MainActivity : AppCompatActivity() {
     private val estateViewModel: EstateViewModel by viewModel()
@@ -30,6 +35,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var listener: NavController.OnDestinationChangedListener
     private val isEuro: Boolean
         get() = defaultSharedPreferences.getBoolean(SHARED_PREFS_CURRENCY, true)
+    private val hasLocationPermission: Boolean by lazy {
+        val locationPermission =
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        locationPermission == PackageManager.PERMISSION_GRANTED
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Initialize with no filter
+        // Initialize list of estates with no filter
         estateViewModel.getFullEstateList()
     }
 
@@ -116,11 +129,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /* USED BY BOTH TABLET AND MOBILE */
+    /* USED BOTH BY TABLET AND MOBILE */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.geoloc_estate -> {
-                toast("Go to location")
+                if (hasLocationPermission) {
+                    goToMaps()
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        GPS_PERMISSION_REQUEST
+                    )
+                }
             }
             R.id.filter_estate -> {
                 val intent = Intent(this, FilterActivity::class.java)
@@ -188,5 +209,27 @@ class MainActivity : AppCompatActivity() {
     /* ONLY FOR MOBILE */
     private fun configureMobileNavListener(navDestination: NavDestination) {
         currentDestination = navDestination.label.toString()
+    }
+
+    private fun goToMaps() {
+        val action = EstateListFragmentDirections.goToMaps()
+        findNavController(R.id.main_nav_container).navigate(action)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            GPS_PERMISSION_REQUEST -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    goToMaps()
+                } else {
+                    toast("Merci d'accepter la géolocalisation")
+                }
+            }
+        }
     }
 }

@@ -80,23 +80,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             // TODO show estate here by radius
             currentLocation = position
         })
-
-        estateViewModel.estateEntityList.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is Resource.Success -> {
-                    estateList = it.data
-                    mapsHelper?.setRestaurantMarkers(it.data) { placeId ->
-                        val intent = Intent(context, EstateDetailsFragment::class.java)
-                        intent.putExtra("placeId", placeId)
-                        startActivity(intent)
-                    }
-                }
-                is Resource.Error -> {
-                    toast("We can't retrieve nearby restaurants")
-                    Timber.e("Network error: ${it.error}")
-                }
-            }
-        })
     }
 
     override fun onCreateView(
@@ -124,6 +107,26 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 lastPositionOnMap = mapsHelper?.getMapsCenter()
             }
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        estateViewModel.estateEntityList.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Resource.Success -> {
+                    estateList = it.data
+                    mapsHelper?.setRestaurantMarkers(it.data) { placeId ->
+                        val intent = Intent(context, EstateDetailsFragment::class.java)
+                        intent.putExtra("placeId", placeId)
+                        startActivity(intent)
+                    }
+                }
+                is Resource.Error -> {
+                    toast("We can't retrieve nearby restaurants")
+                    Timber.e("Network error: ${it.error}")
+                }
+            }
+        })
     }
 
     /**
