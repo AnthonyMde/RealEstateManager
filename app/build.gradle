@@ -88,7 +88,7 @@ dependencies {
     implementation "org.koin:koin-android:$versions.koin"
     implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
 
-    // retrofit
+    // retrofit et Okhttp
     implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"

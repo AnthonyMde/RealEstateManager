@@ -64,14 +64,14 @@
         app:layout_constraintStart_toEndOf="@id/estateItemPic"
         app:layout_constraintTop_toBottomOf="@id/estateItemCity"/>
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/estateSoldStamp"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        app:backgroundImage="@drawable/ic_stamp"
         android:layout_margin="@dimen/xxx_small"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_stamp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

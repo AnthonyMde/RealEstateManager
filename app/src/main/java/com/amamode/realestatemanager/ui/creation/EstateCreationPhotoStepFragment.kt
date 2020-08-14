@@ -1,8 +1,10 @@
 package com.amamode.realestatemanager.ui.creation
 
 import android.app.Activity.RESULT_OK
+import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -28,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_estate_creation_photo_step.*
 import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.io.File
+
 
 private const val REQUEST_IMAGE_CAPTURE = 1034
 private const val NUMBER_OF_COLUMNS = 2
@@ -108,13 +111,17 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         galleryIntent.type = "image/*"
         galleryIntent.action = Intent.ACTION_OPEN_DOCUMENT
 
-        val tookPictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val photoFile = getPhotoFileUri() ?: return
         currentPhotoUri = photoFile.absolutePath
 
         val fileProvider: Uri =
             FileProvider.getUriForFile(requireContext(), "com.realestate.fileprovider", photoFile)
-        tookPictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            takePictureIntent.setClipData(ClipData.newRawUri("", fileProvider))
+            takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
 
         val chooser = Intent.createChooser(
             galleryIntent,
@@ -123,7 +130,7 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
 
         chooser.putExtra(
             Intent.EXTRA_INITIAL_INTENTS,
-            arrayOf(tookPictureIntent)
+            arrayOf(takePictureIntent)
         )
 
         // Start the image capture intent to take photo

@@ -1,6 +1,6 @@
 package com.amamode.realestatemanager
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.amamode.realestatemanager.di.daoModule
 import com.amamode.realestatemanager.di.servicesModule
 import com.amamode.realestatemanager.di.viewModelsModule
@@ -9,7 +9,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-class AndroidApplication : Application() {
+class AndroidApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
 
