@@ -48,6 +48,7 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
         estateRV.addItemDecoration(DividerItemDecoration(
             requireContext(),
             LinearLayoutManager.VERTICAL))
+
         if (isTablet) {
             val tabletDetailNavHost =
                 childFragmentManager.findFragmentById(R.id.tablet_detail_nav_container) as NavHostFragment

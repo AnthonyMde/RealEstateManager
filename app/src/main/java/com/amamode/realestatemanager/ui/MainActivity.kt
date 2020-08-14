@@ -123,17 +123,6 @@ class MainActivity : AppCompatActivity() {
         return super.onPrepareOptionsMenu(menu)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == FILTER_RESULT_CODE) {
-            val filterData = data?.getParcelableExtra<FilterEntity>(FILTER_DATA_EXTRA)
-            filterData?.let { estateViewModel.setFilter(it) }
-        } else {
-            toast("Something goes wrong")
-        }
-    }
-
     /* USED BOTH BY TABLET AND MOBILE */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -154,6 +143,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.filter_estate -> {
                 val intent = Intent(this, FilterActivity::class.java)
+                intent.putExtra(FORMER_FILTER_DATA_EXTRA, estateViewModel.filterData)
                 startActivityForResult(intent, INTENT_FILTER_REQUEST_CODE)
             }
             // TODO : remove this for delivery
@@ -184,6 +174,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == FILTER_RESULT_CODE) {
+            val filterData = data?.getParcelableExtra<FilterEntity>(FILTER_DATA_EXTRA)
+            filterData?.let { estateViewModel.setFilter(it) }
+        }
     }
 
     /* ONLY FOR TABLET */

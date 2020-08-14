@@ -152,6 +152,17 @@
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/filterEstateCity" />
 
+            <ImageView
+                android:id="@+id/clearFilterDateCTA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small"
+                android:src="@drawable/ic_clear_filter_date_24"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@id/filterEstateOnMarketDate"
+                app:layout_constraintTop_toTopOf="@id/filterEstateOnMarketDate"
+                app:layout_constraintBottom_toBottomOf="@id/filterEstateOnMarketDate"/>
+
             <TextView
                 android:id="@+id/filterPhotosTitle"
                 android:layout_width="wrap_content"

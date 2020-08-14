@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.os.Bundle
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.DatePicker
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +20,7 @@ import java.util.*
 
 const val FILTER_RESULT_CODE = 1026
 const val FILTER_DATA_EXTRA = "FILTER_DATA"
+const val FORMER_FILTER_DATA_EXTRA = "FORMER_FILTER_DATA"
 
 class FilterActivity : AppCompatActivity() {
     private val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
@@ -28,12 +31,47 @@ class FilterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_filter)
         setSupportActionBar(filterToolbar as Toolbar)
         title = getString(R.string.filter_toolbar_title)
+
         filterEstateCTA.setOnClickListener {
             val data = getFilterData()
             setResult(FILTER_RESULT_CODE, Intent().putExtra(FILTER_DATA_EXTRA, data))
             finish()
         }
+        clearFilterDateCTA.setOnClickListener {
+            if (selectedDate != null) {
+                selectedDate = null
+                filterEstateOnMarketDate.setText("")
+                clearFilterDateCTA.visibility = INVISIBLE
+            }
+        }
+        configureSpinnerAndDatePicker()
+        populateData()
+    }
 
+    private fun populateData() {
+        val formerFilterData: FilterEntity? = intent.getParcelableExtra(FORMER_FILTER_DATA_EXTRA)
+        formerFilterData?.let { data ->
+            data.type?.let {
+                filterEstateTypeSpinner.selectedIndex = getIndexEstateType(it)
+            }
+            data.owner?.let { filterEstateOwner.setText(it) }
+            data.minPrice?.let { filterEstatePriceMin.setText(it.toString()) }
+            data.maxPrice?.let { filterEstatePriceMax.setText(it.toString()) }
+            data.minSurface?.let { filterEstateSurfaceMin.setText(it.toString()) }
+            data.maxSurface?.let { filterEstateSurfaceMax.setText(it.toString()) }
+            data.city?.let { filterEstateCity.setText(it) }
+            data.zipCode?.let { filterEstateZipCode.setText(it.toString()) }
+            data.fromDate?.let {
+                selectedDate = it
+                filterEstateOnMarketDate.setText(format.format(it).toString())
+                clearFilterDateCTA.visibility = VISIBLE
+            }
+            data.minPhotos?.let { filterPhotosNumber.selectedIndex = it }
+            data.interestPoints?.let { setInterestPoints(it) }
+        }
+    }
+
+    private fun configureSpinnerAndDatePicker() {
         val spinnerTypeValues = EstateType.values().map { getString(it.nameRes) }
             .toMutableList()
         spinnerTypeValues.add(0, getString(R.string.filter_type_all_estate))
@@ -73,6 +111,18 @@ class FilterActivity : AppCompatActivity() {
         return if (interestPoints.isNotEmpty()) interestPoints else null
     }
 
+    private fun setInterestPoints(points: List<InterestPoint>) {
+        if (points.isEmpty()) return
+        points.forEach {
+            when (it) {
+                InterestPoint.METRO -> filterInterestPointMetro.isChecked = true
+                InterestPoint.SHOP -> filterInterestPointShop.isChecked = true
+                InterestPoint.SCHOOL -> filterInterestPointSchool.isChecked = true
+                InterestPoint.PARC -> filterInterestPointParc.isChecked = true
+            }
+        }
+    }
+
     private fun getFilterEstateType(position: Int): EstateType? =
         when (position) {
             0 -> null
@@ -84,10 +134,23 @@ class FilterActivity : AppCompatActivity() {
             else -> EstateType.UNKNOWN
         }
 
+    private fun getIndexEstateType(type: EstateType): Int =
+        when (type) {
+            EstateType.HOUSE -> 1
+            EstateType.APARTMENT -> 2
+            EstateType.LOFT -> 3
+            EstateType.DUPLEX -> 4
+            EstateType.VILLA -> 5
+            else -> 0
+        }
+
     private fun configureDatePicker(datePickerEditText: EditText) {
         datePickerEditText.keyListener = null
         datePickerEditText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) onDatePickerClick()
+        }
+        datePickerEditText.setOnClickListener {
+            onDatePickerClick()
         }
     }
 
@@ -99,6 +162,7 @@ class FilterActivity : AppCompatActivity() {
             OnDateSetListener { datePicker: DatePicker?, _: Int, _: Int, _: Int ->
                 val selectedTime = getTimeFromDatePicker(datePicker) ?: return@OnDateSetListener
                 filterEstateOnMarketDate.setText(format.format(selectedTime).toString())
+                clearFilterDateCTA.visibility = VISIBLE
             },
             calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH]
         )

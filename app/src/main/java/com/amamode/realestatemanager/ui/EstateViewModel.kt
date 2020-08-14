@@ -30,6 +30,7 @@ class EstateViewModel(private val estateService: EstateService, private val cont
 
     val firstStepformMediator = MediatorLiveData<Boolean>()
     var currentEstateDetails: EstateDetails? = null
+    var filterData: FilterEntity? = null
 
     // first is photo uri, second is photo description
     private val _estatePhotos = MutableLiveData<MutableList<Pair<String, String>>>()
@@ -226,6 +227,7 @@ class EstateViewModel(private val estateService: EstateService, private val cont
     * FILTER ESTATE
     */
     fun setFilter(filterData: FilterEntity) {
+        this.filterData = filterData
         _estateEntityList.value = Resource.Loading()
         viewModelScope.launch {
             try {
