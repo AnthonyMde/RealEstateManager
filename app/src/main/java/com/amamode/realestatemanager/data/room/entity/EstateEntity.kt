@@ -1,4 +1,4 @@
-package com.amamode.realestatemanager.data
+package com.amamode.realestatemanager.data.room.entity
 
 import android.content.ContentValues
 import androidx.room.ColumnInfo

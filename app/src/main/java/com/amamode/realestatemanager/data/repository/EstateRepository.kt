@@ -1,5 +1,9 @@
-package com.amamode.realestatemanager.data
+package com.amamode.realestatemanager.data.repository
 
+import com.amamode.realestatemanager.data.room.EstateDao
+import com.amamode.realestatemanager.data.room.entity.EstateEntity
+import com.amamode.realestatemanager.data.room.entity.EstatePhotoEntity
+import com.amamode.realestatemanager.data.room.entity.InterestPointEntity
 import com.amamode.realestatemanager.domain.*
 import com.amamode.realestatemanager.domain.entity.EstateAddress
 import com.amamode.realestatemanager.domain.entity.EstateDetails
@@ -55,24 +59,25 @@ class EstateRepository(private val dao: EstateDao) :
         interestPoints: Array<InterestPoint>,
         estatePhotosUri: Array<Pair<String, String>>
     ): Boolean {
-        val estateEntity = EstateEntity(
-            owner = estateForm.owner ?: "unknown owner",
-            type = estateForm.type?.name ?: EstateType.UNKNOWN.name,
-            rooms = estateForm.rooms ?: 0,
-            surface = estateForm.surface ?: 0,
-            price = estateForm.price ?: 0,
-            onMarketDate = estateForm.onMarketDate,
-            status = EstateStatus(
-                estateForm.sold,
-                estateForm.soldDate
-            ),
-            address = EstateAddress(
-                estateForm.street,
-                estateForm.zipCode,
-                estateForm.city
-            ),
-            description = estateForm.description
-        )
+        val estateEntity =
+            EstateEntity(
+                owner = estateForm.owner ?: "unknown owner",
+                type = estateForm.type?.name ?: EstateType.UNKNOWN.name,
+                rooms = estateForm.rooms ?: 0,
+                surface = estateForm.surface ?: 0,
+                price = estateForm.price ?: 0,
+                onMarketDate = estateForm.onMarketDate,
+                status = EstateStatus(
+                    estateForm.sold,
+                    estateForm.soldDate
+                ),
+                address = EstateAddress(
+                    estateForm.street,
+                    estateForm.zipCode,
+                    estateForm.city
+                ),
+                description = estateForm.description
+            )
         val estateId = dao.insert(estateEntity)
 
         if (estateId == -1L) {
@@ -102,25 +107,26 @@ class EstateRepository(private val dao: EstateDao) :
         interestPoints: Array<InterestPoint>,
         estatePhotosUri: Array<Pair<String, String>>
     ) {
-        val estateEntity = EstateEntity(
-            id = estateId,
-            owner = estateForm.owner ?: "unknown owner",
-            type = estateForm.type?.name ?: EstateType.UNKNOWN.name,
-            rooms = estateForm.rooms ?: 0,
-            surface = estateForm.surface ?: 0,
-            price = estateForm.price ?: 0,
-            onMarketDate = estateForm.onMarketDate,
-            status = EstateStatus(
-                estateForm.sold,
-                estateForm.soldDate
-            ),
-            address = EstateAddress(
-                estateForm.street,
-                estateForm.zipCode,
-                estateForm.city
-            ),
-            description = estateForm.description
-        )
+        val estateEntity =
+            EstateEntity(
+                id = estateId,
+                owner = estateForm.owner ?: "unknown owner",
+                type = estateForm.type?.name ?: EstateType.UNKNOWN.name,
+                rooms = estateForm.rooms ?: 0,
+                surface = estateForm.surface ?: 0,
+                price = estateForm.price ?: 0,
+                onMarketDate = estateForm.onMarketDate,
+                status = EstateStatus(
+                    estateForm.sold,
+                    estateForm.soldDate
+                ),
+                address = EstateAddress(
+                    estateForm.street,
+                    estateForm.zipCode,
+                    estateForm.city
+                ),
+                description = estateForm.description
+            )
         dao.update(estateEntity)
 
         if (estateId == -1L) {
@@ -141,14 +147,16 @@ class EstateRepository(private val dao: EstateDao) :
         dao.deleteAll()
     }
 
-    private fun InterestPoint.toInterestPointEntity(estateId: Long) = InterestPointEntity(
-        estateId = estateId,
-        name = this.name
-    )
+    private fun InterestPoint.toInterestPointEntity(estateId: Long) =
+        InterestPointEntity(
+            estateId = estateId,
+            name = this.name
+        )
 
-    private fun toPhotoUriEntity(estateId: Long, uri: String, desc: String) = EstatePhotoEntity(
-        estateId = estateId,
-        uriString = uri,
-        description = desc
-    )
+    private fun toPhotoUriEntity(estateId: Long, uri: String, desc: String) =
+        EstatePhotoEntity(
+            estateId = estateId,
+            uriString = uri,
+            description = desc
+        )
 }

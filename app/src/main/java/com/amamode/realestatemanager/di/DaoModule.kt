@@ -1,7 +1,7 @@
 package com.amamode.realestatemanager.di
 
-import com.amamode.realestatemanager.data.EstateDao
-import com.amamode.realestatemanager.data.EstateRoomDatabase
+import com.amamode.realestatemanager.data.room.EstateDao
+import com.amamode.realestatemanager.data.room.EstateRoomDatabase
 import org.koin.dsl.module
 
 val daoModule = module {

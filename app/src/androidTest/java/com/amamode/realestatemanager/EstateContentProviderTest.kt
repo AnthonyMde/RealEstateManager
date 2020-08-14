@@ -8,7 +8,7 @@ import androidx.room.Room
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.amamode.realestatemanager.data.EstateRoomDatabase
+import com.amamode.realestatemanager.data.room.EstateRoomDatabase
 import com.amamode.realestatemanager.provider.EstateContentProvider
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue

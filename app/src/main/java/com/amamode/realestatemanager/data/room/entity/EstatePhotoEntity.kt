@@ -1,9 +1,10 @@
-package com.amamode.realestatemanager.data
+package com.amamode.realestatemanager.data.room.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.amamode.realestatemanager.data.room.entity.EstateEntity
 
 @Entity(
     tableName = "estate_photo_table",

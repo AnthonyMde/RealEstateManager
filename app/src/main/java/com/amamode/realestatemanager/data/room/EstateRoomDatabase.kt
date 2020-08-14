@@ -1,7 +1,10 @@
-package com.amamode.realestatemanager.data
+package com.amamode.realestatemanager.data.room
 
 import android.content.Context
 import androidx.room.*
+import com.amamode.realestatemanager.data.room.entity.EstateEntity
+import com.amamode.realestatemanager.data.room.entity.EstatePhotoEntity
+import com.amamode.realestatemanager.data.room.entity.InterestPointEntity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,7 +23,8 @@ abstract class EstateRoomDatabase : RoomDatabase() {
         private var INSTANCE: EstateRoomDatabase? = null
 
         fun getDatabase(context: Context): EstateRoomDatabase {
-            val tempDatabase = INSTANCE
+            val tempDatabase =
+                INSTANCE
             if (tempDatabase != null) {
                 return tempDatabase
             }

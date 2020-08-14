@@ -1,7 +1,10 @@
-package com.amamode.realestatemanager.data
+package com.amamode.realestatemanager.data.room
 
 import android.database.Cursor
 import androidx.room.*
+import com.amamode.realestatemanager.data.room.entity.EstateEntity
+import com.amamode.realestatemanager.data.room.entity.EstatePhotoEntity
+import com.amamode.realestatemanager.data.room.entity.InterestPointEntity
 import java.util.*
 
 @Dao

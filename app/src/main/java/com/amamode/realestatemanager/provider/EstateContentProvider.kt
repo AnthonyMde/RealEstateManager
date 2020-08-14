@@ -5,8 +5,8 @@ import android.content.ContentUris
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
-import com.amamode.realestatemanager.data.EstateEntity
-import com.amamode.realestatemanager.data.EstateRoomDatabase
+import com.amamode.realestatemanager.data.room.entity.EstateEntity
+import com.amamode.realestatemanager.data.room.EstateRoomDatabase
 import kotlinx.coroutines.runBlocking
 
 private const val AUTHORITY = "com.realestate.estateprovider"
