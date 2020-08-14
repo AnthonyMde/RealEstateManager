@@ -134,5 +134,13 @@
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.amamode.realestatemanager.ui.maps.MapsFragment"
-        android:label="MapsFragment" />
+        android:label="MapsFragment">
+        <action
+            android:id="@+id/goToEstateDetails"
+            app:destination="@id/detail_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 </navigation>

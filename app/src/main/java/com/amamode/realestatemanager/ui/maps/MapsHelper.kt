@@ -31,10 +31,10 @@ class MapsHelper(private val googleMap: GoogleMap?) {
         return mapsCenter
     }
 
-    fun setEstateMarkers(estates: List<EstateDetails>, markerOnClick: (Long) -> Unit) {
+    fun setEstateMarkers(estates: List<EstateDetails>, markerOnClick: (EstateDetails) -> Unit) {
         googleMap?.clear()
         googleMap?.setOnMarkerClickListener {
-            markerOnClick.invoke(it.tag as Long)
+            markerOnClick.invoke(it.tag as EstateDetails)
             true
         }
 
@@ -51,7 +51,7 @@ class MapsHelper(private val googleMap: GoogleMap?) {
             icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_maps_marker_red))
         }
         val marker = googleMap?.addMarker(markerOptions)
-        marker?.tag = estate.id
+        marker?.tag = estate
     }
 }
 

@@ -3,24 +3,22 @@ package com.amamode.realestatemanager.ui.maps
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.amamode.realestatemanager.BuildConfig
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.entity.EstateDetails
 import com.amamode.realestatemanager.ui.EstateViewModel
-import com.amamode.realestatemanager.ui.home.EstateDetailsFragment
 import com.amamode.realestatemanager.utils.Resource
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -133,9 +131,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                     when (it) {
                         is Resource.Loading -> toast("loading")
                         is Resource.Success -> {
-                            mapsHelper?.setEstateMarkers(it.data) { estateId ->
-                                // TODO should go to estate details
-                                toast("Should go to $estateId")
+                            mapsHelper?.setEstateMarkers(it.data) { estate ->
+                                val action =
+                                    MapsFragmentDirections.goToEstateDetails(estate.id, estate.type)
+                                findNavController().navigate(action)
                             }
                         }
                         is Resource.Error -> {
