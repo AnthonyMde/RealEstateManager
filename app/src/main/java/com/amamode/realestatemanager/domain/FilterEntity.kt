@@ -1,6 +1,7 @@
 package com.amamode.realestatemanager.domain
 
 import android.os.Parcelable
+import com.amamode.realestatemanager.domain.entity.InterestPoint
 import com.amamode.realestatemanager.ui.creation.EstateType
 import kotlinx.android.parcel.Parcelize
 import java.util.*

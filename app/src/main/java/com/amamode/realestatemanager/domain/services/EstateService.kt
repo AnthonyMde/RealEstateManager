@@ -1,4 +1,9 @@
-package com.amamode.realestatemanager.domain
+package com.amamode.realestatemanager.domain.services
+
+import com.amamode.realestatemanager.domain.EstateForm
+import com.amamode.realestatemanager.domain.FilterEntity
+import com.amamode.realestatemanager.domain.entity.EstateDetails
+import com.amamode.realestatemanager.domain.entity.InterestPoint
 
 interface EstateService {
     suspend fun getEstateList(): List<EstateDetails>

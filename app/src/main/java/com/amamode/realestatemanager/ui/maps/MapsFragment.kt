@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.amamode.realestatemanager.BuildConfig
 import com.amamode.realestatemanager.R
-import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.domain.entity.EstateDetails
 import com.amamode.realestatemanager.ui.EstateViewModel
 import com.amamode.realestatemanager.ui.home.EstateDetailsFragment
 import com.amamode.realestatemanager.utils.Resource

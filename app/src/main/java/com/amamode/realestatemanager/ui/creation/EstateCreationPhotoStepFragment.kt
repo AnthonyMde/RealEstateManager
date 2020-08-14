@@ -21,7 +21,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.amamode.realestatemanager.R
-import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.domain.entity.EstateDetails
 import com.amamode.realestatemanager.ui.EstatePhotoAdapter
 import com.amamode.realestatemanager.ui.EstateViewModel
 import kotlinx.android.synthetic.main.fragment_estate_creation_photo_step.*

@@ -1,4 +1,4 @@
-package com.amamode.realestatemanager.domain
+package com.amamode.realestatemanager.domain.entity
 
 import com.amamode.realestatemanager.R
 

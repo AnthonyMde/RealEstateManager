@@ -1,4 +1,4 @@
-package com.amamode.realestatemanager.domain
+package com.amamode.realestatemanager.domain.entity
 
 import android.os.Parcelable
 import com.amamode.realestatemanager.ui.creation.EstateType

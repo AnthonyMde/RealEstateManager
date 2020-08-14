@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.amamode.realestatemanager.domain.InterestPoint
+import com.amamode.realestatemanager.domain.entity.InterestPoint
 
 @Entity(
     tableName = "interest_point_table",

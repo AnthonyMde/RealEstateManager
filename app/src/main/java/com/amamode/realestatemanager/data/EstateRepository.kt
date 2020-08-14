@@ -1,10 +1,16 @@
 package com.amamode.realestatemanager.data
 
 import com.amamode.realestatemanager.domain.*
+import com.amamode.realestatemanager.domain.entity.EstateAddress
+import com.amamode.realestatemanager.domain.entity.EstateDetails
+import com.amamode.realestatemanager.domain.entity.EstateStatus
+import com.amamode.realestatemanager.domain.entity.InterestPoint
+import com.amamode.realestatemanager.domain.services.EstateService
 import com.amamode.realestatemanager.ui.creation.EstateType
 import timber.log.Timber
 
-class EstateRepository(private val dao: EstateDao) : EstateService {
+class EstateRepository(private val dao: EstateDao) :
+    EstateService {
 
     override suspend fun getEstateList(): List<EstateDetails> {
         return dao.getEstateListById().map { estate ->
@@ -56,8 +62,15 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
             surface = estateForm.surface ?: 0,
             price = estateForm.price ?: 0,
             onMarketDate = estateForm.onMarketDate,
-            status = EstateStatus(estateForm.sold, estateForm.soldDate),
-            address = EstateAddress(estateForm.street, estateForm.zipCode, estateForm.city),
+            status = EstateStatus(
+                estateForm.sold,
+                estateForm.soldDate
+            ),
+            address = EstateAddress(
+                estateForm.street,
+                estateForm.zipCode,
+                estateForm.city
+            ),
             description = estateForm.description
         )
         val estateId = dao.insert(estateEntity)
@@ -97,8 +110,15 @@ class EstateRepository(private val dao: EstateDao) : EstateService {
             surface = estateForm.surface ?: 0,
             price = estateForm.price ?: 0,
             onMarketDate = estateForm.onMarketDate,
-            status = EstateStatus(estateForm.sold, estateForm.soldDate),
-            address = EstateAddress(estateForm.street, estateForm.zipCode, estateForm.city),
+            status = EstateStatus(
+                estateForm.sold,
+                estateForm.soldDate
+            ),
+            address = EstateAddress(
+                estateForm.street,
+                estateForm.zipCode,
+                estateForm.city
+            ),
             description = estateForm.description
         )
         dao.update(estateEntity)

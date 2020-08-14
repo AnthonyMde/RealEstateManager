@@ -7,7 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.amamode.realestatemanager.BuildConfig
 import com.amamode.realestatemanager.domain.*
+import com.amamode.realestatemanager.domain.entity.EstateAddress
+import com.amamode.realestatemanager.domain.entity.EstateDetails
+import com.amamode.realestatemanager.domain.entity.InterestPoint
 import com.amamode.realestatemanager.domain.errors.RoomError
+import com.amamode.realestatemanager.domain.services.EstateService
 import com.amamode.realestatemanager.ui.creation.EstateType
 import com.amamode.realestatemanager.utils.*
 import kotlinx.coroutines.launch

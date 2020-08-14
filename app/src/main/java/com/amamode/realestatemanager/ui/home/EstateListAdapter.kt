@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.CurrencyType
-import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.domain.entity.EstateDetails
 import com.amamode.realestatemanager.ui.CurrencyViewModel
 import com.amamode.realestatemanager.ui.creation.EstateType
 import kotlinx.android.synthetic.main.item_estate_list.view.*

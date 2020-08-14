@@ -2,7 +2,7 @@ package com.amamode.realestatemanager.ui.maps
 
 import android.location.Location
 import com.amamode.realestatemanager.R
-import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.domain.entity.EstateDetails
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory

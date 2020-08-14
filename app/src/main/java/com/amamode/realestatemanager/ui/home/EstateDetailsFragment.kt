@@ -16,8 +16,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.CurrencyType
-import com.amamode.realestatemanager.domain.EstateAddress
-import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.domain.entity.EstateAddress
+import com.amamode.realestatemanager.domain.entity.EstateDetails
 import com.amamode.realestatemanager.ui.CurrencyViewModel
 import com.amamode.realestatemanager.ui.EstatePhotoAdapter
 import com.amamode.realestatemanager.ui.EstateViewModel

@@ -13,7 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationBinding
 import com.amamode.realestatemanager.domain.CurrencyType
-import com.amamode.realestatemanager.domain.EstateDetails
+import com.amamode.realestatemanager.domain.entity.EstateDetails
 import com.amamode.realestatemanager.ui.CurrencyViewModel
 import com.amamode.realestatemanager.ui.EstateViewModel
 import com.amamode.realestatemanager.ui.SHARED_PREFS_CURRENCY

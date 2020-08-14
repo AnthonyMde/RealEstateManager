@@ -16,8 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.databinding.FragmentEstateCreationFinalBinding
-import com.amamode.realestatemanager.domain.EstateDetails
-import com.amamode.realestatemanager.domain.InterestPoint
+import com.amamode.realestatemanager.domain.entity.EstateDetails
+import com.amamode.realestatemanager.domain.entity.InterestPoint
 import com.amamode.realestatemanager.ui.EstateViewModel
 import com.amamode.realestatemanager.utils.Resource
 import kotlinx.android.synthetic.main.fragment_estate_creation_final.*

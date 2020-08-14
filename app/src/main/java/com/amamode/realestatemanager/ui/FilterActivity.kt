@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.FilterEntity
-import com.amamode.realestatemanager.domain.InterestPoint
+import com.amamode.realestatemanager.domain.entity.InterestPoint
 import com.amamode.realestatemanager.ui.creation.EstateType
 import kotlinx.android.synthetic.main.activity_filter.*
 import java.text.SimpleDateFormat
