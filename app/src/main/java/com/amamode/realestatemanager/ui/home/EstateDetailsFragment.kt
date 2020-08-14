@@ -72,9 +72,6 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
 
         estateViewModel.getEstateDetails(estateId).observe(viewLifecycleOwner, Observer {
             when (it) {
-                is Resource.Loading -> {
-                    toast("Loading")
-                }
                 is Resource.Success -> {
                     Timber.d("result = ${it.data}")
                     configureLayout(it.data)
@@ -82,6 +79,7 @@ class EstateDetailsFragment : Fragment(R.layout.fragment_estate_details) {
                     estateViewModel.currentEstateDetails = it.data
                 }
                 is Resource.Error -> {
+                    toast(R.string.unknown_error)
                     Timber.e("${it.error}")
                 }
             }

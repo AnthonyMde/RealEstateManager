@@ -21,7 +21,6 @@ import com.amamode.realestatemanager.domain.entity.InterestPoint
 import com.amamode.realestatemanager.ui.EstateViewModel
 import com.amamode.realestatemanager.utils.Resource
 import kotlinx.android.synthetic.main.fragment_estate_creation_final.*
-import org.jetbrains.anko.support.v4.longToast
 import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -130,13 +129,12 @@ class EstateCreationFinalFragment : Fragment() {
         )
             .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 when (it) {
-                    is Resource.Loading -> toast("Chargement")
                     is Resource.Success -> {
                         estateViewModel.getFullEstateList() // update the list
                         redirect()
                     }
                     is Resource.Error -> {
-                        longToast("Erreur durant la mise à jour")
+                        toast(R.string.unknown_error)
                         Timber.e(it.error)
                     }
                 }

@@ -68,8 +68,10 @@ class EstateListFragment : Fragment(R.layout.fragment_estate_list) {
                 is Resource.Success -> {
                     adapter.setEstateList(it.data)
                 }
-                is Resource.Loading -> toast("loading")
-                is Resource.Error -> Timber.e("Error while loading estate list => ${it.error}")
+                is Resource.Error -> {
+                    toast(R.string.unknown_error)
+                    Timber.e("Error while loading estate list => ${it.error}")
+                }
             }
         })
 
