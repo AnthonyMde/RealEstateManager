@@ -1,0 +1,112 @@
+<resources>
+    <string name="app_name">RealEstateManager</string>
+
+    <string name="estate_detail_empty_view_tablet">Veuillez choisir ou créer un nouveau bien</string>
+    <string name="main_menu_add_icon">Ajouter bien</string>
+    <string name="main_menu_edit_icon">Editer bien</string>
+    <string name="main_menu_geoloc_icon">Géolocaliser les biens</string>
+    <string name="main_menu_filter_icon">Filtrer les biens</string>
+
+    <!-- ESTATE LIST -->
+    <string name="empty_view_add_estate_cta">Créer</string>
+    <string name="estate_list_toolbar_title" translatable="false">Real Estate</string>
+
+    <!-- ESTATE FORM -->
+    <string name="estate_form_owner_hint">Responsable du bien</string>
+    <string name="estate_form_type_hint">Type du bien</string>
+    <string name="estate_form_rooms_hint">Nombre de pièce(s)</string>
+    <string name="estate_form_surface_hint">Surface (m2)</string>
+    <string name="estate_form_price_hint">Prix (euros)</string>
+    <string name="estate_form_validation_cta">Suivant</string>
+    <string name="estate_form_toolbar_title">Informations essentielles</string>
+
+    <!-- ESTATE FORM LAST STEP -->
+    <string name="estate_final_step_creation_CTA">Créer</string>
+    <string name="estate_final_step_creation_toolbar">Infos complémentaires</string>
+    <string name="estate_creation_final_step_on_market_date">Date d\'entrée sur le marché</string>
+    <string name="estate_creation_final_step_description">Description</string>
+    <string name="interest_point_parc">Parcs</string>
+    <string name="interest_point_school">École</string>
+    <string name="interest_point_shop">Commerces</string>
+    <string name="interest_point_metro">Métro</string>
+    <string name="creation_final_step_interest_point">Points d\'intérêts</string>
+    <string name="creation_final_step_zip_code">Code postal</string>
+    <string name="creation_final_step_town">Ville</string>
+    <string name="creation_final_step_street">Rue</string>
+    <string name="creation_final_step_estate_sold">Bien vendu</string>
+    <string name="estate_details_photo_title">Photos</string>
+    <string name="estate_details_description_title">Description</string>
+    <string name="estate_details_surface_title">Surface (m2)</string>
+    <string name="estate_details_room_title">Pièce(s)</string>
+    <string name="estate_details_location_title">Emplacement</string>
+    <string name="estate_details_owner_title">Responsable</string>
+    <string name="estate_details_price_title">Prix de vente</string>
+    <string name="estate_details_interest_points_title">Points d\'intérêts</string>
+    <string name="estate_details_info_title">Informations</string>
+    <string name="estate_details_status_sold">Statut : Vendu</string>
+    <string name="estate_details_status_sold_date">Le %1$s</string>
+    <string name="estate_details_status_unsold">Statut : Non vendu</string>
+    <string name="estate_details_location_unknown_zipcode">Code postal inconnu</string>
+    <string name="estate_details_location_unknown_street">Rue inconnue</string>
+    <string name="estate_details_location_unknown_city">Ville inconnue</string>
+    <string name="estate_details_on_market_date_title">Date d\'entrée</string>
+    <string name="estate_details_on_market_unknown_date">Date inconnue</string>
+    <string name="estate_details_no_interest_points">Aucun point d\'intérêt renseigné</string>
+    <string name="estate_creation_update_button">Mettre à jour</string>
+    <string name="estate_update_success_toast">Mis à jour avec succès</string>
+    <string name="estate_creation_photo_toolbar_title">Photos</string>
+    <string name="estate_creation_photo_intent_message">Prendre une photo ou la choisir depuis votre gallerie</string>
+    <string name="estate_creation_go_to_final_step_cta">Suivant</string>
+    <string name="estate_creation_take_photo_cta">Prendre une photo</string>
+    <string name="estate_creation_photo_desc_toast">Une description est requise</string>
+    <string name="estate_creation_photo_desc_popup_title">Ajouter description</string>
+    <string name="estate_creation_photo_desc_popup_ok">OK</string>
+    <string name="estate_creation_photo_not_taken">La photo n\'a pas été prise</string>
+    <string name="estate_creation_delete_photo_cta_desc">Supprimer photo</string>
+    <string name="estate_type_house">Maison</string>
+    <string name="estate_type_apartment">Appartement</string>
+    <string name="estate_type_loft">Loft</string>
+    <string name="estate_type_duplex">Duplex</string>
+    <string name="estate_type_villa">Villa</string>
+    <string name="estate_type_unknown">Inconnu</string>
+    <string name="filter_type_all_estate">Tous</string>
+    <string name="filter_owner_hint">Responsable</string>
+    <string name="filter_filter_cta">Filtrer les résultats</string>
+    <string name="filter_space_max_hint">Taille max (m2)</string>
+    <string name="filter_space_min_hint">Taille min (m2)</string>
+    <string name="filter_price_max_hint">Prix max (euros)</string>
+    <string name="filter_price_min_hint">Prix min (euros)</string>
+    <string name="filter_estate_type_title">Type de bien</string>
+    <string name="filter_info_section_title">Informations</string>
+    <string name="filter_from_date_hint">Depuis le</string>
+    <string name="filter_estate_city_hint">Ville</string>
+    <string name="filter_photo_minimum_title">Photos minimum</string>
+    <string name="filter_estate_zipcode_hint">Code postal</string>
+    <string name="loan_monthly_coast_title">Coût mensuel</string>
+    <string name="loan_bank_cost_title">Coût total de la banque</string>
+    <string name="loan_insurance_rate_title">Taux d\'assurance</string>
+    <string name="loan_rate_title">Taux d\'intérêt</string>
+    <string name="loan_duration_title">Durée</string>
+    <string name="loan_amount_title">Montant</string>
+    <string name="loan_menu_item_title">Simulateur</string>
+    <string name="estate_edition_no_estate_selected_toast">Veuillez choisir un bien à modifier</string>
+    <string name="loan_simulator_no_estate_selected">Veuillez choisir un bien pour la simulation</string>
+    <string name="dollar_currency">$</string>
+    <string name="euro_currency">€</string>
+    <string name="loan_deposit_amount_title">Apport initial</string>
+    <string name="loan_toolbar_title">Simulation de prêt</string>
+    <string name="filter_toolbar_title">Filtrer les biens</string>
+    <string name="switch_currency_title">Changer la monnaie</string>
+    <string name="estate_price_euro">%1$s €</string>
+    <string name="estate_price_dollar">%1$s $</string>
+    <string name="estate_form_price_hint_dollar">Prix (dollars)</string>
+    <string name="notification_channel_estate_name">Notification des biens</string>
+    <string name="notification_channel_estate_description">Notification lors de la création</string>
+    <string name="notification_estate_creation_title">Bien créé</string>
+    <string name="notification_estate_creation_content">Votre bien a été ajouté avec succès</string>
+    <string name="maps_toolbar_tablet_title">Carte des biens immobiliers</string>
+    <string name="estate_details_toolbar_tablet_title">Bien immobilier</string>
+    <string name="unknown_error">Une erreur inconnue est survenue</string>
+    <string name="no_connexion_toast_error">Pas de connexion internet disponible</string>
+    <string name="filter_menu_title">Effacer le filtre</string>
+</resources>
