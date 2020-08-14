@@ -243,7 +243,9 @@ class EstateViewModel(private val estateService: EstateService, private val cont
         val city = address.city?.replace(" ", "+")
         val urlAddress = "$street+$city"
 
-        return "https://maps.googleapis.com/maps/api/staticmap?size=1200x1200&maptype=roadmap%20&markers=color:red%7C$urlAddress&key=$apiKey"
+        // TODO reset the right query
+        //return "https://maps.googleapis.com/maps/api/staticmap?size=1200x1200&maptype=roadmap%20&markers=color:red%7C$urlAddress&key=$apiKey"
+        return ""
     }
 
     /*
