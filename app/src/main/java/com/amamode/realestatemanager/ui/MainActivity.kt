@@ -17,6 +17,7 @@ import com.amamode.realestatemanager.R
 import com.amamode.realestatemanager.domain.CurrencyType
 import com.amamode.realestatemanager.domain.FilterEntity
 import com.amamode.realestatemanager.ui.home.EstateListFragmentDirections
+import com.amamode.realestatemanager.utils.Utils
 import com.facebook.drawee.backends.pipeline.Fresco
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.defaultSharedPreferences
@@ -137,6 +138,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.geoloc_estate -> {
+                if (!Utils.isInternetAvailable(this)) {
+                    toast(R.string.no_connexion_toast_error)
+                    return true
+                }
                 if (hasLocationPermission) {
                     goToMaps()
                 } else {
