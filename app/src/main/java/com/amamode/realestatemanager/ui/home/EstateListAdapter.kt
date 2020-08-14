@@ -22,9 +22,15 @@ class EstateListAdapter(
     private var estateList: List<EstateDetails> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val isTablet = context?.resources?.getBoolean(R.bool.isTablet)
+        val view = if (isTablet == true) {
+            R.layout.item_estate_list_tablet
+        } else {
+            R.layout.item_estate_list
+        }
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_estate_list,
+                view,
                 parent,
                 false
             )
