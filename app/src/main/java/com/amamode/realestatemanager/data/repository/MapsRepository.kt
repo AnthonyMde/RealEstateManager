@@ -9,6 +9,11 @@ import com.google.android.gms.maps.model.LatLng
 class MapsRepository : MapsService {
     private val mapsRetrofit = NetworkModule.getRetrofit().create(MapsApi::class.java)
 
+    /**
+     * Get the gps coordinates for each estates.
+     * @param estates estate list without (or with old) gps coordinates.
+     * @return estate list with the new gps coordinates filled.
+     */
     override suspend fun getEstateCoordinates(estates: List<EstateDetails>): List<EstateDetails> {
         return estates.map {
             val address = "${it.address?.city}+${it.address?.street}+${it.address?.zipCode}"

@@ -106,6 +106,9 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         photoAdapter.setPhotoUrlList(estateViewModel.getPhotos())
     }
 
+    /**
+    * Create an intent to trigger both photo device and gallery.
+    */
     private fun dispatchTakePictureIntent() {
         val galleryIntent = Intent()
         galleryIntent.type = "image/*"
@@ -118,8 +121,9 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         val fileProvider: Uri =
             FileProvider.getUriForFile(requireContext(), "com.realestate.fileprovider", photoFile)
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
+
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-            takePictureIntent.setClipData(ClipData.newRawUri("", fileProvider))
+            takePictureIntent.clipData = ClipData.newRawUri("", fileProvider)
             takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
 
@@ -133,10 +137,11 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
             arrayOf(takePictureIntent)
         )
 
-        // Start the image capture intent to take photo
+        // Start the image capture intent to choose a photo
         startActivityForResult(chooser, REQUEST_IMAGE_CAPTURE)
     }
 
+    // Create a specific unique file each time
     private fun getPhotoFileUri(): File? {
         return File(
             context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
@@ -153,6 +158,7 @@ class EstateCreationPhotoStepFragment : Fragment(R.layout.fragment_estate_creati
         estateCreationPhotoToolbar.visibility = VISIBLE
     }
 
+    // Force the user to set a description to the taken photo
     private fun showPhotoDescriptionDialog(uri: Uri?) {
         val ctx = context ?: return
         val builder = AlertDialog.Builder(ctx)

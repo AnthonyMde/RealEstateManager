@@ -110,4 +110,5 @@
     <string name="no_connexion_toast_error">Internet signal unavailable</string>
     <string name="filter_menu_title">Clear filter</string>
     <string name="estate_price">Estate price :</string>
+    <string name="localisation_need_permission_toast">Please grant location permission</string>
 </resources>

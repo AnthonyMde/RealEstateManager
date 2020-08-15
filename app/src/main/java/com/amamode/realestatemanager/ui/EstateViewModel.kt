@@ -169,16 +169,11 @@ class EstateViewModel(private val estateService: EstateService, private val cont
         return result
     }
 
-    // TODO remove for presentation
-    fun deleteAll() = viewModelScope.launch {
-        estateService.deleteAll()
-        getFullEstateList()
-    }
-
     /*
     * FOR EDITING
     */
 
+    // Set all former data in case of an estate editing
     fun populateData(estateToModify: EstateDetails) {
         owner.postValue(estateToModify.owner)
         rooms.postValue(estateToModify.rooms)
@@ -190,6 +185,7 @@ class EstateViewModel(private val estateService: EstateService, private val cont
         description.postValue(estateToModify.description)
     }
 
+    // clear all former data before going into an estate creation
     fun clearFormerCreationData() {
         owner.postValue("")
         rooms.postValue(null)
@@ -249,9 +245,7 @@ class EstateViewModel(private val estateService: EstateService, private val cont
         val city = address.city?.replace(" ", "+")
         val urlAddress = "$street+$city"
 
-        // TODO reset the right query
-        //return "https://maps.googleapis.com/maps/api/staticmap?size=1200x1200&maptype=roadmap%20&markers=color:red%7C$urlAddress&key=$apiKey"
-        return ""
+        return "https://maps.googleapis.com/maps/api/staticmap?size=1200x1200&maptype=roadmap%20&markers=color:red%7C$urlAddress&key=$apiKey"
     }
 
     /*

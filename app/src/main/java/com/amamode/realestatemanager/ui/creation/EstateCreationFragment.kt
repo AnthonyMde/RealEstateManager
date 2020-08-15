@@ -89,6 +89,7 @@ class EstateCreationFragment : Fragment() {
             goToPhotoStepCTA.isEnabled = it
         })
 
+        // Change the UI according to the current currency
         currencyViewModel.currencySwitch.observe(viewLifecycleOwner, Observer {
             when (it) {
                 CurrencyType.EURO -> {
