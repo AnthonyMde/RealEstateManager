@@ -21,8 +21,8 @@ class LoanViewModel : BaseViewModel() {
     private var amount = BigDecimal(0)
     private var duration = 0
     private var loanRate = BigDecimal(0)
-    private var monthlyDue = BigDecimal(0)
-    private var bankFee = BigDecimal(0)
+    var monthlyDue = BigDecimal(0)
+    var bankFee = BigDecimal(0)
     private var depositAmount = 0
 
     var totalSeekBarStep = 0
@@ -76,13 +76,13 @@ class LoanViewModel : BaseViewModel() {
         if (duration == 0 || amount == BigDecimal.ZERO) {
             return
         }
+            //val fees = getBankFees(duration, amount, BigDecimal(INSURANCE_RATE))
         val totalInsurance = (amount * BigDecimal(INSURANCE_RATE)) * duration.toBigDecimal()
         val totalInterest = (amount * loanRate) * duration.toBigDecimal()
         val totalAmount = amount + totalInterest + totalInsurance
-
         monthlyDue = (totalAmount / (duration * MONTHS).toBigDecimal())
-        _loanData.value = loanData.value?.copy(monthlyDue = monthlyDue.setScale(2, RoundingMode.UP).toDouble())
         bankFee = totalInsurance + totalInterest
+        _loanData.value = loanData.value?.copy(monthlyDue = monthlyDue.setScale(2, RoundingMode.UP).toDouble())
         _loanData.value = loanData.value?.copy(bankFee = bankFee.setScale(2, RoundingMode.UP).toDouble())
     }
 }
