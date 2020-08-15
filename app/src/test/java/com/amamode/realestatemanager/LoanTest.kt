@@ -10,19 +10,17 @@ import java.util.*
 
 class LoanTest {
     @Test
-    fun givenDollars_whenConverting_thenRightEuroAmount() {
-        Assert.assertEquals(BigDecimal(850).setScale(2), Utils.convertDollarToEuro(BigDecimal(1000)))
+    fun givenDuration_whenCalculatingLoan_thenInterestRate() {
+        //Assert.assertEquals(BigDecimal(X).setScale(2), )
     }
 
     @Test
-    fun givenEuros_whenConverting_thenRightDollarAmount() {
-        Assert.assertEquals(BigDecimal(1180).setScale(2), Utils.convertEuroToDollar(BigDecimal(1000)))
+    fun givenPriceAndLoan_whenCalculatingLoan_thenInitialDeposit() {
+        //Assert.assertEquals(BigDecimal(X).setScale(2), )
     }
 
     @Test
-    fun givenNothing_whenGettingTodayDate_thenTodayDateIsFormatted() {
-        val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy")
-        val todayDate = dateFormat.format(Date())
-        Assert.assertEquals(todayDate, Utils.getTodayDate())
+    fun givenLoanAndDurationAndInsuranceRate_whenCalculatingLoan_thenBankFees() {
+        //Assert.assertEquals(BigDecimal(X).setScale(2), )
     }
 }
