@@ -86,8 +86,8 @@
     <string name="loan_bank_cost_title">Total bank fees</string>
     <string name="loan_insurance_rate_title">Insurance rate</string>
     <string name="loan_rate_title">Interest rate</string>
-    <string name="loan_duration_title">Duration</string>
-    <string name="loan_amount_title">Amount</string>
+    <string name="loan_duration_title">Loan duration (years)</string>
+    <string name="loan_amount_title">Loan amount</string>
     <string name="loan_menu_item_title">Simulator</string>
     <string name="estate_edition_no_estate_selected_toast">Please choose an estate to edit</string>
     <string name="loan_simulator_no_estate_selected">Please choose an estate to simulate</string>
@@ -109,4 +109,5 @@
     <string name="unknown_error">An unknown error has occurred</string>
     <string name="no_connexion_toast_error">Internet signal unavailable</string>
     <string name="filter_menu_title">Clear filter</string>
+    <string name="estate_price">Estate price :</string>
 </resources>

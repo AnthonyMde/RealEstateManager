@@ -12,13 +12,57 @@
         android:layout_margin="@dimen/medium">
 
         <TextView
+            android:id="@+id/estatePriceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/estate_price"
+            style="@style/LoanTitle"
+            android:layout_marginTop="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textColor="@color/colorSecondaryDark"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/estatePriceValue"/>
+
+        <TextView
+            android:id="@+id/estatePriceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/LoanTitle"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorSecondaryDark"
+            tools:text="600000€"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/estatePriceTitle"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <View
+            android:id="@+id/separator"
+            style="@style/LoanTitle"
+            android:background="@color/lightGray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estatePriceValue" />
+
+
+        <TextView
             android:id="@+id/loanAmountTitle"
             style="@style/LoanTitle"
+            android:layout_marginTop="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loan_amount_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/separator" />
 
         <TextView
             android:id="@+id/loanAmount"
@@ -26,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/loanAmountTitle"
             tools:text="250000 €" />
 
         <SeekBar
@@ -143,6 +187,21 @@
             app:layout_constraintBaseline_toBaselineOf="@id/loanDepositTitle"
             app:layout_constraintStart_toEndOf="@id/loanDepositTitle"
             tools:text="25 000 $" />
+
+        <View
+            android:id="@+id/separator2"
+            style="@style/LoanTitle"
+            android:background="@color/lightGray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loanDepositTitle"
+            app:layout_constraintBottom_toTopOf="@id/loanResult"/>
+
 
         <TextView
             android:id="@+id/loanResultTitle"

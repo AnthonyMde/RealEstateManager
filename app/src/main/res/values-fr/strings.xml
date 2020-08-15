@@ -86,8 +86,8 @@
     <string name="loan_bank_cost_title">Coût total de la banque</string>
     <string name="loan_insurance_rate_title">Taux d\'assurance</string>
     <string name="loan_rate_title">Taux d\'intérêt</string>
-    <string name="loan_duration_title">Durée</string>
-    <string name="loan_amount_title">Montant</string>
+    <string name="loan_duration_title">Durée du prêt (années)</string>
+    <string name="loan_amount_title">Montant du prêt</string>
     <string name="loan_menu_item_title">Simulateur</string>
     <string name="estate_edition_no_estate_selected_toast">Veuillez choisir un bien à modifier</string>
     <string name="loan_simulator_no_estate_selected">Veuillez choisir un bien pour la simulation</string>
@@ -109,4 +109,5 @@
     <string name="unknown_error">Une erreur inconnue est survenue</string>
     <string name="no_connexion_toast_error">Pas de connexion internet disponible</string>
     <string name="filter_menu_title">Effacer le filtre</string>
+    <string name="estate_price">Prix du bien :</string>
 </resources>

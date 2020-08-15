@@ -20,6 +20,8 @@ import org.jetbrains.anko.support.v4.defaultSharedPreferences
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+private const val AMOUNT_STEP = 10_00
+private const val MAX_DURATION_MONTHS = 25
 class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeListener {
     private val loanViewModel: LoanViewModel by viewModel()
     private val currencyViewModel: CurrencyViewModel by sharedViewModel()
@@ -63,6 +65,7 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
     ) {
         when (it) {
             CurrencyType.EURO -> {
+                estatePriceValue.text = getString(R.string.estate_price_euro, loanPrice.toString())
                 loanAmount.text = getString(R.string.estate_price_euro, data.amount.toString())
                 loanBankFees.text =
                     getString(R.string.estate_price_euro, data.bankFee.toString())
@@ -72,6 +75,7 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
                     getString(R.string.estate_price_euro, data.depositAmount.toString())
             }
             CurrencyType.DOLLAR -> {
+                estatePriceValue.text = CurrencyViewModel.getDollarPriceString(context, loanPrice)
                 loanAmount.text =
                     CurrencyViewModel.getDollarPriceString(context, data.amount)
                 loanBankFees.text =
@@ -80,8 +84,6 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
                     CurrencyViewModel.getDollarPriceString(context, data.monthlyDue.toInt())
                 loanDeposit.text =
                     CurrencyViewModel.getDollarPriceString(context, data.depositAmount)
-            }
-            else -> {
             }
         }
     }
@@ -104,8 +106,10 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
     }
 
     private fun initializeData() {
+        estatePriceValue.text = loanPrice.toString()
         loanViewModel.setInitialAmount(loanPrice)
-        loanAmountSeekbar.max = loanPrice / 10_000 // Create step each 10 000
+        loanAmountSeekbar.max = loanPrice / AMOUNT_STEP // Create step each 10 000
+        loanDurationSeekbar.max = MAX_DURATION_MONTHS
         loanViewModel.totalSeekBarStep = loanAmountSeekbar.max
         loanAmountSeekbar.progress = loanAmountSeekbar.max
         loanViewModel.setDuration(15)
