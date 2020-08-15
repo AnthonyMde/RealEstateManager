@@ -74,7 +74,9 @@ class EstateListAdapter(
 
             itemView.estateSoldStamp.visibility = if (estate.status.sold) VISIBLE else INVISIBLE
 
-            itemView.estateItemPic.setImageURI(estate.estatePhotos[0].first)
+            if (!estate.estatePhotos.isEmpty()) {
+                itemView.estateItemPic.setImageURI(estate.estatePhotos[0].first)
+            }
 
             itemView.setOnClickListener {
                 onEstateClick(estate.id, estate.type)
