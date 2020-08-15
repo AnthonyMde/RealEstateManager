@@ -131,6 +131,9 @@ dependencies {
     testImplementation "org.robolectric:robolectric:4.3.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 
+    // MOCKITO
+    testImplementation 'org.mockito:mockito-core:2.19'
+
     // Multidex (allow to overflow the methods limits of 65k methods)
     implementation 'androidx.multidex:multidex:2.0.1'
 }
