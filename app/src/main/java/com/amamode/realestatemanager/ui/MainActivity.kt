@@ -148,10 +148,6 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra(FORMER_FILTER_DATA_EXTRA, estateViewModel.filterData)
                 startActivityForResult(intent, INTENT_FILTER_REQUEST_CODE)
             }
-            // TODO : remove this for delivery
-            R.id.delete_estate -> {
-                estateViewModel.deleteAll()
-            }
             R.id.edit_estate -> {
                 if (estateViewModel.currentEstateDetails == null) {
                     toast(R.string.estate_edition_no_estate_selected_toast)
