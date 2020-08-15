@@ -22,15 +22,15 @@ interface EstateDao {
         AND (:zipCode IS NULL OR zip_code LIKE :zipCode)"""
     )
     suspend fun filter(
-        owner: String?,
-        type: String?,
-        minPrice: Double?,
-        maxPrice: Double?,
-        minSurface: Int?,
-        maxSurface: Int?,
-        fromDate: Date?,
-        city: String?,
-        zipCode: Int?
+        owner: String? = null,
+        type: String? = null,
+        minPrice: Double? = null,
+        maxPrice: Double? = null,
+        minSurface: Int? = null,
+        maxSurface: Int? = null,
+        fromDate: Date? = null,
+        city: String? = null,
+        zipCode: Int? = null
     ): List<EstateEntity>
 
     @Query("SELECT * from estate_table ORDER BY id DESC")
