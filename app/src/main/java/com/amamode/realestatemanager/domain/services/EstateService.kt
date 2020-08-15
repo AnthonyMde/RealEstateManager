@@ -22,6 +22,4 @@ interface EstateService {
         interestPoints: Array<InterestPoint>,
         estatePhotosUri: Array<Pair<String,String>>
     )
-
-    suspend fun deleteAll()
 }

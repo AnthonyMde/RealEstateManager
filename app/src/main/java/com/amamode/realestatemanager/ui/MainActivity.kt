@@ -83,6 +83,9 @@ class MainActivity : AppCompatActivity() {
         controller.removeOnDestinationChangedListener(listener)
     }
 
+    /*
+    * Override the navigation up in some cases
+    */
     override fun onSupportNavigateUp(): Boolean {
         when (currentDestination) {
             in listOf("EstateCreationFinalFragment", "EstateCreationPhotoStepFragment") -> {
@@ -126,6 +129,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     /* USED BOTH BY TABLET AND MOBILE */
+    /*
+    * All menu actions
+    */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.geoloc_estate -> {
@@ -174,6 +180,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -184,6 +191,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /* ONLY FOR TABLET */
+    // Set title and navigation up for main toolbar activity
     private fun configureTabletNavListener(navDestination: NavDestination) {
         currentDestination = navDestination.label.toString()
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -241,7 +249,7 @@ class MainActivity : AppCompatActivity() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     goToMaps()
                 } else {
-                    toast("Merci d'accepter la géolocalisation")
+                    toast(R.string.localisation_need_permission_toast)
                 }
             }
         }

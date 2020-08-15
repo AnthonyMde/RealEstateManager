@@ -59,6 +59,7 @@ class LoanFragment : Fragment(R.layout.loan_fragment), SeekBar.OnSeekBarChangeLi
         })
     }
 
+    // Set text according to the currency
     private fun setPriceText(
         it: CurrencyType?,
         data: LoanData

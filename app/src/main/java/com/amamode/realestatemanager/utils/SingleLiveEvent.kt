@@ -7,6 +7,9 @@ import androidx.lifecycle.Observer
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 
+// Custom MutableLiveData which trigger an event to the observer only when a
+// new value is available (i.e do not trigger the first time the observer observes the livedata
+// if there already is a value).
 class SingleLiveEvent<T> : MutableLiveData<T>() {
     private val mPending = AtomicBoolean(false)
 

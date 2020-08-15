@@ -66,6 +66,8 @@ class FilterActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    // This method can be used with an empty object to reset all fields
+    // to their default values
     private fun updateData(data: FilterEntity) {
         filterEstateTypeSpinner.selectedIndex = getIndexEstateType(data.type ?: EstateType.UNKNOWN)
         filterEstateOwner.setText(data.owner ?: "")

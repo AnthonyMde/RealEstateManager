@@ -173,6 +173,7 @@ class EstateViewModel(private val estateService: EstateService, private val cont
     * FOR EDITING
     */
 
+    // Set all former data in case of an estate editing
     fun populateData(estateToModify: EstateDetails) {
         owner.postValue(estateToModify.owner)
         rooms.postValue(estateToModify.rooms)
@@ -184,6 +185,7 @@ class EstateViewModel(private val estateService: EstateService, private val cont
         description.postValue(estateToModify.description)
     }
 
+    // clear all former data before going into an estate creation
     fun clearFormerCreationData() {
         owner.postValue("")
         rooms.postValue(null)

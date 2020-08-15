@@ -110,4 +110,5 @@
     <string name="no_connexion_toast_error">Pas de connexion internet disponible</string>
     <string name="filter_menu_title">Effacer le filtre</string>
     <string name="estate_price">Prix du bien :</string>
+    <string name="localisation_need_permission_toast">Merci d\'accepter la géolocalisation</string>
 </resources>

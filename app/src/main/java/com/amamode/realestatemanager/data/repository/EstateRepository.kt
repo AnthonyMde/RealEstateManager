@@ -22,6 +22,13 @@ class EstateRepository(private val dao: EstateDao) :
         }
     }
 
+    /**
+     * Ask room to filter the list of estate based on all the parameters.
+     * First we retrieve the filtered list. Then we apply manually two parameters manually (not
+     * present directly in the estate table : the minimum required photos and the POI.
+     * @param filterData all the filter parameters
+     * @return estate list filtered.
+     */
     override suspend fun filter(filterData: FilterEntity): List<EstateDetails> {
         val list = dao.filter(
             filterData.owner,
@@ -44,6 +51,13 @@ class EstateRepository(private val dao: EstateDao) :
         return result
     }
 
+    /**
+     * Return the details for one estate.
+     * First retrieve the estateEntity from room and then add to it the missing photos
+     * and POI.
+     * @param estateId the id of the target estate
+     * @return estate details with all data filled
+     */
     override suspend fun getEstateDetails(estateId: Long): EstateDetails {
         val estateEntity = dao.getEstateById(estateId)
         val interestPointsEntity = dao.getInterestPoints(estateId)
@@ -53,7 +67,13 @@ class EstateRepository(private val dao: EstateDao) :
         return estateEntity.toEstateDetails(interestPoints, estatePhotos)
     }
 
-    // Returns true if creation is successful
+    /**
+     * First creates the estate. Then uses is database ID to store POI and photos.
+     * @param estateForm all params needed for creation.
+     * @param interestPoints all the POI for this estate
+     * @param estatePhotosUri all the photo URI associated with its description
+     * @return true if creation is successful.
+     */
     override suspend fun createEstate(
         estateForm: EstateForm,
         interestPoints: Array<InterestPoint>,
@@ -141,10 +161,6 @@ class EstateRepository(private val dao: EstateDao) :
         dao.deleteEstatePhotos(estateId)
         dao.insert(*interestPointsEntity)
         dao.insert(*estatePhotoUriEntity)
-    }
-
-    override suspend fun deleteAll() {
-        dao.deleteAll()
     }
 
     private fun InterestPoint.toInterestPointEntity(estateId: Long) =
